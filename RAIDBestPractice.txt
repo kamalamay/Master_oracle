@@ -1,0 +1,33 @@
+HP VMS & UNIX: Interaction Between Oracle and RAID and Disk Caching Products (Doc ID 45635.1)
+---------------------------------------------------------------------------------------------
+https://asktom.oracle.com/pls/asktom/f?p=100:11:::::P11_QUESTION_ID:359617936136
+depends on the database, depends on the part of the database.  Depends also on who you 
+ask ;)
+
+Here is what I like (raid 0 = stripes, raid 1 = mirrors, raid 5 = striping+parity):
+
+o no raid, raid 0 or raid 0+1 for online redo logs AND control files.  You should 
+still let us multiplex them ourselves even if you mirror them.  We have more 
+opportunities for failure if the raid subsystem reports a "warning" back to us -- if we 
+have multiplexed them -- we are OK with that.
+
+
+o no raid or raid 0 for temporary datafiles (used with temporary tablespaces).  
+no raid/raid 0 is sufficient.  If you lose these, who cares?  You want speed on these, 
+not reliability.  If a disk fails, drop and recreate temp elsewhere.
+
+o no raid, raid 0 or raid 0+1 for archive.  Again, let us multiplex if you use no 
+raid or raid 0, let the OS do it (different from online redo log here) if you use 0+1.
+
+o raid 0+1 for rollback.  It get written to lots.  It is important to have protected. 
+ We cannot multiplex them so let the OS do it.  Use this for datafiles you believe will 
+be HEAVILY written.  Bear in mind, we buffer writes to datafiles, they happen in the 
+background so the poor write performance of raid 5 is usually OK except for the heavily 
+written files (such as rollback).
+
+o raid 5 (unless you can do raid 0+1 for all of course) for datafiles that experience 
+what you determine to be "medium" or "moderate" write activity.  Since this happens in 
+the background typcially (not with direct path loads and such) -- raid 5 can typically be 
+safely used with these.  As these files represent the BULK of your database and the above 
+represent the smaller part -- you achieve most of the cost saving without impacting 
+performance too much.

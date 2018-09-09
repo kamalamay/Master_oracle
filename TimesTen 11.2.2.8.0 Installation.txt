@@ -1,0 +1,244 @@
+20170517 TimesTen 11.2.2.8.0 Installation on Oracle DB EE 11.2.0.4 ASM
+======================================================================
+[oracle@spiderman ~]$ cat TimesTen.env 
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/bin
+
+export PATH
+#TimesTen Settings
+TT_HOME=/opt/TimesTen/tt1122; export TT_HOME
+LD_LIBRARY_PATH=/opt/TimesTen/tt1122/lib:/opt/TimesTen/tt1122/ttoracle_home/instantclient_11_2; export LD_LIBRARY_PATH
+ANT_HOME=/opt/TimesTen/tt1122/3rdparty/ant; export ANT_HOME
+PATH=/usr/bin:/usr/sbin:/opt/TimesTen/tt1122/bin:/opt/TimesTen/tt1122/quickstart/sample_code/oci:/opt/TimesTen/tt1122/quickstart/sample_code/odbc:/opt/TimesTen/tt1122/quickstart/sample_code/odbc/xla:/opt/TimesTen/tt1122/quickstart/sample_code/jdbc:/opt/TimesTen/tt1122/quickstart/sample_code/odbc_drivermgr:/opt/TimesTen/tt1122/quickstart/sample_code/proc:/opt/TimesTen/tt1122/quickstart/sample_code/ttclasses:/opt/TimesTen/tt1122/quickstart/sample_code/ttclasses/xla:/opt/TimesTen/tt1122/ttoracle_home/instantclient_11_2:/opt/TimesTen/tt1122/ttoracle_home/instantclient_11_2/sdk:/opt/TimesTen/tt1122/3rdparty/ant/bin; export PATH
+CLASSPATH=/opt/TimesTen/tt1122/lib/ttjdbc6.jar:/opt/TimesTen/tt1122/lib/orai18n.jar:/opt/TimesTen/tt1122/lib/timestenjmsxla.jar:/opt/TimesTen/tt1122/3rdparty/jms1.1/lib/jms.jar:.; export CLASSPATH
+[oracle@spiderman ~]$
+
+[root@spiderman oracle]# mkdir -p /etc/TimesTen; chown -R oracle:oinstall /etc/TimesTen
+[root@spiderman oracle]#
+
+[oracle@spiderman ~]$ cd Downloads/
+[oracle@spiderman Downloads]$ ls -lh
+total 332M
+-rw-r--r--. 1 oracle oinstall 332M May 17 17:07 Oracle TimesTen In-Memory Database 11.2.2.8.0 for Linux x86-64-V74175-01.zip
+[oracle@spiderman Downloads]$ unzip "Oracle TimesTen In-Memory Database 11.2.2.8.0 for Linux x86-64-V74175-01.zip" -d .
+Archive:  Oracle TimesTen In-Memory Database 11.2.2.8.0 for Linux x86-64-V74175-01.zip
+   creating: ./linux8664/
+  inflating: ./linux8664/uninst.sh   
+  inflating: ./linux8664/install.pl  
+  inflating: ./linux8664/README.html  
+   creating: ./linux8664/LINUX8664/
+  inflating: ./linux8664/LINUX8664/ttpatchinst  
+  inflating: ./linux8664/LINUX8664/unzip  
+  inflating: ./linux8664/LINUX8664/common.tar.bz2  
+  inflating: ./linux8664/LINUX8664/ttclient.tar.bz2  
+  inflating: ./linux8664/LINUX8664/perl  
+  inflating: ./linux8664/LINUX8664/manifest  
+  inflating: ./linux8664/LINUX8664/timesten.tar.bz2  
+  inflating: ./linux8664/LINUX8664/bzip2  
+  inflating: ./linux8664/LINUX8664/ttserver.tar.bz2  
+   creating: ./linux8664/3rdparty/
+  inflating: ./linux8664/3rdparty/ant-1.6.2-bin.tar.bz2  
+  inflating: ./linux8664/3rdparty/jms-1_1-fr-apidocs.tar.bz2  
+   creating: ./linux8664/doc/
+ extracting: ./linux8664/doc/doc.zip  
+  inflating: ./linux8664/setup.sh    
+  inflating: ./README.html           
+[oracle@spiderman Downloads]$ ls -lh
+total 332M
+drwxrwxrwx. 5 oracle oinstall 4.0K Jan 20  2015 linux8664
+-rw-r--r--. 1 oracle oinstall 332M May 17 17:07 Oracle TimesTen In-Memory Database 11.2.2.8.0 for Linux x86-64-V74175-01.zip
+-rwxr--r--. 1 oracle oinstall 112K Jan 20  2015 README.html
+[oracle@spiderman Downloads]$ rm -fr "Oracle TimesTen In-Memory Database 11.2.2.8.0 for Linux x86-64-V74175-01.zip" 
+[oracle@spiderman Downloads]$
+[oracle@spiderman TimesTen]$ cd /etc/TimesTen/linux8664/; ls -lh
+total 420K
+drwxr-xr-x. 2 oracle oinstall 4.0K Jan 20  2015 3rdparty
+drwxrwxrwx. 2 oracle oinstall 4.0K Jan 20  2015 doc
+-rwxr-xr-x. 1 oracle oinstall 251K Jan 20  2015 install.pl
+drwxr-xr-x. 2 oracle oinstall 4.0K Jan 20  2015 LINUX8664
+-rwxr--r--. 1 oracle oinstall 112K Jan 20  2015 README.html
+-rwxr-xr-x. 1 oracle oinstall 5.7K Jan 20  2015 setup.sh
+-rwxr-xr-x. 1 oracle oinstall  35K Jan 20  2015 uninst.sh
+[oracle@spiderman linux8664]$ ./setup.sh 
+
+NOTE: Each TimesTen installation is identified by a unique instance name.
+      The instance name must be a non-null alphanumeric string, not longer
+      than 255 characters.
+
+Please choose an instance name for this installation? [ tt1122 ] tt1122
+Instance name will be 'tt1122'.
+Is this correct? [ yes ] yes
+
+Of the three components:
+
+  [1] Client/Server and Data Manager
+  [2] Data Manager Only
+  [3] Client Only
+
+Which would you like to install? [ 1 ] 1
+
+Of the following options :
+
+  [1] /home/oracle
+  [2] /etc/TimesTen
+  [3] Specify a location
+  [q] Quit the installation
+
+Where would you like to install the tt1122 instance of TimesTen? [ 1 ] 3
+Please specify a directory to install TimesTen? [ /home/oracle ] /opt/TimesTen
+Where would you like to create the daemon home directory? [ /opt/TimesTen/tt1122/info ] 
+
+The daemon logs will be located in /opt/TimesTen/tt1122/info
+Would you like to specify a different location for the daemon logs? [ no ] no
+Installing into /opt/TimesTen/tt1122 ...
+Uncompressing ...
+
+NOTE: If you are configuring TimesTen for use with Oracle Clusterware, the
+      daemon port number must be the same across all TimesTen installations
+      managed within the same Oracle Clusterware cluster.
+
+NOTE: All installations that replicate to each other must use the same daemon
+      port number that is set at installation time. The daemon port number can
+      be verified by running 'ttVersion'.
+
+The default port number is 53396.
+
+Do you want to use the default port number for the TimesTen daemon? [ yes ] yes
+The daemon will run on the default port number (53396).
+
+NOTE: For security, we recommend that you restrict access to the
+      TimesTen installation to members of a single OS group. Only members of
+      that OS group will be allowed to perform direct mode connections to
+      TimesTen, and only members of that OS group will be allowed to perform
+      operations that access TimesTen data stores, TimesTen files and shared
+      memory. The OS group defaults to the primary group of the instance
+      administrator. You can default to this group, choose another OS group
+      or you can make this instance world-accessible. If you choose to make
+      this instance world-accessible, all database files and shared memory
+      are readable and writable by all users.
+
+Restrict access to the the TimesTen installation to the group 'oinstall'? [ yes ] yes
+
+NOTE: Enabling PL/SQL will increase the size of some TimesTen libraries.
+
+Would you like to enable PL/SQL for this instance? [ yes ] yes
+      TNS_ADMIN was not set in your environment but there is a tnsnames.ora
+      file in /z01/app/oracle/product/11204/db_h1/network/admin.
+Would you like to use this TNS_ADMIN setting for the Oracle TimesTen Application-Tier Database Cache? [ yes ] yes
+
+TNS_ADMIN will be set to /z01/app/oracle/product/11204/db_h1/network/admin
+You can change TNS_ADMIN later by running <install_dir>/bin/ttmodinstall.
+
+
+
+NOTE: It appears that you are running version 4 or higher of the g++
+      compiler. TimesTen ships with multiple sets of client libraries and server
+      binaries : one built for compatibility with g++ 3.4.6 and one with
+      g++ 4.1.0. The installer has created links to the 4.1.0 library in the
+      <install_dir>/lib directory and to the 4.1.0 server binary in the
+      <install_dir>/bin directory. If you want to use a different compiler,
+      please modify the links to point to the desired library and server binary.
+
+Installing server components ...
+What is the TCP/IP port number that you want the TimesTen Server to listen on? [ 53397 ] 
+Do you want to install the Quick Start Sample Programs and the TimesTen Documentation? [ no ] yes
+Where would you like to install the Quick Start and doc directories (s=skip)? [ /opt/TimesTen/tt1122 ] 
+The TimesTen documentation has been installed in /opt/TimesTen/tt1122.
+
+The TimesTen Quick Start applications can take up to 64 Mbytes of disk space.
+Depending on how your system is configured, you may not want to create the
+Quick Start DemoDataStore directory in the default location,
+/opt/TimesTen/tt1122/info/DemoDataStore
+
+Where would you like to create the DemoDataStore directory? [ /opt/TimesTen/tt1122/info ] 
+Creating /opt/TimesTen/tt1122/info/DemoDataStore ...
+
+Installing client components ...
+
+Would you like to use TimesTen Replication with Oracle Clusterware? [ no ] no
+
+NOTE: The TimesTen daemon startup/shutdown scripts have not been installed.
+
+Run the 'setuproot' script :
+	cd /opt/TimesTen/tt1122/bin
+	./setuproot -install
+This will move the TimesTen startup script into its appropriate location.
+
+The startup script is currently located here :
+  '/opt/TimesTen/tt1122/startup/tt_tt1122'.
+
+The Quickstart home page can be accessed here :
+  '/opt/TimesTen/tt1122/quickstart/index.html'
+
+The 11.2.2.8 Release Notes are located here :
+  '/opt/TimesTen/tt1122/README.html'
+
+Starting the daemon ...
+TimesTen Daemon startup OK.
+End of TimesTen installation.
+[oracle@spiderman linux8664]$
+
+[root@spiderman oracle]# cd /opt/TimesTen/tt1122/bin
+[root@spiderman bin]# ./setuproot -install
+$* is no longer supported at ./setuproot line 260.
+Would you like to install the TimesTen daemon startup scripts into /etc/init.d? [ yes ] yes
+Copying /opt/TimesTen/tt1122/startup/tt_tt1122 to /etc/init.d
+
+Successfully installed the following scripts :
+/etc/init.d/tt_tt1122
+/etc/rc.d/rc0.d/K45tt_tt1122
+/etc/rc.d/rc1.d/K45tt_tt1122
+/etc/rc.d/rc2.d/S90tt_tt1122
+/etc/rc.d/rc3.d/S90tt_tt1122
+/etc/rc.d/rc5.d/S90tt_tt1122
+/etc/rc.d/rc6.d/K45tt_tt1122
+
+[root@spiderman bin]# iptables -L -n
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:1158 
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:1521 
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           state RELATED,ESTABLISHED 
+ACCEPT     icmp --  0.0.0.0/0            0.0.0.0/0           
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           state NEW tcp dpt:22 
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0           reject-with icmp-host-prohibited 
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0           reject-with icmp-host-prohibited 
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+[root@spiderman bin]# iptables -I INPUT -p tcp --dport 53396 -j ACCEPT
+[root@spiderman bin]# iptables -I INPUT -p tcp --dport 53397 -j ACCEPT
+[root@spiderman bin]# iptables -L -n
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:53397 
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:53396 
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:1158 
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:1521 
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           state RELATED,ESTABLISHED 
+ACCEPT     icmp --  0.0.0.0/0            0.0.0.0/0           
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           state NEW tcp dpt:22 
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0           reject-with icmp-host-prohibited 
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0           reject-with icmp-host-prohibited 
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+[root@spiderman bin]# /sbin/service iptables save
+iptables: Saving firewall rules to /etc/sysconfig/iptables:[  OK  ]
+[root@spiderman bin]#

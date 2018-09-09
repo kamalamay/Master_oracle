@@ -1,0 +1,148 @@
+cd /u01/stageR12
+unzip /software/B53824-01_1of4.zip
+unzip /software/B53824-01_2of4.zip
+unzip /software/B53824-01_3of4.zip
+unzip /software/B53824-01_4of4.zip
+
+unzip /software/B53825-01.zip
+
+unzip /software/V15679-01_1of3.zip
+unzip /software/V15679-01_2of3.zip
+unzip /software/V15679-01_3of3.zip
+
+unzip /software/V15680-01_1of3.zip
+unzip /software/V15680-01_2of3.zip
+unzip /software/V15680-01_3of3.zip
+
+unzip /software/V15681-01_1of3.zip
+unzip /software/V15681-01_2of3.zip
+unzip /software/V15681-01_3of3.zip
+
+unzip /software/V15682-01_1of3.zip && unzip /software/V15682-01_2of3.zip && unzip /software/V15682-01_3of3.zip
+
+unzip /software/V15683-01_1of3.zip && unzip /software/V15683-01_2of3.zip && unzip /software/V15683-01_3of3.zip
+
+unzip /software/V15684-01_1of3.zip && unzip /software/V15684-01_2of3.zip && unzip /software/V15684-01_3of3.zip
+
+unzip /software/V15685-01_1of3.zip
+unzip /software/V15685-01_2of3.zip && unzip /software/V15685-01_3of3.zip
+
+unzip /software/V15686-01_1of3.zip
+unzip /software/V15686-01_2of3.zip && unzip /software/V15686-01_3of3.zip
+
+unzip /software/V15687-01_1of3.zip
+unzip /software/V15687-01_2of3.zip && unzip /software/V15687-01_3of3.zip
+
+unzip /software/V15688-01_1of2.zip
+unzip /software/V15688-01_2of2.zip
+
+unzip /software/V15689-01.zip
+
+unzip /software/V15690-01_1of3.zip
+unzip /software/V15690-01_2of3.zip && unzip /software/V15690-01_3of3.zip
+
+unzip /software/V15691-01_1of3.zip
+unzip /software/V15691-01_2of3.zip
+unzip /software/V15691-01_3of3.zip
+
+unzip /opt/V35224-01_1of3.zip
+unzip /opt/V35224-01_2of3.zip
+unzip /opt/V35224-01_3of3.zip
+
+unzip /software/p6078836_101330_LINUX.zip
+
+---
+[orekel@wedus scripts]$ ./adapcctl.sh status
+
+You are running adapcctl.sh version 120.7.12010000.2
+
+Checking status of OPMN managed Oracle HTTP Server (OHS) instance ...
+
+Processes in Instance: kambing_wedus.wedus.localdomain
+---------------------------------+--------------------+---------+---------
+ias-component                    | process-type       |     pid | status
+---------------------------------+--------------------+---------+---------
+OC4JGroup:default_group          | OC4J:oafm          |    7387 | Alive
+OC4JGroup:default_group          | OC4J:forms         |    7317 | Alive
+OC4JGroup:default_group          | OC4J:oacore        |    7231 | Alive
+HTTP_Server                      | HTTP_Server        |    7173 | Alive
+
+
+adapcctl.sh: exiting with status 0
+
+adapcctl.sh: check the logfile /u01/oracle/kambing/inst/apps/kambing_wedus/logs/appl/admin/log/adapcctl.txt for more information ...
+
+[orekel@wedus scripts]$ pwd
+/u01/oracle/kambing/inst/apps/kambing_wedus/admin/scripts
+[orekel@wedus scripts]$ ps -ef|grep FND
+orekel    7553  7548  0 08:20 pts/2    00:00:00 FNDLIBR                                                                                                            
+orekel    7878     1  0 08:24 ?        00:00:00 FNDSM
+orekel    7954  7878  0 08:24 ?        00:00:06 /u01/oracle/kambing/apps/tech_st/10.1.3/appsutil/jdk/bin/java -DCLIENT_PROCESSID=7954 -server -Xmx384m -XX:NewRatio=2 -XX:+UseSerialGC -Doracle.apps.fnd.common.Pool.leak.mode=stderr:off -verbose:gc -Ddbcfile=/u01/oracle/kambing/inst/apps/kambing_wedus/appl/fnd/12.0.0/secure/kambing.dbc -Dcpid=2028231 -Dconc_queue_id=31528 -Dqueue_appl_id=0 -Dlogfile=/u01/oracle/kambing/inst/apps/kambing_wedus/logs/appl/conc/log/IEMDPDEV2028231.txt -DLONG_RUNNING_JVM=true -DOVERRIDE_DBC=true -DFND_JDBC_BUFFER_MIN=1 -DFND_JDBC_BUFFER_MAX=2 oracle.apps.iem.emta.gsm.IEMDPCART
+orekel    7959  7878  0 08:24 ?        00:00:05 /u01/oracle/kambing/apps/tech_st/10.1.3/appsutil/jdk/bin/java -DCLIENT_PROCESSID=7959 -server -Xmx384m -XX:NewRatio=2 -XX:+UseSerialGC -Doracle.apps.fnd.common.Pool.leak.mode=stderr:off -verbose:gc -mx512m -Ddbcfile=/u01/oracle/kambing/inst/apps/kambing_wedus/appl/fnd/12.0.0/secure/kambing.dbc -Dcpid=2028232 -Dconc_queue_id=2158 -Dqueue_appl_id=0 -Dlogfile=/u01/oracle/kambing/inst/apps/kambing_wedus/logs/appl/conc/log/FNDOPP2028232.txt -DLONG_RUNNING_JVM=true -DOVERRIDE_DBC=true -DFND_JDBC_BUFFER_MIN=1 -DFND_JDBC_BUFFER_MAX=2 oracle.apps.fnd.cp.gsf.GSMServiceController
+orekel    7974  7878  0 08:24 ?        00:00:06 /u01/oracle/kambing/apps/tech_st/10.1.3/appsutil/jdk/bin/java -DCLIENT_PROCESSID=7974 -server -Xmx384m -XX:NewRatio=2 -XX:+UseSerialGC -Doracle.apps.fnd.common.Pool.leak.mode=stderr:off -verbose:gc -Ddbcfile=/u01/oracle/kambing/inst/apps/kambing_wedus/appl/fnd/12.0.0/secure/kambing.dbc -Dcpid=2028233 -Dconc_queue_id=1134 -Dqueue_appl_id=0 -Dlogfile=/u01/oracle/kambing/inst/apps/kambing_wedus/logs/appl/conc/log/FNDCPGSC2028233.txt -DLONG_RUNNING_JVM=true -DOVERRIDE_DBC=true -DFND_JDBC_BUFFER_MIN=1 -DFND_JDBC_BUFFER_MAX=2 oracle.apps.fnd.cp.gsm.GSMSvcComponentContainer
+orekel    7977  7878  0 08:24 ?        00:00:06 /u01/oracle/kambing/apps/tech_st/10.1.3/appsutil/jdk/bin/java -DCLIENT_PROCESSID=7977 -server -Xmx384m -XX:NewRatio=2 -XX:+UseSerialGC -Doracle.apps.fnd.common.Pool.leak.mode=stderr:off -verbose:gc -Ddbcfile=/u01/oracle/kambing/inst/apps/kambing_wedus/appl/fnd/12.0.0/secure/kambing.dbc -Dcpid=2028234 -Dconc_queue_id=1096 -Dqueue_appl_id=0 -Dlogfile=/u01/oracle/kambing/inst/apps/kambing_wedus/logs/appl/conc/log/FNDCPGSC2028234.txt -DLONG_RUNNING_JVM=true -DOVERRIDE_DBC=true -DFND_JDBC_BUFFER_MIN=1 -DFND_JDBC_BUFFER_MAX=2 oracle.apps.fnd.cp.gsm.GSMSvcComponentContainer
+orekel    7994  7878  1 08:24 ?        00:00:12 /u01/oracle/kambing/apps/tech_st/10.1.3/appsutil/jdk/bin/java -DCLIENT_PROCESSID=7994 -server -Xmx384m -XX:NewRatio=2 -XX:+UseSerialGC -Doracle.apps.fnd.common.Pool.leak.mode=stderr:off -verbose:gc -Ddbcfile=/u01/oracle/kambing/inst/apps/kambing_wedus/appl/fnd/12.0.0/secure/kambing.dbc -Dcpid=2028235 -Dconc_queue_id=1095 -Dqueue_appl_id=0 -Dlogfile=/u01/oracle/kambing/inst/apps/kambing_wedus/logs/appl/conc/log/FNDCPGSC2028235.txt -DLONG_RUNNING_JVM=true -DOVERRIDE_DBC=true -DFND_JDBC_BUFFER_MIN=1 -DFND_JDBC_BUFFER_MAX=2 oracle.apps.fnd.cp.gsm.GSMSvcComponentContainer
+orekel    7995  7878  0 08:24 ?        00:00:00 FNDCRM APPS/ZG87415E86DFF308D3D3BCE1575DFD4EB4CBBC4A6A7F8C387C447A02792E9D429D742F29763C95E7878A687689B2944E67 FND FNDCRM N 10 c LOCK Y WEDUS 2028236
+orekel    7997  7878  0 08:24 ?        00:00:05 FNDLIBR                                                                                                            
+orekel    8005  7878  0 08:24 ?        00:00:04 FNDLIBR                                                                                                            
+orekel    8010  7878  0 08:24 ?        00:00:02 FNDLIBR                                                                                                            
+orekel    8011  7878  0 08:24 ?        00:00:00 FNDLIBR                                                                                                            
+orekel   10851  7997  1 08:41 ?        00:00:00 FNDLOAD
+orekel   10856  8005  1 08:41 ?        00:00:00 FNDLOAD
+orekel   10857  8010  1 08:41 ?        00:00:00 FNDLOAD
+orekel   10865  8302  0 08:41 pts/1    00:00:00 grep FND
+[orekel@wedus scripts]$
+
+---
+[orekel@wedus ~]$ ps -ef|grep tns
+orekel    7137     1  0 08:19 ?        00:00:00 /u01/oracle/kambing/apps/tech_st/10.1.2/bin/tnslsnr APPS_kambing -inherit
+orekel    8670  8302  0 08:30 pts/1    00:00:00 grep tns
+orekel   16273     1  0 06:57 ?        00:00:00 /u01/oracle/kambing/db/tech_st/11.1.0/bin/tnslsnr kambing -inherit
+[orekel@wedus ~]$ lsnrctl status kambing
+
+LSNRCTL for Linux: Version 11.1.0.7.0 - Production on 25-JUL-2016 08:30:53
+
+Copyright (c) 1991, 2008, Oracle.  All rights reserved.
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=wedus.localdomain)(PORT=1521)))
+STATUS of the LISTENER
+------------------------
+Alias                     kambing
+Version                   TNSLSNR for Linux: Version 11.1.0.7.0 - Production
+Start Date                25-JUL-2016 06:57:11
+Uptime                    0 days 1 hr. 33 min. 42 sec
+Trace Level               off
+Security                  ON: Local OS Authentication
+SNMP                      OFF
+Listener Parameter File   /u01/oracle/kambing/db/tech_st/11.1.0/network/admin/kambing_wedus/listener.ora
+Listener Log File         /u01/oracle/kambing/db/tech_st/11.1.0/log/diag/tnslsnr/wedus/kambing/alert/log.xml
+Listening Endpoints Summary...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=192.168.23.129)(PORT=1521)))
+Services Summary...
+Service "kambing" has 1 instance(s).
+  Instance "kambing", status UNKNOWN, has 1 handler(s) for this service...
+The command completed successfully
+[orekel@wedus ~]$ rlwrap sqlplus '/ as sysdba'
+
+SQL*Plus: Release 11.1.0.7.0 - Production on Mon Jul 25 08:31:06 2016
+
+Copyright (c) 1982, 2008, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.1.0.7.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+ALTER SESSION SET NLS_DATE_FORMAT='DD-Mon-RR HH24:MI:SS';
+
+Session altered.
+
+SQL> SELECT LAST_UPDATE_DATE,RELEASE_NAME FROM APPS.FND_PRODUCT_GROUPS;
+
+LAST_UPDATE_DATE            RELEASE_NAME
+--------------------------- --------------------------------------------------
+31-Mar-09 10:26:13          12.1.1
+
+SQL>
+
+http://192.168.23.129:8000/OA_HTML/AppsLogin

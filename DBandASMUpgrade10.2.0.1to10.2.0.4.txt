@@ -1,0 +1,335 @@
+run{
+    allocate channel dbbackup1 type disk;
+    allocate channel dbbackup2 type disk;
+    allocate channel dbbackup3 type disk;
+    allocate channel dbbackup4 type disk;
+    backup as compressed spfile tag 'SPFile' format '/home/oracle/Desktop/RMAN/SPF_%I_%d_%s_%p_%T';
+    backup as compressed backupset current controlfile tag 'Controlfile' format '/home/oracle/Desktop/RMAN/CTRL_%I_%d_%s_%p_%T';
+    backup as compressed backupset database tag 'FULLBACKUP' format '/home/oracle/Desktop/RMAN/FULLDB_%I_%d_%s_%p_%T';
+    sql 'alter system archive log current';
+    backup as compressed backupset archivelog all delete all input tag 'Archivelog' format '/home/oracle/Desktop/RMAN/ARCH_%I_%d_%s_%p_%T';
+    release channel dbbackup1;
+    release channel dbbackup2;
+    release channel dbbackup3;
+    release channel dbbackup4;
+    CROSSCHECK BACKUP;
+    DELETE NOPROMPT OBSOLETE RECOVERY WINDOW OF 14 DAYS;
+    DELETE NOPROMPT EXPIRED BACKUP;
+}
+[oracle@logan ~]$ sqlplus "/ as sysdba" <<EOF
+> SHU IMMEDIATE;
+> EOF
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Thu Jan 25 18:58:12 2018
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> Database closed.
+Database dismounted.
+ORACLE instance shut down.
+SQL> Disconnected from Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP and Data Mining options
+[oracle@logan ~]$
+[oracle@logan ~]$
+[oracle@logan ~]$ isqlplusctl stop
+iSQL*Plus 10.2.0.1.0
+Copyright (c) 2003, 2005, Oracle.  All rights reserved.
+iSQL*Plus instance on port 5560 is not running ...
+[oracle@logan ~]$ emctl stop dbconsole
+TZ set to Asia/Jakarta
+Oracle Enterprise Manager 10g Database Control Release 10.2.0.1.0
+Copyright (c) 1996, 2005 Oracle Corporation.  All rights reserved.
+http://logan.xmen.com:1158/em/console/aboutApplication
+Stopping Oracle Enterprise Manager 10g Database Control ...
+ ...  Stopped.
+[oracle@logan ~]$ lsnrctl stop
+
+LSNRCTL for Linux: Version 10.2.0.1.0 - Production on 25-JAN-2018 19:00:01
+
+Copyright (c) 1991, 2005, Oracle.  All rights reserved.
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=IPC)(KEY=EXTPROC1)))
+TNS-12541: TNS:no listener
+ TNS-12560: TNS:protocol adapter error
+  TNS-00511: No listener
+   Linux Error: 111: Connection refused
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=logan.xmen.com)(PORT=1521)))
+TNS-12541: TNS:no listener
+ TNS-12560: TNS:protocol adapter error
+  TNS-00511: No listener
+   Linux Error: 111: Connection refused
+[oracle@logan ~]$ . .ASM_profile
+[oracle@logan ~]$ sqlplus "/ as sysdba"<<EOF
+> SHU IMMEDIATE;
+> EXIT;
+> EOF
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Thu Jan 25 19:00:56 2018
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> ASM diskgroups dismounted
+ASM instance shutdown
+SQL> Disconnected from Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP and Data Mining options
+[oracle@logan ~]$
+
+[root@logan ~]# cp -pr /x01 /home/oracle/Desktop/x01Backup
+[root@logan ~]#
+
+[oracle@logan ~]$ cd Desktop/; ls -lh
+total 5.0G
+-rw-r--r-- 1 oracle oinstall 3.8G Jan 24 22:08 OracleLinux-R5-U9-Server-x86_64-dvd.iso
+-rw-r--r-- 1 oracle oinstall 1.2G Jan 24 22:10 p6810189_10204_Linux-x86-64.zip
+drwxr-xr-x 2 oracle oinstall 4.0K Jan 25 18:55 RMAN
+drwxr-xr-x 4 root   root     4.0K Jan 25 19:02 x01Backup
+[oracle@logan Desktop]$ unzip p6810189_10204_Linux-x86-64.zip; rm -fr p6810189_10204_Linux-x86-64.zip; ls -lh;
+
+[oracle@logan Desktop]$ cd Disk1/; ls -lh
+total 1.8M
+-rwxr-xr-x  1 oracle oinstall 1.6M Mar 17  2008 10204_buglist.htm
+drwxr-xr-x  4 oracle oinstall 4.0K Mar 12  2008 install
+-rwxr-xr-x  1 oracle oinstall 168K Mar 17  2008 patch_note.htm
+drwxrwxr-x  2 oracle oinstall 4.0K Mar 12  2008 response
+-rwxr-xr-x  1 oracle oinstall 1.8K Mar 12  2008 runInstaller
+drwxr-xr-x 11 oracle oinstall 4.0K Mar 12  2008 stage
+[oracle@logan Disk1]$ env|grep ORA
+ORACLE_UNQNAME=+ASM
+ORACLE_SID=+ASM
+ORACLE_BASE=/x01/app/oracle
+ORACLE_HOSTNAME=logan.xmen.com
+ORACLE_HOME=/x01/app/oracle/product/10.2.0/db_1
+[oracle@logan Disk1]$ . ~/.bash_profile
+[oracle@logan Disk1]$ env|grep ORA
+ORACLE_UNQNAME=DBPROD
+ORACLE_SID=DBPROD
+ORACLE_BASE=/x01/app/oracle
+ORACLE_HOSTNAME=logan.xmen.com
+ORACLE_HOME=/x01/app/oracle/product/10.2.0/db_1
+[oracle@logan Disk1]$ ./runInstaller
+
+[root@logan ~]# xhost +
+access control disabled, clients can connect from any host
+[root@logan ~]#
+
+relogin
+
+[oracle@logan ~]$ cd /home/oracle/Desktop/Disk1
+[oracle@logan Disk1]$ ./runInstaller
+
+[oracle@logan ~]$ . .ASM_profile; sqlplus / as sysdba<<EOF
+> STARTUP;
+> EXIT;
+> EOF
+
+SQL*Plus: Release 10.2.0.4.0 - Production on Thu Jan 25 19:54:48 2018
+
+Copyright (c) 1982, 2007, Oracle.  All Rights Reserved.
+
+Connected to an idle instance.
+
+SQL> ASM instance started
+
+Total System Global Area  130023424 bytes
+Fixed Size                  2082208 bytes
+Variable Size             102775392 bytes
+ASM Cache                  25165824 bytes
+ASM diskgroups mounted
+SQL> Disconnected from Oracle Database 10g Enterprise Edition Release 10.2.0.4.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+[oracle@logan ~]$ . .bash_profile; sqlplus "/ as sysdba"
+
+SQL*Plus: Release 10.2.0.4.0 - Production on Thu Jan 25 19:55:20 2018
+
+Copyright (c) 1982, 2007, Oracle.  All Rights Reserved.
+
+Connected to an idle instance.
+
+SQL> STARTUP UPGRADE;
+ORACLE instance started.
+
+Total System Global Area  536870912 bytes
+Fixed Size                  2085288 bytes
+Variable Size             167775832 bytes
+Database Buffers          360710144 bytes
+Redo Buffers                6299648 bytes
+Database mounted.
+Database opened.
+SQL> SPOOL utlu102i.log
+SQL> SET LINES 160 PAGES 5000 TIMING ON;
+SQL> @?/rdbms/admin/utlu102i.sql
+Oracle Database 10.2 Upgrade Information Utility    01-25-2018 19:57:20
+.
+**********************************************************************
+Database:
+**********************************************************************
+--> name:       DBPROD
+--> version:    10.2.0.1.0
+--> compatible: 10.2.0.1.0
+--> blocksize:  8192
+.
+**********************************************************************
+Tablespaces: [make adjustments in the current environment]
+**********************************************************************
+--> SYSTEM tablespace is adequate for the upgrade.
+.... minimum required size: 488 MB
+.... AUTOEXTEND additional space required: 8 MB
+--> UNDOTBS1 tablespace is adequate for the upgrade.
+.... minimum required size: 400 MB
+.... AUTOEXTEND additional space required: 370 MB
+--> SYSAUX tablespace is adequate for the upgrade.
+.... minimum required size: 246 MB
+.... AUTOEXTEND additional space required: 6 MB
+--> TEMP tablespace is adequate for the upgrade.
+.... minimum required size: 58 MB
+.... AUTOEXTEND additional space required: 38 MB
+--> EXAMPLE tablespace is adequate for the upgrade.
+.... minimum required size: 69 MB
+.
+**********************************************************************
+Update Parameters: [Update Oracle Database 10.2 init.ora or spfile]
+**********************************************************************
+-- No update parameter changes are required.
+.
+**********************************************************************
+Renamed Parameters: [Update Oracle Database 10.2 init.ora or spfile]
+**********************************************************************
+-- No renamed parameters found. No changes are required.
+.
+**********************************************************************
+Obsolete/Deprecated Parameters: [Update Oracle Database 10.2 init.ora or spfile]
+**********************************************************************
+-- No obsolete parameters found. No changes are required
+.
+**********************************************************************
+Components: [The following database components will be upgraded or installed]
+**********************************************************************
+--> Oracle Catalog Views         [upgrade]  VALID
+--> Oracle Packages and Types    [upgrade]  VALID
+--> JServer JAVA Virtual Machine [upgrade]  VALID
+--> Oracle XDK for Java          [upgrade]  VALID
+--> Oracle Java Packages         [upgrade]  VALID
+--> Oracle Text                  [upgrade]  VALID
+--> Oracle XML Database          [upgrade]  VALID
+--> Oracle Workspace Manager     [upgrade]  VALID
+--> Oracle Data Mining           [upgrade]  VALID
+--> OLAP Analytic Workspace      [upgrade]  VALID
+--> OLAP Catalog                 [upgrade]  VALID
+--> Oracle OLAP API              [upgrade]  VALID
+--> Oracle interMedia            [upgrade]  VALID
+--> Spatial                      [upgrade]  VALID
+--> Expression Filter            [upgrade]  VALID
+--> EM Repository                [upgrade]  VALID
+--> Rule Manager                 [upgrade]  VALID
+.
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:04.93
+SQL> SPOOL OFF;
+SQL> SPOOL Upgrade.log;
+SQL> @?/rdbms/admin/catupgrd.sql
+SQL> SPOOL OFF
+SQL> SHU IMMEDIATE;
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+SQL> STARTUP;
+ORACLE instance started.
+
+Total System Global Area  536870912 bytes
+Fixed Size                  2085288 bytes
+Variable Size             230690392 bytes
+Database Buffers          297795584 bytes
+Redo Buffers                6299648 bytes
+Database mounted.
+Database opened.
+SQL> SELECT BANNER FROM V$VERSION;
+
+BANNER
+----------------------------------------------------------------
+Oracle Database 10g Enterprise Edition Release 10.2.0.4.0 - 64bi
+PL/SQL Release 10.2.0.4.0 - Production
+CORE    10.2.0.4.0      Production
+TNS for Linux: Version 10.2.0.4.0 - Production
+NLSRTL Version 10.2.0.4.0 - Production
+Elapsed: 00:00:00.00
+SQL> SELECT COUNT(1)INV_OBJ FROM DBA_OBJECTS WHERE STATUS='INVALID';
+
+   INV_OBJ
+----------
+       452
+Elapsed: 00:00:00.03
+SQL> @?/rdbms/admin/utlrp.sql
+SQL> SELECT COUNT(1)INV_OBJ FROM DBA_OBJECTS WHERE STATUS='INVALID';
+
+   INV_OBJ
+----------
+         0
+Elapsed: 00:00:00.01
+SQL> COL COMP_NAME FORMAT A40;
+SQL> COL VERSION FORMAT A12;
+SQL> COL STATUS FORMAT A6;
+SQL> SELECT COMP_NAME, VERSION, STATUS FROM DBA_REGISTRY;
+
+COMP_NAME                                VERSION      STATUS
+---------------------------------------- ------------ ------
+Oracle Database Catalog Views            10.2.0.4.0   VALID
+Oracle Database Packages and Types       10.2.0.4.0   VALID
+Oracle Workspace Manager                 10.2.0.4.3   VALID
+JServer JAVA Virtual Machine             10.2.0.4.0   VALID
+Oracle XDK                               10.2.0.4.0   VALID
+Oracle Database Java Packages            10.2.0.4.0   VALID
+Oracle Expression Filter                 10.2.0.4.0   VALID
+Oracle Data Mining                       10.2.0.4.0   VALID
+Oracle Text                              10.2.0.4.0   VALID
+Oracle XML Database                      10.2.0.4.0   VALID
+Oracle Rule Manager                      10.2.0.4.0   VALID
+Oracle interMedia                        10.2.0.4.0   VALID
+OLAP Analytic Workspace                  10.2.0.4.0   VALID
+Oracle OLAP API                          10.2.0.4.0   VALID
+OLAP Catalog                             10.2.0.4.0   VALID
+Spatial                                  10.2.0.4.0   VALID
+Oracle Enterprise Manager                10.2.0.4.0   VALID
+Elapsed: 00:00:00.07
+SQL>
+
+[oracle@logan ~]$ . .ASM_profile
+[oracle@logan ~]$ sqlplus "/ as sysdba"
+
+SQL*Plus: Release 10.2.0.4.0 - Production on Thu Jan 25 20:56:28 2018
+
+Copyright (c) 1982, 2007, Oracle.  All Rights Reserved.
+
+
+Connected to:
+Oracle Database 10g Enterprise Edition Release 10.2.0.4.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> SELECT BANNER FROM V$VERSION;
+
+BANNER
+----------------------------------------------------------------
+Oracle Database 10g Enterprise Edition Release 10.2.0.4.0 - 64bi
+PL/SQL Release 10.2.0.4.0 - Production
+CORE    10.2.0.4.0      Production
+TNS for Linux: Version 10.2.0.4.0 - Production
+NLSRTL Version 10.2.0.4.0 - Production
+
+SQL> SELECT INSTANCE_NAME,STATUS FROM V$INSTANCE;
+
+INSTANCE_NAME    STATUS
+---------------- ------------
++ASM             STARTED
+
+SQL>

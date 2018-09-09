@@ -1,0 +1,3 @@
+http://appsjagan.blogspot.co.id/2010/09/how-to-change-hostname-on-database-tier.html
+http://sadananddba007.blogspot.co.id/2015/10/hostname-change-for-ebs-r1224.html
+http://oraclesoon.blogspot.co.id/2006/11/oracle-e-business-suite-is-dependent-on.html

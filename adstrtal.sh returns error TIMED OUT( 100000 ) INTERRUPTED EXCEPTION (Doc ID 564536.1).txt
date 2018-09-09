@@ -1,0 +1,167 @@
+[orekel@wedus scripts]$ ./adstrtal.sh
+
+You are running adstrtal.sh version 120.15
+
+
+Enter the APPS username: apps
+
+Enter the APPS password: 
+The logfile for this session is located at /u01/oracle/kambing/inst/apps/kambing_wedus/logs/appl/admin/log/adstrtal.log
+Executing service control script:
+/u01/oracle/kambing/inst/apps/kambing_wedus/admin/scripts/adopmnctl.sh start
+script returned:
+****************************************************
+
+You are running adopmnctl.sh version 120.6
+
+Starting Oracle Process Manager (OPMN) ...
+opmnctl: opmn started.
+
+adopmnctl.sh: exiting with status 0
+
+adopmnctl.sh: check the logfile /u01/oracle/kambing/inst/apps/kambing_wedus/logs/appl/admin/log/adopmnctl.txt for more information ...  
+
+
+.end std out.
+
+.end err out.
+
+****************************************************
+
+
+Executing service control script:
+/u01/oracle/kambing/inst/apps/kambing_wedus/admin/scripts/adalnctl.sh start
+script returned:
+****************************************************
+
+adalnctl.sh version 120.3
+
+Checking for FNDFS executable.
+Starting listener process APPS_kambing.
+
+adalnctl.sh: exiting with status 0
+
+
+adalnctl.sh: check the logfile /u01/oracle/kambing/inst/apps/kambing_wedus/logs/appl/admin/log/adalnctl.txt for more information ...  
+
+
+.end std out.
+
+.end err out.
+
+****************************************************
+
+
+Executing service control script:
+/u01/oracle/kambing/inst/apps/kambing_wedus/admin/scripts/adapcctl.sh start
+script returned:
+****************************************************
+
+You are running adapcctl.sh version 120.7.12010000.2
+
+Starting OPMN managed Oracle HTTP Server (OHS) instance ...
+opmnctl: opmn is already running.
+opmnctl: starting opmn managed processes...
+
+adapcctl.sh: exiting with status 0
+
+adapcctl.sh: check the logfile /u01/oracle/kambing/inst/apps/kambing_wedus/logs/appl/admin/log/adapcctl.txt for more information ...  
+
+
+.end std out.
+
+.end err out.
+
+****************************************************
+
+
+Executing service control script:
+/u01/oracle/kambing/inst/apps/kambing_wedus/admin/scripts/adoacorectl.sh start
+script returned:
+****************************************************
+ERROR : Timed out( 100000 ): Interrupted Exception
+
+You are running adoacorectl.sh version 120.13
+
+Starting OPMN managed OACORE OC4J instance  ...
+
+****************************************************
+
+
+Executing service control script:
+/u01/oracle/kambing/inst/apps/kambing_wedus/admin/scripts/adformsctl.sh start
+script returned:
+****************************************************
+ERROR : Timed out( 100000 ): Interrupted Exception
+
+You are running adformsctl.sh  version 120.16
+
+Starting OPMN managed FORMS OC4J instance  ...
+
+****************************************************
+
+
+Executing service control script:
+/u01/oracle/kambing/inst/apps/kambing_wedus/admin/scripts/adoafmctl.sh start
+script returned:
+****************************************************
+ERROR : Timed out( 100000 ): Interrupted Exception
+
+You are running adoafmctl.sh version 120.8
+
+Starting OPMN managed OAFM OC4J instance  ...
+
+****************************************************
+
+
+Executing service control script:
+/u01/oracle/kambing/inst/apps/kambing_wedus/admin/scripts/adcmctl.sh start
+script returned:
+****************************************************
+
+You are running adcmctl.sh version 120.17.12010000.3
+
+Starting concurrent manager for kambing ...
+Starting kambing_0819@kambing Internal Concurrent Manager
+Default printer is noprint
+
+adcmctl.sh: exiting with status 0
+
+
+adcmctl.sh: check the logfile /u01/oracle/kambing/inst/apps/kambing_wedus/logs/appl/admin/log/adcmctl.txt for more information ...  
+
+
+.end std out.
+
+.end err out.
+
+****************************************************
+
+
+Executing service control script:
+/u01/oracle/kambing/inst/apps/kambing_wedus/admin/scripts/jtffmctl.sh start
+script returned:
+****************************************************
+
+You are running jtffmctl.sh version 120.3
+
+Validating Fulfillment patch level via /u01/oracle/kambing/apps/apps_st/comn/java/classes
+Fulfillment patch level validated.
+Starting Fulfillment Server for kambing on port 9300 ...
+
+jtffmctl.sh: exiting with status 0
+
+
+.end std out.
+
+.end err out.
+
+****************************************************
+
+
+
+adstrtal.sh: Exiting with status 3
+
+adstrtal.sh: check the logfile /u01/oracle/kambing/inst/apps/kambing_wedus/logs/appl/admin/log/adstrtal.log for more information ...  
+
+[orekel@wedus scripts]$

@@ -1,0 +1,162 @@
+root@aziz-PU451LD:/home/prastyo# apt-get upgrade
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Calculating upgrade... Done
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+root@aziz-PU451LD:/home/prastyo# apt-get install mysql-server
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following additional packages will be installed:
+  libaio1 libhtml-template-perl mysql-client-5.7 mysql-client-core-5.7 mysql-common mysql-server-5.7 mysql-server-core-5.7
+Suggested packages:
+  libipc-sharedcache-perl mailx tinyca
+The following NEW packages will be installed:
+  libaio1 libhtml-template-perl mysql-client-5.7 mysql-client-core-5.7 mysql-common mysql-server mysql-server-5.7 mysql-server-core-5.7
+0 upgraded, 8 newly installed, 0 to remove and 0 not upgraded.
+Need to get 18,2 MB of archives.
+After this operation, 161 MB of additional disk space will be used.
+Do you want to continue? [Y/n] Y
+Get:1 http://id.archive.ubuntu.com/ubuntu xenial-updates/main amd64 mysql-common all 5.7.13-0ubuntu0.16.04.2 [17,0 kB]
+Get:2 http://id.archive.ubuntu.com/ubuntu xenial/main amd64 libaio1 amd64 0.3.110-2 [6.356 B]
+Get:3 http://id.archive.ubuntu.com/ubuntu xenial-updates/main amd64 mysql-client-core-5.7 amd64 5.7.13-0ubuntu0.16.04.2 [5.992 kB]
+Get:4 http://id.archive.ubuntu.com/ubuntu xenial-updates/main amd64 mysql-client-5.7 amd64 5.7.13-0ubuntu0.16.04.2 [1.704 kB]                                            
+Get:5 http://id.archive.ubuntu.com/ubuntu xenial-updates/main amd64 mysql-server-core-5.7 amd64 5.7.13-0ubuntu0.16.04.2 [7.724 kB]                                       
+Get:6 http://id.archive.ubuntu.com/ubuntu xenial-updates/main amd64 mysql-server-5.7 amd64 5.7.13-0ubuntu0.16.04.2 [2.722 kB]                                            
+Get:7 http://id.archive.ubuntu.com/ubuntu xenial/main amd64 libhtml-template-perl all 2.95-2 [60,4 kB]                                                                   
+Get:8 http://id.archive.ubuntu.com/ubuntu xenial-updates/main amd64 mysql-server all 5.7.13-0ubuntu0.16.04.2 [10,8 kB]                                                   
+Fetched 18,2 MB in 30s (602 kB/s)                                                                                                                                        
+Preconfiguring packages ...
+Selecting previously unselected package mysql-common.
+(Reading database ... 217945 files and directories currently installed.)
+Preparing to unpack .../mysql-common_5.7.13-0ubuntu0.16.04.2_all.deb ...
+Unpacking mysql-common (5.7.13-0ubuntu0.16.04.2) ...
+Selecting previously unselected package libaio1:amd64.
+Preparing to unpack .../libaio1_0.3.110-2_amd64.deb ...
+Unpacking libaio1:amd64 (0.3.110-2) ...
+Selecting previously unselected package mysql-client-core-5.7.
+Preparing to unpack .../mysql-client-core-5.7_5.7.13-0ubuntu0.16.04.2_amd64.deb ...
+Unpacking mysql-client-core-5.7 (5.7.13-0ubuntu0.16.04.2) ...
+Selecting previously unselected package mysql-client-5.7.
+Preparing to unpack .../mysql-client-5.7_5.7.13-0ubuntu0.16.04.2_amd64.deb ...
+Unpacking mysql-client-5.7 (5.7.13-0ubuntu0.16.04.2) ...
+Selecting previously unselected package mysql-server-core-5.7.
+Preparing to unpack .../mysql-server-core-5.7_5.7.13-0ubuntu0.16.04.2_amd64.deb ...
+Unpacking mysql-server-core-5.7 (5.7.13-0ubuntu0.16.04.2) ...
+Processing triggers for libc-bin (2.23-0ubuntu3) ...
+Processing triggers for man-db (2.7.5-1) ...
+Setting up mysql-common (5.7.13-0ubuntu0.16.04.2) ...
+update-alternatives: using /etc/mysql/my.cnf.fallback to provide /etc/mysql/my.cnf (my.cnf) in auto mode
+Selecting previously unselected package mysql-server-5.7.
+(Reading database ... 218109 files and directories currently installed.)
+Preparing to unpack .../mysql-server-5.7_5.7.13-0ubuntu0.16.04.2_amd64.deb ...
+Unpacking mysql-server-5.7 (5.7.13-0ubuntu0.16.04.2) ...
+Selecting previously unselected package libhtml-template-perl.
+Preparing to unpack .../libhtml-template-perl_2.95-2_all.deb ...
+Unpacking libhtml-template-perl (2.95-2) ...
+Selecting previously unselected package mysql-server.
+Preparing to unpack .../mysql-server_5.7.13-0ubuntu0.16.04.2_all.deb ...
+Unpacking mysql-server (5.7.13-0ubuntu0.16.04.2) ...
+Processing triggers for ureadahead (0.100.0-19) ...
+Processing triggers for systemd (229-4ubuntu7) ...
+Processing triggers for man-db (2.7.5-1) ...
+Setting up libaio1:amd64 (0.3.110-2) ...
+Setting up mysql-client-core-5.7 (5.7.13-0ubuntu0.16.04.2) ...
+Setting up mysql-client-5.7 (5.7.13-0ubuntu0.16.04.2) ...
+Setting up mysql-server-core-5.7 (5.7.13-0ubuntu0.16.04.2) ...
+Setting up mysql-server-5.7 (5.7.13-0ubuntu0.16.04.2) ...
+update-alternatives: using /etc/mysql/mysql.cnf to provide /etc/mysql/my.cnf (my.cnf) in auto mode
+Renaming removed key_buffer and myisam-recover options (if present)
+Setting up libhtml-template-perl (2.95-2) ...
+Setting up mysql-server (5.7.13-0ubuntu0.16.04.2) ...
+Processing triggers for libc-bin (2.23-0ubuntu3) ...
+Processing triggers for systemd (229-4ubuntu7) ...
+Processing triggers for ureadahead (0.100.0-19) ...
+root@aziz-PU451LD:/home/prastyo# mysql_secure_installation
+
+Securing the MySQL server deployment.
+
+Enter password for user root: MySQL789
+
+VALIDATE PASSWORD PLUGIN can be used to test passwords
+and improve security. It checks the strength of password
+and allows the users to set only those passwords which are
+secure enough. Would you like to setup VALIDATE PASSWORD plugin?
+
+Press y|Y for Yes, any other key for No: Y
+
+There are three levels of password validation policy:
+
+LOW    Length >= 8
+MEDIUM Length >= 8, numeric, mixed case, and special characters
+STRONG Length >= 8, numeric, mixed case, special characters and dictionary                  file
+
+Please enter 0 = LOW, 1 = MEDIUM and 2 = STRONG: 1
+Using existing password for root.
+
+Estimated strength of the password: 50 
+Change the password for root ? ((Press y|Y for Yes, any other key for No) : Y
+
+New password: MySQL.789
+
+Re-enter new password: MySQL.789
+
+Estimated strength of the password: 100 
+Do you wish to continue with the password provided?(Press y|Y for Yes, any other key for No) : Y
+By default, a MySQL installation has an anonymous user,
+allowing anyone to log into MySQL without having to have
+a user account created for them. This is intended only for
+testing, and to make the installation go a bit smoother.
+You should remove them before moving into a production
+environment.
+
+Remove anonymous users? (Press y|Y for Yes, any other key for No) : n
+
+ ... skipping.
+
+
+Normally, root should only be allowed to connect from
+'localhost'. This ensures that someone cannot guess at
+the root password from the network.
+
+Disallow root login remotely? (Press y|Y for Yes, any other key for No) : n
+
+ ... skipping.
+By default, MySQL comes with a database named 'test' that
+anyone can access. This is also intended only for testing,
+and should be removed before moving into a production
+environment.
+
+
+Remove test database and access to it? (Press y|Y for Yes, any other key for No) : n
+
+ ... skipping.
+Reloading the privilege tables will ensure that all changes
+made so far will take effect immediately.
+
+Reload privilege tables now? (Press y|Y for Yes, any other key for No) : Y
+Success.
+
+All done! 
+root@aziz-PU451LD:/home/prastyo#
+
+prastyo@aziz-PU451LD:~$ mysql --version
+mysql  Ver 14.14 Distrib 5.7.13, for Linux (x86_64) using  EditLine wrapper
+prastyo@aziz-PU451LD:~$ mysqladmin -p -u root version
+Enter password: 
+mysqladmin  Ver 8.42 Distrib 5.7.13, for Linux on x86_64
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Server version		5.7.13-0ubuntu0.16.04.2
+Protocol version	10
+Connection		Localhost via UNIX socket
+UNIX socket		/var/run/mysqld/mysqld.sock
+Uptime:			6 min 19 sec
+
+Threads: 1  Questions: 12  Slow queries: 0  Opens: 115  Flush tables: 1  Open tables: 34  Queries per second avg: 0.031
+prastyo@aziz-PU451LD:~$

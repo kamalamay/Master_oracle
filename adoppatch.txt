@@ -1,0 +1,46 @@
+Sumber:
+http://alexanderpavlik.blogspot.co.id/2015/02/ebs-122-patching-with-adop.html
+
+[applmgr@sniperhost app]$ . ./EBSapps.env run
+
+Download patch to directory, represented by $PATCH_TOP variable and uncompress it here.
+Next step - start patching cycle according to note 1355068.1 and Oracle E-Business Suite Maintenance Guide. adop will ask you for required passwords.
+
+[applmgr@sniperhost app]$ adop phase=prepare
+Enter the APPS password:
+Enter the SYSTEM password:
+Enter the WLSADMIN password:
+
+Now move on with next phases. Make sure that adop always finishes with status 0. For particular actions for each phase refer to the Oracle E-Business Suite Maintenance Guide.
+
+[applmgr@sniperhost app]$ adop phase=apply patches=19499499
+[applmgr@sniperhost ~]$ adop phase=finalize
+[applmgr@sniperhost ~]$ adop phase=cutover
+[applmgr@sniperhost ~]$ adop phase=cleanup
+
+Always check adop logfiles for any errors. Even if adop completes successfully, there may be some hidden warnings. I prefer to use this egrep pattern, catching most common errors:
+
+cd $NE_BASE/EBSapps/log/adop/6
+egrep -i "error|fail|ora-|ac-|rc-" ./*
+
+Verify that patch was successfully applied using query from step 1. It should return output similar to this:
+
+BUG_NUMBER
+--------------------------------------------------------------------------------
+CREATION_
+---------
+19499499
+14-FEB-15
+
+19499499
+14-FEB-15
+
+SET LINES 160 PAGES 5000 TIMING ON;
+ALTER SESSION SET NLS_DATE_FORMAT='DD-Mon-RR HH24:MI:SS';
+COL PATCH_NAME for a10;
+COL PATCH_TYPE for a10;
+COL DRIVER_FILE_NAME for a15;
+COL PLATFORM for a10;
+SELECT AP.PATCH_NAME, AP.PATCH_TYPE, AD.DRIVER_FILE_NAME, AD.CREATION_DATE, AD.PLATFORM,AL.LANGUAGE
+FROM AD_APPLIED_PATCHES AP, AD_PATCH_DRIVERS AD, AD_PATCH_DRIVER_LANGS AL
+WHERE AP.APPLIED_PATCH_ID=AD.APPLIED_PATCH_ID and AD.PATCH_DRIVER_ID=AL.PATCH_DRIVER_ID and AP.PATCH_NAME='&PatchNumber';

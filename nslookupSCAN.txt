@@ -1,0 +1,32 @@
+[oracle@RAC2 ~]$ cat /etc/hosts
+127.0.0.1       localhost localhost.localdomain
+
+#IP-PUBLIC
+172.0.2.63      rac1            rac1.makingroup.com
+172.0.2.64      rac2            rac2.makingroup.com
+172.0.2.134     poseidon
+
+#IP-PRIV
+10.10.10.1    rac1-priv rac1-priv.makingroup.com
+10.10.10.2    rac2-priv rac2-priv.makingroup.com
+
+#VIP
+172.0.2.94      rac1-vip        rac1-vip.makingroup.com
+172.0.2.95      rac2-vip        rac2-vip.makingroup.com
+
+#SCANIP
+172.0.2.74     rac-scan.makingroup.com rac-scan
+172.0.2.73     rac-scan.makingroup.com rac-scan
+172.0.2.75     rac-scan.makingroup.com rac-scan
+[oracle@RAC2 ~]$ nslookup rac-scan
+Server:         172.0.1.13
+Address:        172.0.1.13#53
+
+Name:   rac-scan.MAKINGROUP.COM
+Address: 172.0.2.73
+Name:   rac-scan.MAKINGROUP.COM
+Address: 172.0.2.74
+Name:   rac-scan.MAKINGROUP.COM
+Address: 172.0.2.75
+
+[oracle@RAC2 ~]$

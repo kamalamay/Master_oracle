@@ -1,0 +1,2300 @@
+SET LINES 200 PAGES 5000 TIMING ON;
+COL ACTION_TIME FOR A30;
+COL ACTION FOR A10;
+COL NAMESPACE FOR A10;
+COL VERSION FOR A10;
+COL ID FOR 99;
+COL BUNDLE_SERIES FOR A15;
+SELECT * FROM REGISTRY$HISTORY;
+SELECT BANNER FROM V$VERSION;
+
+Set Environment
+---------------
+set ORACLE_BASE=C:\app\Administrator
+set ORACLE_HOME=C:\app\11.2.0.3\grid
+
+set ORACLE_BASE=C:\app\Administrator
+set ORACLE_HOME=C:\app\Administrator\product\11.2.0.3\dbhome_1
+set ORACLE_SID=RACDB1
+set ORACLE_SID=RACDB2
+
+Patch GRID
+----------
+srvctl stop instance -d RACDB -i RACDB1
+net stop
+
+C:\> %ORACLE_HOME%\perl\bin\perl -I%ORACLE_HOME%\perl\lib -I%ORACLE_HOME%\crs\install %ORACLE_HOME%\crs\install\rootcrs.pl -unlock
+2015-04-26 12:28:30: Checking for super user privileges
+2015-04-26 12:28:30: superUser=Administrator groupName=Administrators
+2015-04-26 12:28:30: domain=WORKGROUP user=ADMINISTRATOR
+2015-04-26 12:28:30: C:\app\11.2.0.3\grid\bin\crssetup.exe getsystem
+2015-04-26 12:28:30: Executing cmd: C:\app\11.2.0.3\grid\bin\crssetup.exe getsys
+tem
+2015-04-26 12:28:30: Command output:
+>  SYSTEM
+>End Command output
+2015-04-26 12:28:30: User has Administrator privileges
+Using configuration parameter file: C:\app\11.2.0.3\grid\crs\install\crsconfig_params
+CRS-2791: Starting shutdown of Oracle High Availability Services-managed resources on 'clusternode1'
+CRS-2673: Attempting to stop 'ora.crsd' on 'clusternode1'
+CRS-2790: Starting shutdown of Cluster Ready Services-managed resources on 'clusternode1'
+CRS-2673: Attempting to stop 'ora.LISTENER_SCAN2.lsnr' on 'clusternode1'
+CRS-2673: Attempting to stop 'ora.LISTENER.lsnr' on 'clusternode1'
+CRS-2673: Attempting to stop 'ora.oc4j' on 'clusternode1'
+CRS-2673: Attempting to stop 'ora.cvu' on 'clusternode1'
+CRS-2673: Attempting to stop 'ora.CRS.dg' on 'clusternode1'
+CRS-2673: Attempting to stop 'ora.registry.acfs' on 'clusternode1'
+CRS-2673: Attempting to stop 'ora.DATA.dg' on 'clusternode1'
+CRS-2673: Attempting to stop 'ora.FRA.dg' on 'clusternode1'
+CRS-2673: Attempting to stop 'ora.LISTENER_SCAN3.lsnr' on 'clusternode1'
+CRS-2677: Stop of 'ora.LISTENER_SCAN2.lsnr' on 'clusternode1' succeeded
+CRS-2673: Attempting to stop 'ora.scan2.vip' on 'clusternode1'
+CRS-2677: Stop of 'ora.LISTENER.lsnr' on 'clusternode1' succeeded
+CRS-2673: Attempting to stop 'ora.clusternode1.vip' on 'clusternode1'
+CRS-2677: Stop of 'ora.LISTENER_SCAN3.lsnr' on 'clusternode1' succeeded
+CRS-2673: Attempting to stop 'ora.scan3.vip' on 'clusternode1'
+CRS-2677: Stop of 'ora.scan2.vip' on 'clusternode1' succeeded
+CRS-2672: Attempting to start 'ora.scan2.vip' on 'clusternode2'
+CRS-2677: Stop of 'ora.clusternode1.vip' on 'clusternode1' succeeded
+CRS-2672: Attempting to start 'ora.clusternode1.vip' on 'clusternode2'
+CRS-2677: Stop of 'ora.scan3.vip' on 'clusternode1' succeeded
+CRS-2672: Attempting to start 'ora.scan3.vip' on 'clusternode2'
+CRS-2677: Stop of 'ora.FRA.dg' on 'clusternode1' succeeded
+CRS-2677: Stop of 'ora.DATA.dg' on 'clusternode1' succeeded
+CRS-2676: Start of 'ora.scan3.vip' on 'clusternode2' succeeded
+CRS-2672: Attempting to start 'ora.LISTENER_SCAN3.lsnr' on 'clusternode2'
+CRS-2676: Start of 'ora.clusternode1.vip' on 'clusternode2' succeeded
+CRS-2676: Start of 'ora.scan2.vip' on 'clusternode2' succeeded
+CRS-2677: Stop of 'ora.registry.acfs' on 'clusternode1' succeeded
+CRS-2672: Attempting to start 'ora.LISTENER_SCAN2.lsnr' on 'clusternode2'
+CRS-2676: Start of 'ora.LISTENER_SCAN3.lsnr' on 'clusternode2' succeeded
+CRS-2676: Start of 'ora.LISTENER_SCAN2.lsnr' on 'clusternode2' succeeded
+CRS-2677: Stop of 'ora.cvu' on 'clusternode1' succeeded
+CRS-2672: Attempting to start 'ora.cvu' on 'clusternode2'
+CRS-2677: Stop of 'ora.oc4j' on 'clusternode1' succeeded
+CRS-2672: Attempting to start 'ora.oc4j' on 'clusternode2'
+CRS-2676: Start of 'ora.cvu' on 'clusternode2' succeeded
+CRS-2677: Stop of 'ora.CRS.dg' on 'clusternode1' succeeded
+CRS-2673: Attempting to stop 'ora.asm' on 'clusternode1'
+CRS-2677: Stop of 'ora.asm' on 'clusternode1' succeeded
+CRS-2676: Start of 'ora.oc4j' on 'clusternode2' succeeded
+CRS-2673: Attempting to stop 'ora.ons' on 'clusternode1'
+CRS-2677: Stop of 'ora.ons' on 'clusternode1' succeeded
+CRS-2673: Attempting to stop 'ora.net1.network' on 'clusternode1'
+CRS-2677: Stop of 'ora.net1.network' on 'clusternode1' succeeded
+CRS-2792: Shutdown of Cluster Ready Services-managed resources on 'clusternode1' has completed
+CRS-2677: Stop of 'ora.crsd' on 'clusternode1' succeeded
+CRS-2673: Attempting to stop 'ora.mdnsd' on 'clusternode1'
+CRS-2673: Attempting to stop 'ora.ctssd' on 'clusternode1'
+CRS-2673: Attempting to stop 'ora.evmd' on 'clusternode1'
+CRS-2673: Attempting to stop 'ora.asm' on 'clusternode1'
+CRS-2673: Attempting to stop 'ora.drivers.acfs' on 'clusternode1'
+CRS-2677: Stop of 'ora.evmd' on 'clusternode1' succeeded
+CRS-2677: Stop of 'ora.mdnsd' on 'clusternode1' succeeded
+CRS-2677: Stop of 'ora.ctssd' on 'clusternode1' succeeded
+CRS-2677: Stop of 'ora.asm' on 'clusternode1' succeeded
+CRS-2673: Attempting to stop 'ora.cssd' on 'clusternode1'
+CRS-2677: Stop of 'ora.drivers.acfs' on 'clusternode1' succeeded
+CRS-2677: Stop of 'ora.cssd' on 'clusternode1' succeeded
+CRS-2673: Attempting to stop 'ora.crf' on 'clusternode1'
+CRS-2677: Stop of 'ora.crf' on 'clusternode1' succeeded
+CRS-2673: Attempting to stop 'ora.gipcd' on 'clusternode1'
+CRS-2677: Stop of 'ora.gipcd' on 'clusternode1' succeeded
+CRS-2673: Attempting to stop 'ora.gpnpd' on 'clusternode1'
+CRS-2677: Stop of 'ora.gpnpd' on 'clusternode1' succeeded
+CRS-2793: Shutdown of Oracle High Availability Services-managed resources on 'clusternode1' has completed
+CRS-4133: Oracle High Availability Services has been stopped.
+Successfully unlock C:\app\11.2.0.3\grid
+
+C:\app\11.2.0.3\grid\17363850> %ORACLE_HOME%\OPatch\opatch apply -local
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\deployment\ClusterwareInfo.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceLiterals.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ACL.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ACL_CREATOR.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ACL_PERM.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ASM.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$AsmClusterFileSystem.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ClusterResource.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ClusterVIP.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$CVU.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$Database.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$DiskGroup.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$EONS.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$GNS.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$GNSVIP.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$GossipServer.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$GSD.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$Listener.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$LocalResource.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$Network.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$OC4J.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ONS.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ScanListener.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ScanVIP.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$Server.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ServerPool.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$Service.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$SuperCluster.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\CRSFactoryImpl.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\nodeapps\VIPImpl.class"
+
+Patching component oracle.has.deconfig, 11.2.0.3.0...
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvmasm.jar" with "C:\app\11.2.0.3\
+grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvmasm.jar\oracle
+\cluster\impl\asm\AsmClusterFileSystemImpl.class"
+
+Patching component oracle.has.rsf, 11.2.0.3.0...
+
+Patching component oracle.swd.oui, 11.2.0.3.0...
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\common\SoftwareModuleImpl.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\cmdtools\CRSCTLUtil.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\deployment\ClusterwareInfo.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceLiterals.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ACL.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ACL_CREATOR.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ACL_PERM.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ASM.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$AsmClusterFileSystem.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ClusterResource.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ClusterVIP.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$CVU.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$Database.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$DiskGroup.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$EONS.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$GNS.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$GNSVIP.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$GossipServer.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$GSD.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$Listener.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$LocalResource.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$Network.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$OC4J.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ONS.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ScanListener.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ScanVIP.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$Server.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ServerPool.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$Service.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$SuperCluster.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvmasm.jar" with "C:\app\11.2.
+0.3\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvmasm.ja
+r\oracle\cluster\impl\asm\AsmClusterFileSystemImpl.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\CRSFactoryImpl.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\nodeapps\VIPImpl.class"
+
+Patching component oracle.has.common, 11.2.0.3.0...
+
+Patching component oracle.has.cvu, 11.2.0.3.0...
+
+Patching component oracle.has.db, 11.2.0.3.0...
+
+Patching component oracle.has.crs, 11.2.0.3.0...
+
+Patching component oracle.usm, 11.2.0.3.0...
+
+Patching component oracle.usm.deconfig, 11.2.0.3.0...
+
+Patching component oracle.network.listener, 11.2.0.3.0...
+
+Patching component oracle.ldap.rsf.ic, 11.2.0.3.0...
+
+Patching component oracle.rdbms.deconfig, 11.2.0.3.0...
+
+Patching component oracle.ons, 11.2.0.3.0...
+
+Patching component oracle.install.deinstalltool, 11.2.0.3.0...
+RollbackSession removing interim patch '14543814' from inventory
+        1 dir(s) moved.
+
+
+OPatch back to application of the patch '17363850' after auto-rollback.
+
+
+Patching component oracle.rdbms, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.plsql, 11.2.0.3.0...
+
+Patching component oracle.network.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rman, 11.2.0.3.0...
+
+Patching component oracle.rdbms.util, 11.2.0.3.0...
+
+Patching component oracle.rdbms.dbscripts, 11.2.0.3.0...
+
+Patching component oracle.xdk.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rsf.ic, 11.2.0.3.0...
+
+Patching component oracle.has.common.cvu, 11.2.0.3.0...
+
+Patching component oracle.has.deconfig, 11.2.0.3.0...
+
+Patching component oracle.has.rsf, 11.2.0.3.0...
+
+Patching component oracle.swd.oui, 11.2.0.3.0...
+
+Patching component oracle.has.common, 11.2.0.3.0...
+
+Patching component oracle.has.cvu, 11.2.0.3.0...
+
+Patching component oracle.has.db, 11.2.0.3.0...
+
+Patching component oracle.has.crs, 11.2.0.3.0...
+
+Patching component oracle.usm, 11.2.0.3.0...
+
+Patching component oracle.usm.deconfig, 11.2.0.3.0...
+
+Patching component oracle.network.listener, 11.2.0.3.0...
+
+Patching component oracle.ldap.rsf.ic, 11.2.0.3.0...
+
+Patching component oracle.rdbms.deconfig, 11.2.0.3.0...
+
+Patching component oracle.ons, 11.2.0.3.0...
+
+Patching component oracle.install.deinstalltool, 11.2.0.3.0...
+
+Patching component oracle.sdo.locator, 11.2.0.3.0...
+
+Patching component oracle.ordim.server, 11.2.0.3.0...
+
+Patching component oracle.ldap.owm, 11.2.0.3.0...
+
+Patching component oracle.dbjava.ic, 11.2.0.3.0...
+
+Patching component oracle.xdk.parser.java, 11.2.0.3.0...
+
+Patching component oracle.has.cfs, 11.2.0.3.0...
+
+Verifying the update...
+Patch 17363850 successfully applied
+Log file location: C:\app\11.2.0.3\grid\cfgtoollogs\opatch\17363850_Apr_26_2015_
+12_47_13\apply2015-04-26_12-47-12PM_1.log
+
+OPatch succeeded.
+
+C:\app\11.2.0.3\grid\17363850>%ORACLE_HOME%\perl\bin\perl -I%ORACLE_HOME%\perl\lib -I%ORACLE_HOME%\crs\install %ORACLE_HOME%\crs\install\rootcrs.pl -patch
+2015-04-26 12:59:56: Checking for super user privileges
+2015-04-26 12:59:57: superUser=Administrator groupName=Administrators
+2015-04-26 12:59:57: domain=WORKGROUP user=ADMINISTRATOR
+2015-04-26 12:59:57: C:\app\11.2.0.3\grid\bin\crssetup.exe getsystem
+2015-04-26 12:59:57: Executing cmd: C:\app\11.2.0.3\grid\bin\crssetup.exe getsystem
+2015-04-26 12:59:59: Command output:
+>  SYSTEM
+>End Command output
+2015-04-26 12:59:59: User has Administrator privileges
+Using configuration parameter file: C:\app\11.2.0.3\grid\crs\install\crsconfig_params
+04/26/15 13:00:01  CreateService failed OracleOHService:(1073) The specified ser
+vice already exists.
+
+CRS-4123: Oracle High Availability Services has been started.
+
+C:\app\11.2.0.3\grid\17363850>
+
+Patch RDBMS
+-----------
+C:\app\Administrator\product\11.2.0.3\dbhome_1\17363850>%ORACLE_HOME%\OPatch\opatch apply -local
+Oracle Interim Patch Installer version 11.2.0.3.6
+Copyright (c) 2013, Oracle Corporation.  All rights reserved.
+
+
+Oracle Home       : C:\app\Administrator\product\11.2.0.3\dbhome_1
+Central Inventory : C:\Program Files\Oracle\Inventory
+   from           : n/a
+OPatch version    : 11.2.0.3.6
+OUI version       : 11.2.0.3.0
+Log file location : C:\app\Administrator\product\11.2.0.3\dbhome_1\cfgtoollogs\opatch\17363850_Apr_26_2015_13_16_02\apply2015-04-26_13-16-02PM_1.log
+
+Applying interim patch '17363850' to OH 'C:\app\Administrator\product\11.2.0.3\dbhome_1'
+Verifying environment and performing prerequisite checks...
+Patch 17363850: Optional component(s) missing : [ oracle.precomp.lang, 11.2.0.3.
+0 ] , [ oracle.rdbms.tg4msql, 11.2.0.3.0 ] , [ oracle.rdbms.ic, 11.2.0.3.0 ] , [
+ oracle.has.cvu, 11.2.0.3.0 ] , [ oracle.has.crs, 11.2.0.3.0 ] , [ oracle.usm, 1
+1.2.0.3.0 ] , [ oracle.rdbms.tg4db2, 11.2.0.3.0 ] , [ oracle.rdbms.tg4ifmx, 11.2
+.0.3.0 ] , [ oracle.rdbms.tg4sybs, 11.2.0.3.0 ] , [ oracle.rdbms.tg4tera, 11.2.0
+.3.0 ] , [ oracle.rdbms.scheduler, 11.2.0.3.0 ] , [ oracle.has.cfs, 11.2.0.3.0 ]
+ , [ oracle.idm.oid, 11.2.0.3.0 ] , [ oracle.network.cman, 11.2.0.3.0 ]
+Interim patch 17363850 is a superset of the patch(es) [  14543814 ] in the Oracle Home
+OPatch will roll back the subset patches and apply the given patch.
+All checks passed.
+Provide your email address to be informed of security issues, install and
+initiate Oracle Configuration Manager. Easier for you if you use your My
+Oracle Support Email address/User Name.
+Visit http://www.oracle.com/support/policies.html for details.
+Email address/User Name:
+
+You have not provided an email address for notification of security issues.
+Do you wish to remain uninformed of security issues ([Y]es, [N]o) [N]:  Y
+
+
+
+Please shutdown Oracle instances running out of this ORACLE_HOME on the local sy
+stem.
+(Oracle Home = 'C:\app\Administrator\product\11.2.0.3\dbhome_1')
+
+
+Is the local system ready for patching? [y|n]
+y
+User Responded with: Y
+Backing up files...
+Rolling back interim patch '14543814' from OH 'C:\app\Administrator\product\11.2.0.3\dbhome_1'
+        1 dir(s) moved.
+
+Patching component oracle.rdbms, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.plsql, 11.2.0.3.0...
+
+Patching component oracle.network.rsf, 11.2.0.3.0...
+
+Patching component oracle.precomp.common, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rman, 11.2.0.3.0...
+
+Patching component oracle.rdbms.util, 11.2.0.3.0...
+
+Patching component oracle.ntoledb.odp_net_2, 11.2.0.3.0...
+
+Patching component oracle.rdbms.dbscripts, 11.2.0.3.0...
+
+Patching component oracle.xdk.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rsf.ic, 11.2.0.3.0...
+
+Patching component oracle.rdbms.oci, 11.2.0.3.0...
+
+Patching component oracle.ntoramts, 11.2.0.3.0...
+
+Patching component oracle.ntoledb, 11.2.0.3.0...
+
+Patching component oracle.ctx, 11.2.0.3.0...
+
+Patching component oracle.odbc.ic, 11.2.0.3.0...
+
+Patching component oracle.has.common.cvu, 11.2.0.3.0...
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\common\SoftwareModul
+eImpl.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\cvu.jar"
+with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Sep
+_10_2012_00_06_51\files\\jlib\cvu.jar\oracle\ops\verification\client\CluvfyDrive
+r$1.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\cvu.jar"
+with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Sep
+_10_2012_00_06_51\files\\jlib\cvu.jar\oracle\ops\verification\client\CluvfyDrive
+r.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\cmdtools\CRSCTLUtil.class
+"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\deployment\ClusterwareInf
+o.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceLiterals
+.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType.cla
+ss"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$ACL
+.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$ACL
+_CREATOR.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$ACL
+_PERM.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$ASM
+.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Asm
+ClusterFileSystem.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Clu
+sterResource.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Clu
+sterVIP.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$CVU
+.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Dat
+abase.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Dis
+kGroup.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$EON
+S.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$GNS
+.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$GNS
+VIP.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Gos
+sipServer.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$GSD
+.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Lis
+tener.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Loc
+alResource.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Net
+work.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$OC4
+J.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$ONS
+.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Sca
+nListener.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Sca
+nVIP.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Ser
+ver.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Ser
+verPool.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Ser
+vice.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Sup
+erCluster.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\CRSFactoryImpl.c
+lass"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\nodeapps\VIPImpl.cla
+ss"
+
+Patching component oracle.has.deconfig, 11.2.0.3.0...
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvmasm.j
+ar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814
+_Sep_10_2012_00_06_51\files\\jlib\srvmasm.jar\oracle\cluster\impl\asm\AsmCluster
+FileSystemImpl.class"
+
+Patching component oracle.has.rsf, 11.2.0.3.0...
+
+Patching component oracle.swd.oui, 11.2.0.3.0...
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\common\Softw
+areModuleImpl.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\cmdtools\CRSCTLUt
+il.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\deployment\Cluste
+rwareInfo.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Literals.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ACL.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ACL_CREATOR.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ACL_PERM.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ASM.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$AsmClusterFileSystem.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ClusterResource.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ClusterVIP.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$CVU.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$Database.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$DiskGroup.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$EONS.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$GNS.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$GNSVIP.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$GossipServer.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$GSD.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$Listener.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$LocalResource.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$Network.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$OC4J.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ONS.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ScanListener.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ScanVIP.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$Server.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ServerPool.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$Service.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$SuperCluster.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvma
+sm.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\\oui\jlib\srvmasm.jar\oracle\cluster\impl\asm\As
+mClusterFileSystemImpl.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\CRSFacto
+ryImpl.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\nodeapps\VIP
+Impl.class"
+
+Patching component oracle.has.common, 11.2.0.3.0...
+
+Patching component oracle.has.db, 11.2.0.3.0...
+
+Patching component oracle.usm.deconfig, 11.2.0.3.0...
+
+Patching component oracle.sysman.console.db, 11.2.0.3.0...
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+CORE.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14
+543814_Sep_10_2012_00_06_51\files\sysman\jlib\emCORE.jar\oracle\sysman\eml\ecm\s
+c\Operator$BuiltInIds.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+CORE.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14
+543814_Sep_10_2012_00_06_51\files\sysman\jlib\emCORE.jar\oracle\sysman\eml\ecm\s
+c\Operator$TokenSeparatorWords.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+CORE.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14
+543814_Sep_10_2012_00_06_51\files\sysman\jlib\emCORE.jar\oracle\sysman\eml\ecm\s
+c\Operator$Parameters.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+CORE.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14
+543814_Sep_10_2012_00_06_51\files\sysman\jlib\emCORE.jar\oracle\sysman\eml\ecm\s
+c\Operator$Tokenizations.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\schm\G
+rantObjPrivsController.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\DBCont
+roller.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\BaseCo
+ntroller.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\inst\S
+PIAChecklistController.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\inst\S
+PIAExadataController.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\inst\S
+PIAOptimizerStatsController.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\inst\S
+PIAParameterChangeController.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\inst\S
+PIAUpgradeController.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\inst\S
+tsImExportController.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\emo\adm\DBMon
+itoringObject.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\emo\perf\bean
+\spia\TrialsComparisonBean.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+db_emjsp.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storag
+e\14543814_Sep_10_2012_00_06_51\files\sysman\jlib\emdb_emjsp.jar\_database\_inst
+ance\_spia\_optimizerStats.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+db_emjsp.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storag
+e\14543814_Sep_10_2012_00_06_51\files\sysman\jlib\emdb_emjsp.jar\_database\_inst
+ance\_spia\_parameterChange.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+db_emjsp.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storag
+e\14543814_Sep_10_2012_00_06_51\files\sysman\jlib\emdb_emjsp.jar\_database\_inst
+ance\_spia\_sage.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+db_emjsp.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storag
+e\14543814_Sep_10_2012_00_06_51\files\sysman\jlib\emdb_emjsp.jar\_database\_inst
+ance\_spia\_trialComparison.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+db_emjsp.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storag
+e\14543814_Sep_10_2012_00_06_51\files\sysman\jlib\emdb_emjsp.jar\_database\_inst
+ance\_spia\_upgrade.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+db_emjsp.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storag
+e\14543814_Sep_10_2012_00_06_51\files\sysman\jlib\emdb_emjsp.jar\_database\_inst
+ance\_spia\_upgrade2.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+db_emjsp.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storag
+e\14543814_Sep_10_2012_00_06_51\files\sysman\jlib\emdb_emjsp.jar\_database\_inst
+ance\_sqlset\_stsExport.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+db_emjsp.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storag
+e\14543814_Sep_10_2012_00_06_51\files\sysman\jlib\emdb_emjsp.jar\_database\_inst
+ance\_sqlset\_stsImport.class"
+
+Patching component oracle.network.listener, 11.2.0.3.0...
+
+Patching component oracle.sysman.agent, 10.2.0.4.3...
+
+Patching component oracle.ldap.rsf.ic, 11.2.0.3.0...
+
+Patching component oracle.rdbms.deconfig, 11.2.0.3.0...
+
+Patching component oracle.rdbms.dv, 11.2.0.3.0...
+
+Patching component oracle.rdbms.hsodbc, 11.2.0.3.0...
+
+Patching component oracle.ons, 11.2.0.3.0...
+
+Patching component oracle.install.deinstalltool, 11.2.0.3.0...
+RollbackSession removing interim patch '14543814' from inventory
+        1 dir(s) moved.
+
+
+OPatch back to application of the patch '17363850' after auto-rollback.
+
+
+Patching component oracle.rdbms, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.plsql, 11.2.0.3.0...
+
+Patching component oracle.network.rsf, 11.2.0.3.0...
+
+Patching component oracle.precomp.common, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rman, 11.2.0.3.0...
+
+Patching component oracle.rdbms.util, 11.2.0.3.0...
+
+Patching component oracle.ntoledb.odp_net_2, 11.2.0.3.0...
+
+Patching component oracle.rdbms.dbscripts, 11.2.0.3.0...
+
+Patching component oracle.xdk.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rsf.ic, 11.2.0.3.0...
+
+Patching component oracle.rdbms.oci, 11.2.0.3.0...
+
+Patching component oracle.ntoramts, 11.2.0.3.0...
+
+Patching component oracle.ntoledb, 11.2.0.3.0...
+
+Patching component oracle.ctx, 11.2.0.3.0...
+
+Patching component oracle.odbc.ic, 11.2.0.3.0...
+
+Patching component oracle.has.common.cvu, 11.2.0.3.0...
+
+Patching component oracle.has.deconfig, 11.2.0.3.0...
+
+Patching component oracle.has.rsf, 11.2.0.3.0...
+
+Patching component oracle.swd.oui, 11.2.0.3.0...
+
+Patching component oracle.has.common, 11.2.0.3.0...
+
+Patching component oracle.has.db, 11.2.0.3.0...
+
+Patching component oracle.usm.deconfig, 11.2.0.3.0...
+
+Patching component oracle.sysman.console.db, 11.2.0.3.0...
+
+Patching component oracle.network.listener, 11.2.0.3.0...
+
+Patching component oracle.sysman.agent, 10.2.0.4.3...
+
+Patching component oracle.ldap.rsf.ic, 11.2.0.3.0...
+
+Patching component oracle.rdbms.deconfig, 11.2.0.3.0...
+
+Patching component oracle.rdbms.dv, 11.2.0.3.0...
+
+Patching component oracle.rdbms.hsodbc, 11.2.0.3.0...
+
+Patching component oracle.ons, 11.2.0.3.0...
+
+Patching component oracle.install.deinstalltool, 11.2.0.3.0...
+
+Patching component oracle.oraolap.api, 11.2.0.3.0...
+
+Patching component oracle.oraolap, 11.2.0.3.0...
+
+Patching component oracle.sdo.locator, 11.2.0.3.0...
+
+Patching component oracle.ordim.server, 11.2.0.3.0...
+
+Patching component oracle.sysman.oms.core, 10.2.0.4.4...
+
+Patching component oracle.ldap.owm, 11.2.0.3.0...
+
+Patching component oracle.dbjava.ic, 11.2.0.3.0...
+
+Patching component oracle.ovm, 11.2.0.3.0...
+
+Patching component oracle.sysman.repository.core, 10.2.0.4.4...
+
+Patching component oracle.marvel, 11.2.0.3.0...
+
+Patching component oracle.xdk.parser.java, 11.2.0.3.0...
+
+Patching component oracle.xdk, 11.2.0.3.0...
+
+Patching component oracle.owb.rsf, 11.2.0.3.0...
+
+Verifying the update...
+Patch 17363850 successfully applied
+Log file location: C:\app\Administrator\product\11.2.0.3\dbhome_1\cfgtoollogs\opatch\17363850_Apr_26_2015_13_16_02\apply2015-04-26_13-16-02PM_1.log
+
+OPatch succeeded.
+
+C:\app\Administrator\product\11.2.0.3\dbhome_1\17363850>
+
+C:\app\11.2.0.3\grid\17363850>srvctl start instance -d RACDB -i RACDB1
+
+C:\app\11.2.0.3\grid\17363850>
+
+net
+---
+net stop oracleserviceRACDB1
+net stop OracleOraCrs11g_home1TNSListener
+net stop OracleOraCrs11g_home1TNSListenerLISTENER_SCAN1
+net stop OracleOraCrs11g_home1TNSListenerLISTENER_SCAN2
+net stop OracleOraCrs11g_home1TNSListenerLISTENER_SCAN3
+net stop OracleDBConsoleRACDB
+net stop OracleASMService+ASM1
+net stop "OracleVssWriterRACDB1"
+net stop OracleRemExecService
+net stop OracleOHService
+net stop "Oracle Object Service"
+net stop OracleClusterVolumeService
+net stop orafenceservice
+
+net stop OracleOraDb11g_home1TNSListener
+net stop OracleMTSRecoveryService
+
+net stop OracleServiceRACDB1
+net stop OracleVssWriterRACDB1
+net stop OracleDBConsoleRACDB
+net stop msdtc
+
+---
+net start oracleserviceRACDB1
+net start OracleOraCrs11g_home1TNSListener
+net start OracleOraCrs11g_home1TNSListenerLISTENER_SCAN1
+net start OracleOraCrs11g_home1TNSListenerLISTENER_SCAN2
+net start OracleOraCrs11g_home1TNSListenerLISTENER_SCAN3
+net start OracleDBConsoleRACDB
+net start OracleASMService+ASM1
+net start "OracleVssWriterRACDB1"
+net start OracleRemExecService
+net start OracleOHService
+net start "Oracle Object Service"
+net start OracleClusterVolumeService
+net start orafenceservice
+
+net start OracleOraDb11g_home1TNSListener
+net start OracleMTSRecoveryService
+
+Patch GRID Node2
+----------------
+SQL> ALTER SYSTEM CHECKPOINT LOCAL;
+
+System altered.
+
+SQL>
+
+C:\>srvctl stop instance -d RACDB -i RACDB2
+
+C:\>%ORACLE_HOME%\perl\bin\perl -I%ORACLE_HOME%\perl\lib -I%ORACLE_HOME%\crs\install %ORACLE_HOME%\crs\install\rootcrs.pl -unlock
+2015-04-26 15:09:58: Checking for super user privileges
+2015-04-26 15:09:58: superUser=Administrator groupName=Administrators
+2015-04-26 15:09:58: domain=WORKGROUP user=ADMINISTRATOR
+2015-04-26 15:09:58: C:\app\11.2.0.3\grid\bin\crssetup.exe getsystem
+2015-04-26 15:09:58: Executing cmd: C:\app\11.2.0.3\grid\bin\crssetup.exe getsystem
+2015-04-26 15:09:58: Command output:
+>  SYSTEM
+>End Command output
+2015-04-26 15:09:58: User has Administrator privileges
+Using configuration parameter file: C:\app\11.2.0.3\grid\crs\install\crsconfig_params
+CRS-2791: Starting shutdown of Oracle High Availability Services-managed resources on 'clusternode2'
+CRS-2673: Attempting to stop 'ora.crsd' on 'clusternode2'
+CRS-2790: Starting shutdown of Cluster Ready Services-managed resources on 'clusternode2'
+CRS-2673: Attempting to stop 'ora.cvu' on 'clusternode2'
+CRS-2673: Attempting to stop 'ora.LISTENER_SCAN3.lsnr' on 'clusternode2'
+CRS-2673: Attempting to stop 'ora.LISTENER_SCAN2.lsnr' on 'clusternode2'
+CRS-2673: Attempting to stop 'ora.oc4j' on 'clusternode2'
+CRS-2673: Attempting to stop 'ora.CRS.dg' on 'clusternode2'
+CRS-2673: Attempting to stop 'ora.registry.acfs' on 'clusternode2'
+CRS-2673: Attempting to stop 'ora.DATA.dg' on 'clusternode2'
+CRS-2673: Attempting to stop 'ora.FRA.dg' on 'clusternode2'
+CRS-2673: Attempting to stop 'ora.LISTENER.lsnr' on 'clusternode2'
+CRS-2677: Stop of 'ora.LISTENER_SCAN3.lsnr' on 'clusternode2' succeeded
+CRS-2673: Attempting to stop 'ora.scan3.vip' on 'clusternode2'
+CRS-2677: Stop of 'ora.LISTENER_SCAN2.lsnr' on 'clusternode2' succeeded
+CRS-2673: Attempting to stop 'ora.scan2.vip' on 'clusternode2'
+CRS-2677: Stop of 'ora.scan3.vip' on 'clusternode2' succeeded
+CRS-2672: Attempting to start 'ora.scan3.vip' on 'clusternode1'
+CRS-2677: Stop of 'ora.LISTENER.lsnr' on 'clusternode2' succeeded
+CRS-2673: Attempting to stop 'ora.clusternode2.vip' on 'clusternode2'
+CRS-2677: Stop of 'ora.cvu' on 'clusternode2' succeeded
+CRS-2672: Attempting to start 'ora.cvu' on 'clusternode1'
+CRS-2677: Stop of 'ora.scan2.vip' on 'clusternode2' succeeded
+CRS-2672: Attempting to start 'ora.scan2.vip' on 'clusternode1'
+CRS-2677: Stop of 'ora.clusternode2.vip' on 'clusternode2' succeeded
+CRS-2672: Attempting to start 'ora.clusternode2.vip' on 'clusternode1'
+CRS-2677: Stop of 'ora.DATA.dg' on 'clusternode2' succeeded
+CRS-2677: Stop of 'ora.FRA.dg' on 'clusternode2' succeeded
+CRS-2676: Start of 'ora.cvu' on 'clusternode1' succeeded
+CRS-2676: Start of 'ora.scan2.vip' on 'clusternode1' succeeded
+CRS-2672: Attempting to start 'ora.LISTENER_SCAN2.lsnr' on 'clusternode1'
+CRS-2676: Start of 'ora.scan3.vip' on 'clusternode1' succeeded
+CRS-2676: Start of 'ora.clusternode2.vip' on 'clusternode1' succeeded
+CRS-2672: Attempting to start 'ora.LISTENER_SCAN3.lsnr' on 'clusternode1'
+CRS-2677: Stop of 'ora.registry.acfs' on 'clusternode2' succeeded
+CRS-2676: Start of 'ora.LISTENER_SCAN2.lsnr' on 'clusternode1' succeeded
+CRS-2676: Start of 'ora.LISTENER_SCAN3.lsnr' on 'clusternode1' succeeded
+CRS-2677: Stop of 'ora.oc4j' on 'clusternode2' succeeded
+CRS-2672: Attempting to start 'ora.oc4j' on 'clusternode1'
+CRS-2677: Stop of 'ora.CRS.dg' on 'clusternode2' succeeded
+CRS-2673: Attempting to stop 'ora.asm' on 'clusternode2'
+CRS-2677: Stop of 'ora.asm' on 'clusternode2' succeeded
+CRS-2674: Start of 'ora.oc4j' on 'clusternode1' failed
+CRS-2679: Attempting to clean 'ora.oc4j' on 'clusternode1'
+CRS-2681: Clean of 'ora.oc4j' on 'clusternode1' succeeded
+CRS-2673: Attempting to stop 'ora.ons' on 'clusternode2'
+CRS-2677: Stop of 'ora.ons' on 'clusternode2' succeeded
+CRS-2673: Attempting to stop 'ora.net1.network' on 'clusternode2'
+CRS-2677: Stop of 'ora.net1.network' on 'clusternode2' succeeded
+CRS-2792: Shutdown of Cluster Ready Services-managed resources on 'clusternode2' has completed
+CRS-2677: Stop of 'ora.crsd' on 'clusternode2' succeeded
+CRS-2673: Attempting to stop 'ora.mdnsd' on 'clusternode2'
+CRS-2673: Attempting to stop 'ora.crf' on 'clusternode2'
+CRS-2673: Attempting to stop 'ora.ctssd' on 'clusternode2'
+CRS-2673: Attempting to stop 'ora.evmd' on 'clusternode2'
+CRS-2673: Attempting to stop 'ora.asm' on 'clusternode2'
+CRS-2673: Attempting to stop 'ora.drivers.acfs' on 'clusternode2'
+CRS-2677: Stop of 'ora.crf' on 'clusternode2' succeeded
+CRS-2677: Stop of 'ora.evmd' on 'clusternode2' succeeded
+CRS-2677: Stop of 'ora.mdnsd' on 'clusternode2' succeeded
+CRS-2677: Stop of 'ora.ctssd' on 'clusternode2' succeeded
+CRS-2677: Stop of 'ora.drivers.acfs' on 'clusternode2' succeeded
+CRS-2677: Stop of 'ora.asm' on 'clusternode2' succeeded
+CRS-2673: Attempting to stop 'ora.cssd' on 'clusternode2'
+CRS-2677: Stop of 'ora.cssd' on 'clusternode2' succeeded
+CRS-2673: Attempting to stop 'ora.gipcd' on 'clusternode2'
+CRS-2677: Stop of 'ora.gipcd' on 'clusternode2' succeeded
+CRS-2673: Attempting to stop 'ora.gpnpd' on 'clusternode2'
+CRS-2677: Stop of 'ora.gpnpd' on 'clusternode2' succeeded
+CRS-2793: Shutdown of Oracle High Availability Services-managed resources on 'clusternode2' has completed
+CRS-4133: Oracle High Availability Services has been stopped.
+Successfully unlock C:\app\11.2.0.3\grid
+
+C:\>net stop oracleserviceRACDB2
+The OracleServiceRACDB2 service is stopping.
+The OracleServiceRACDB2 service was stopped successfully.
+
+
+C:\>net stop OracleOraCrs11g_home1TNSListener
+The OracleOraCrs11g_home1TNSListener service is not started.
+
+More help is available by typing NET HELPMSG 3521.
+
+
+C:\>net stop OracleOraCrs11g_home1TNSListenerLISTENER_SCAN1
+The OracleOraCrs11g_home1TNSListenerLISTENER_SCAN1 service is not started.
+
+More help is available by typing NET HELPMSG 3521.
+
+
+C:\>net stop OracleOraCrs11g_home1TNSListenerLISTENER_SCAN2
+The OracleOraCrs11g_home1TNSListenerLISTENER_SCAN2 service is not started.
+
+More help is available by typing NET HELPMSG 3521.
+
+
+C:\>net stop OracleOraCrs11g_home1TNSListenerLISTENER_SCAN3
+The OracleOraCrs11g_home1TNSListenerLISTENER_SCAN3 service is not started.
+
+More help is available by typing NET HELPMSG 3521.
+
+
+C:\>net stop OracleDBConsoleRACDB
+The OracleDBConsoleRACDB service is not started.
+
+More help is available by typing NET HELPMSG 3521.
+
+
+C:\>net stop OracleASMService+ASM2
+The OracleASMService+ASM2 service is not started.
+
+More help is available by typing NET HELPMSG 3521.
+
+
+C:\>net stop "OracleVssWriterRACDB2"
+The Oracle RACDB2 VSS Writer Service service is not started.
+
+More help is available by typing NET HELPMSG 3521.
+
+
+C:\>net stop OracleRemExecService
+The service name is invalid.
+
+More help is available by typing NET HELPMSG 2185.
+
+
+C:\>net stop OracleOHService
+The OracleOHService service is not started.
+
+More help is available by typing NET HELPMSG 3521.
+
+
+C:\>net stop "Oracle Object Service"
+.
+The Oracle Object Service service was stopped successfully.
+
+
+C:\>net stop OracleClusterVolumeService
+The service name is invalid.
+
+More help is available by typing NET HELPMSG 2185.
+
+
+C:\>net stop orafenceservice
+
+The OraFenceService service was stopped successfully.
+
+
+C:\>net stop OracleOraDb11g_home1TNSListener
+The service name is invalid.
+
+More help is available by typing NET HELPMSG 2185.
+
+
+C:\>net stop OracleMTSRecoveryService
+The OracleMTSRecoveryService service is not started.
+
+More help is available by typing NET HELPMSG 3521.
+
+
+C:\>cd %ORACLE_HOME%
+
+C:\app\11.2.0.3\grid>cd 17363850
+
+C:\app\11.2.0.3\grid\17363850>%ORACLE_HOME%\OPatch\opatch version
+OPatch Version: 11.2.0.3.6
+
+OPatch succeeded.
+
+C:\app\11.2.0.3\grid\17363850>%ORACLE_HOME%\OPatch\opatch apply -local
+Oracle Interim Patch Installer version 11.2.0.3.6
+Copyright (c) 2013, Oracle Corporation.  All rights reserved.
+
+
+Oracle Home       : C:\app\11.2.0.3\grid
+Central Inventory : C:\Program Files\Oracle\Inventory
+   from           : n/a
+OPatch version    : 11.2.0.3.6
+OUI version       : 11.2.0.3.0
+Log file location : C:\app\11.2.0.3\grid\cfgtoollogs\opatch\17363850_Apr_26_2015_15_28_47\apply2015-04-26_15-28-46PM_1.log
+
+Applying interim patch '17363850' to OH 'C:\app\11.2.0.3\grid'
+Verifying environment and performing prerequisite checks...
+Patch 17363850: Optional component(s) missing : [ oracle.precomp.common, 11.2.0.
+3.0 ] , [ oracle.precomp.lang, 11.2.0.3.0 ] , [ oracle.ntoledb.odp_net_2, 11.2.0
+.3.0 ] , [ oracle.rdbms.tg4msql, 11.2.0.3.0 ] , [ oracle.rdbms.oci, 11.2.0.3.0 ]
+ , [ oracle.ntoramts, 11.2.0.3.0 ] , [ oracle.rdbms.ic, 11.2.0.3.0 ] , [ oracle.
+ntoledb, 11.2.0.3.0 ] , [ oracle.ctx, 11.2.0.3.0 ] , [ oracle.odbc.ic, 11.2.0.3.
+0 ] , [ oracle.sysman.console.db, 11.2.0.3.0 ] , [ oracle.sysman.agent, 10.2.0.4
+.3 ] , [ oracle.rdbms.dv, 11.2.0.3.0 ] , [ oracle.rdbms.hsodbc, 11.2.0.3.0 ] , [
+ oracle.oraolap.api, 11.2.0.3.0 ] , [ oracle.oraolap, 11.2.0.3.0 ] , [ oracle.sy
+sman.oms.core, 10.2.0.4.4 ] , [ oracle.rdbms.tg4db2, 11.2.0.3.0 ] , [ oracle.rdb
+ms.tg4ifmx, 11.2.0.3.0 ] , [ oracle.rdbms.tg4sybs, 11.2.0.3.0 ] , [ oracle.rdbms
+.tg4tera, 11.2.0.3.0 ] , [ oracle.rdbms.scheduler, 11.2.0.3.0 ] , [ oracle.ovm,
+11.2.0.3.0 ] , [ oracle.sysman.repository.core, 10.2.0.4.4 ] , [ oracle.marvel,
+11.2.0.3.0 ] , [ oracle.xdk, 11.2.0.3.0 ] , [ oracle.idm.oid, 11.2.0.3.0 ] , [ o
+racle.owb.rsf, 11.2.0.3.0 ] , [ oracle.network.cman, 11.2.0.3.0 ]
+Interim patch 17363850 is a superset of the patch(es) [  14543814 ] in the Oracle Home
+OPatch will roll back the subset patches and apply the given patch.
+All checks passed.
+Provide your email address to be informed of security issues, install and
+initiate Oracle Configuration Manager. Easier for you if you use your My
+Oracle Support Email address/User Name.
+Visit http://www.oracle.com/support/policies.html for details.
+Email address/User Name:
+
+You have not provided an email address for notification of security issues.
+Do you wish to remain uninformed of security issues ([Y]es, [N]o) [N]:  Y
+
+
+
+Please shutdown Oracle instances running out of this ORACLE_HOME on the local system.
+(Oracle Home = 'C:\app\11.2.0.3\grid')
+
+
+Is the local system ready for patching? [y|n]
+y
+User Responded with: Y
+Backing up files...
+Rolling back interim patch '14543814' from OH 'C:\app\11.2.0.3\grid'
+        1 dir(s) moved.
+
+Patching component oracle.rdbms, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.plsql, 11.2.0.3.0...
+
+Patching component oracle.network.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rman, 11.2.0.3.0...
+
+Patching component oracle.rdbms.util, 11.2.0.3.0...
+
+Patching component oracle.rdbms.dbscripts, 11.2.0.3.0...
+
+Patching component oracle.xdk.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rsf.ic, 11.2.0.3.0...
+
+Patching component oracle.has.common.cvu, 11.2.0.3.0...
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\common\SoftwareModuleImpl.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\cvu.jar" with "C:\app\11.2.0.3\grid
+\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\cvu.jar\oracle\ops\ver
+ification\client\CluvfyDriver$1.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\cvu.jar" with "C:\app\11.2.0.3\grid
+\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\cvu.jar\oracle\ops\ver
+ification\client\CluvfyDriver.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\cmdtools\CRSCTLUtil.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\deployment\ClusterwareInfo.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceLiterals.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ACL.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ACL_CREATOR.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ACL_PERM.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ASM.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$AsmClusterFileSystem.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ClusterResource.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ClusterVIP.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$CVU.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$Database.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$DiskGroup.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$EONS.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$GNS.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$GNSVIP.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$GossipServer.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$GSD.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$Listener.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$LocalResource.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$Network.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$OC4J.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ONS.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ScanListener.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ScanVIP.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$Server.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$ServerPool.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$Service.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\ResourceType$SuperCluster.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\crs\CRSFactoryImpl.class"
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvm.jar" with "C:\app\11.2.0.3\gri
+d\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\clust
+er\impl\nodeapps\VIPImpl.class"
+
+Patching component oracle.has.deconfig, 11.2.0.3.0...
+Updating jar file "C:\app\11.2.0.3\grid\jlib\srvmasm.jar" with "C:\app\11.2.0.3\
+grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\jlib\srvmasm.jar\oracle
+\cluster\impl\asm\AsmClusterFileSystemImpl.class"
+
+Patching component oracle.has.rsf, 11.2.0.3.0...
+
+Patching component oracle.swd.oui, 11.2.0.3.0...
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\common\SoftwareModuleImpl.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\cmdtools\CRSCTLUtil.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\deployment\ClusterwareInfo.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceLiterals.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ACL.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ACL_CREATOR.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ACL_PERM.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ASM.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$AsmClusterFileSystem.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ClusterResource.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ClusterVIP.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$CVU.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$Database.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$DiskGroup.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$EONS.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$GNS.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$GNSVIP.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$GossipServer.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$GSD.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$Listener.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$LocalResource.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$Network.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$OC4J.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ONS.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ScanListener.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ScanVIP.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$Server.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$ServerPool.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$Service.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\ResourceType$SuperCluster.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvmasm.jar" with "C:\app\11.2.
+0.3\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvmasm.ja
+r\oracle\cluster\impl\asm\AsmClusterFileSystemImpl.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\crs\CRSFactoryImpl.class"
+Updating jar file "C:\app\11.2.0.3\grid\oui\jlib\srvm.jar" with "C:\app\11.2.0.3
+\grid\.patch_storage\14543814_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\orac
+le\cluster\impl\nodeapps\VIPImpl.class"
+
+Patching component oracle.has.common, 11.2.0.3.0...
+
+Patching component oracle.has.cvu, 11.2.0.3.0...
+
+Patching component oracle.has.db, 11.2.0.3.0...
+
+Patching component oracle.has.crs, 11.2.0.3.0...
+
+Patching component oracle.usm, 11.2.0.3.0...
+
+Patching component oracle.usm.deconfig, 11.2.0.3.0...
+
+Patching component oracle.network.listener, 11.2.0.3.0...
+
+Patching component oracle.ldap.rsf.ic, 11.2.0.3.0...
+
+Patching component oracle.rdbms.deconfig, 11.2.0.3.0...
+
+Patching component oracle.ons, 11.2.0.3.0...
+
+Patching component oracle.install.deinstalltool, 11.2.0.3.0...
+RollbackSession removing interim patch '14543814' from inventory
+        1 dir(s) moved.
+
+
+OPatch back to application of the patch '17363850' after auto-rollback.
+
+
+Patching component oracle.rdbms, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.plsql, 11.2.0.3.0...
+
+Patching component oracle.network.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rman, 11.2.0.3.0...
+
+Patching component oracle.rdbms.util, 11.2.0.3.0...
+
+Patching component oracle.rdbms.dbscripts, 11.2.0.3.0...
+
+Patching component oracle.xdk.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rsf.ic, 11.2.0.3.0...
+
+Patching component oracle.has.common.cvu, 11.2.0.3.0...
+
+Patching component oracle.has.deconfig, 11.2.0.3.0...
+
+Patching component oracle.has.rsf, 11.2.0.3.0...
+
+Patching component oracle.swd.oui, 11.2.0.3.0...
+
+Patching component oracle.has.common, 11.2.0.3.0...
+
+Patching component oracle.has.cvu, 11.2.0.3.0...
+
+Patching component oracle.has.db, 11.2.0.3.0...
+
+Patching component oracle.has.crs, 11.2.0.3.0...
+
+Patching component oracle.usm, 11.2.0.3.0...
+
+Patching component oracle.usm.deconfig, 11.2.0.3.0...
+
+Patching component oracle.network.listener, 11.2.0.3.0...
+
+Patching component oracle.ldap.rsf.ic, 11.2.0.3.0...
+
+Patching component oracle.rdbms.deconfig, 11.2.0.3.0...
+
+Patching component oracle.ons, 11.2.0.3.0...
+
+Patching component oracle.install.deinstalltool, 11.2.0.3.0...
+
+Patching component oracle.sdo.locator, 11.2.0.3.0...
+
+Patching component oracle.ordim.server, 11.2.0.3.0...
+
+Patching component oracle.ldap.owm, 11.2.0.3.0...
+
+Patching component oracle.dbjava.ic, 11.2.0.3.0...
+
+Patching component oracle.xdk.parser.java, 11.2.0.3.0...
+
+Patching component oracle.has.cfs, 11.2.0.3.0...
+
+Verifying the update...
+Patch 17363850 successfully applied
+Log file location: C:\app\11.2.0.3\grid\cfgtoollogs\opatch\17363850_Apr_26_2015_15_28_47\apply2015-04-26_15-28-46PM_1.log
+
+OPatch succeeded.
+
+C:\app\11.2.0.3\grid\17363850>%ORACLE_HOME%\perl\bin\perl -I%ORACLE_HOME%\perl\lib -I%ORACLE_HOME%\crs\install %ORACLE_HOME%\crs\install\rootcrs.pl -patch
+2015-04-26 15:39:30: Checking for super user privileges
+2015-04-26 15:39:30: superUser=Administrator groupName=Administrators
+2015-04-26 15:39:30: domain=WORKGROUP user=ADMINISTRATOR
+2015-04-26 15:39:30: C:\app\11.2.0.3\grid\bin\crssetup.exe getsystem
+2015-04-26 15:39:30: Executing cmd: C:\app\11.2.0.3\grid\bin\crssetup.exe getsystem
+2015-04-26 15:39:31: Command output:
+>  SYSTEM
+>End Command output
+2015-04-26 15:39:31: User has Administrator privileges
+Using configuration parameter file: C:\app\11.2.0.3\grid\crs\install\crsconfig_params
+04/26/15 15:39:32  CreateService failed OracleOHService:(1073) The specified service already exists.
+
+CRS-4123: Oracle High Availability Services has been started.
+
+C:\app\11.2.0.3\grid\17363850>
+
+Patch RDBMS Node2
+-----------------
+C:\app\11.2.0.3\grid\17363850>srvctl stop instance -d RACDB -i RACDB2
+PRCC-1017 : RACDB was already stopped on clusternode2
+
+C:\app\11.2.0.3\grid\17363850>net stop OracleServiceRACDB2
+The OracleServiceRACDB2 service is not started.
+
+More help is available by typing NET HELPMSG 3521.
+
+
+C:\app\11.2.0.3\grid\17363850>net stop OracleVssWriterRACDB2
+The Oracle RACDB2 VSS Writer Service service is not started.
+
+More help is available by typing NET HELPMSG 3521.
+
+
+C:\app\11.2.0.3\grid\17363850>net stop OracleDBConsoleRACDB
+The OracleDBConsoleRACDB service is not started.
+
+More help is available by typing NET HELPMSG 3521.
+
+
+C:\app\11.2.0.3\grid\17363850>net stop msdtc
+The Distributed Transaction Coordinator service is stopping.
+The Distributed Transaction Coordinator service was stopped successfully.
+
+
+C:\app\11.2.0.3\grid\17363850>
+
+Kill processes using processexplorer.exe before patch
+
+C:\app\Administrator\product\11.2.0.3\dbhome_1\17363850>%ORACLE_HOME%\OPatch\opatch apply -local
+Oracle Interim Patch Installer version 11.2.0.3.6
+Copyright (c) 2013, Oracle Corporation.  All rights reserved.
+
+
+Oracle Home       : C:\app\Administrator\product\11.2.0.3\dbhome_1
+Central Inventory : C:\Program Files\Oracle\Inventory
+   from           : n/a
+OPatch version    : 11.2.0.3.6
+OUI version       : 11.2.0.3.0
+Log file location : C:\app\Administrator\product\11.2.0.3\dbhome_1\cfgtoollogs\opatch\17363850_Apr_26_2015_15_53_15\apply2015-04-26_15-53-14PM_1.log
+
+Applying interim patch '17363850' to OH 'C:\app\Administrator\product\11.2.0.3\dbhome_1'
+Verifying environment and performing prerequisite checks...
+Patch 17363850: Optional component(s) missing : [ oracle.precomp.lang, 11.2.0.3.
+0 ] , [ oracle.rdbms.tg4msql, 11.2.0.3.0 ] , [ oracle.rdbms.ic, 11.2.0.3.0 ] , [
+ oracle.has.cvu, 11.2.0.3.0 ] , [ oracle.has.crs, 11.2.0.3.0 ] , [ oracle.usm, 1
+1.2.0.3.0 ] , [ oracle.rdbms.tg4db2, 11.2.0.3.0 ] , [ oracle.rdbms.tg4ifmx, 11.2
+.0.3.0 ] , [ oracle.rdbms.tg4sybs, 11.2.0.3.0 ] , [ oracle.rdbms.tg4tera, 11.2.0
+.3.0 ] , [ oracle.rdbms.scheduler, 11.2.0.3.0 ] , [ oracle.has.cfs, 11.2.0.3.0 ]
+ , [ oracle.idm.oid, 11.2.0.3.0 ] , [ oracle.network.cman, 11.2.0.3.0 ]
+Interim patch 17363850 is a superset of the patch(es) [  14543814 ] in the Oracl
+e Home
+OPatch will roll back the subset patches and apply the given patch.
+All checks passed.
+Provide your email address to be informed of security issues, install and
+initiate Oracle Configuration Manager. Easier for you if you use your My
+Oracle Support Email address/User Name.
+Visit http://www.oracle.com/support/policies.html for details.
+Email address/User Name:
+
+You have not provided an email address for notification of security issues.
+Do you wish to remain uninformed of security issues ([Y]es, [N]o) [N]:  Y
+
+
+
+Please shutdown Oracle instances running out of this ORACLE_HOME on the local system.
+(Oracle Home = 'C:\app\Administrator\product\11.2.0.3\dbhome_1')
+
+
+Is the local system ready for patching? [y|n]
+y
+User Responded with: Y
+Backing up files...
+Rolling back interim patch '14543814' from OH 'C:\app\Administrator\product\11.2.0.3\dbhome_1'
+        1 dir(s) moved.
+
+Patching component oracle.rdbms, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.plsql, 11.2.0.3.0...
+
+Patching component oracle.network.rsf, 11.2.0.3.0...
+
+Patching component oracle.precomp.common, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rman, 11.2.0.3.0...
+
+Patching component oracle.rdbms.util, 11.2.0.3.0...
+
+Patching component oracle.ntoledb.odp_net_2, 11.2.0.3.0...
+
+Patching component oracle.rdbms.dbscripts, 11.2.0.3.0...
+
+Patching component oracle.xdk.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rsf.ic, 11.2.0.3.0...
+
+Patching component oracle.rdbms.oci, 11.2.0.3.0...
+
+Patching component oracle.ntoramts, 11.2.0.3.0...
+
+Patching component oracle.ntoledb, 11.2.0.3.0...
+
+Patching component oracle.ctx, 11.2.0.3.0...
+
+Patching component oracle.odbc.ic, 11.2.0.3.0...
+
+Patching component oracle.has.common.cvu, 11.2.0.3.0...
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\common\SoftwareModul
+eImpl.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\cvu.jar"
+with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Sep
+_10_2012_00_06_51\files\\jlib\cvu.jar\oracle\ops\verification\client\CluvfyDrive
+r$1.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\cvu.jar"
+with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Sep
+_10_2012_00_06_51\files\\jlib\cvu.jar\oracle\ops\verification\client\CluvfyDrive
+r.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\cmdtools\CRSCTLUtil.class
+"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\deployment\ClusterwareInf
+o.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceLiterals
+.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType.cla
+ss"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$ACL
+.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$ACL
+_CREATOR.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$ACL
+_PERM.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$ASM
+.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Asm
+ClusterFileSystem.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Clu
+sterResource.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Clu
+sterVIP.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$CVU
+.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Dat
+abase.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Dis
+kGroup.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$EON
+S.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$GNS
+.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$GNS
+VIP.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Gos
+sipServer.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$GSD
+.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Lis
+tener.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Loc
+alResource.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Net
+work.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$OC4
+J.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$ONS
+.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Sca
+nListener.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Sca
+nVIP.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Ser
+ver.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Ser
+verPool.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Ser
+vice.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\ResourceType$Sup
+erCluster.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\crs\CRSFactoryImpl.c
+lass"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvm.jar"
+ with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814_Se
+p_10_2012_00_06_51\files\\jlib\srvm.jar\oracle\cluster\impl\nodeapps\VIPImpl.cla
+ss"
+
+Patching component oracle.has.deconfig, 11.2.0.3.0...
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\jlib\srvmasm.j
+ar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14543814
+_Sep_10_2012_00_06_51\files\\jlib\srvmasm.jar\oracle\cluster\impl\asm\AsmCluster
+FileSystemImpl.class"
+
+Patching component oracle.has.rsf, 11.2.0.3.0...
+
+Patching component oracle.swd.oui, 11.2.0.3.0...
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\common\Softw
+areModuleImpl.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\cmdtools\CRSCTLUt
+il.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\deployment\Cluste
+rwareInfo.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Literals.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ACL.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ACL_CREATOR.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ACL_PERM.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ASM.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$AsmClusterFileSystem.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ClusterResource.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ClusterVIP.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$CVU.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$Database.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$DiskGroup.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$EONS.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$GNS.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$GNSVIP.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$GossipServer.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$GSD.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$Listener.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$LocalResource.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$Network.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$OC4J.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ONS.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ScanListener.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ScanVIP.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$Server.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$ServerPool.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$Service.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\Resource
+Type$SuperCluster.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvma
+sm.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\\oui\jlib\srvmasm.jar\oracle\cluster\impl\asm\As
+mClusterFileSystemImpl.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\crs\CRSFacto
+ryImpl.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\oui\jlib\srvm.
+jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454381
+4_Sep_10_2012_00_06_51\files\\oui\jlib\srvm.jar\oracle\cluster\impl\nodeapps\VIP
+Impl.class"
+
+Patching component oracle.has.common, 11.2.0.3.0...
+
+Patching component oracle.has.db, 11.2.0.3.0...
+
+Patching component oracle.usm.deconfig, 11.2.0.3.0...
+
+Patching component oracle.sysman.console.db, 11.2.0.3.0...
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+CORE.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14
+543814_Sep_10_2012_00_06_51\files\sysman\jlib\emCORE.jar\oracle\sysman\eml\ecm\s
+c\Operator$BuiltInIds.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+CORE.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14
+543814_Sep_10_2012_00_06_51\files\sysman\jlib\emCORE.jar\oracle\sysman\eml\ecm\s
+c\Operator$TokenSeparatorWords.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+CORE.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14
+543814_Sep_10_2012_00_06_51\files\sysman\jlib\emCORE.jar\oracle\sysman\eml\ecm\s
+c\Operator$Parameters.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+CORE.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\14
+543814_Sep_10_2012_00_06_51\files\sysman\jlib\emCORE.jar\oracle\sysman\eml\ecm\s
+c\Operator$Tokenizations.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\schm\G
+rantObjPrivsController.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\DBCont
+roller.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\BaseCo
+ntroller.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\inst\S
+PIAChecklistController.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\inst\S
+PIAExadataController.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\inst\S
+PIAOptimizerStatsController.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\inst\S
+PIAParameterChangeController.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\inst\S
+PIAUpgradeController.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\db\adm\inst\S
+tsImExportController.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\emo\adm\DBMon
+itoringObject.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+DB.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storage\1454
+3814_Sep_10_2012_00_06_51\files\sysman\jlib\emDB.jar\oracle\sysman\emo\perf\bean
+\spia\TrialsComparisonBean.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+db_emjsp.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storag
+e\14543814_Sep_10_2012_00_06_51\files\sysman\jlib\emdb_emjsp.jar\_database\_inst
+ance\_spia\_optimizerStats.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+db_emjsp.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storag
+e\14543814_Sep_10_2012_00_06_51\files\sysman\jlib\emdb_emjsp.jar\_database\_inst
+ance\_spia\_parameterChange.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+db_emjsp.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storag
+e\14543814_Sep_10_2012_00_06_51\files\sysman\jlib\emdb_emjsp.jar\_database\_inst
+ance\_spia\_sage.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+db_emjsp.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storag
+e\14543814_Sep_10_2012_00_06_51\files\sysman\jlib\emdb_emjsp.jar\_database\_inst
+ance\_spia\_trialComparison.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+db_emjsp.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storag
+e\14543814_Sep_10_2012_00_06_51\files\sysman\jlib\emdb_emjsp.jar\_database\_inst
+ance\_spia\_upgrade.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+db_emjsp.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storag
+e\14543814_Sep_10_2012_00_06_51\files\sysman\jlib\emdb_emjsp.jar\_database\_inst
+ance\_spia\_upgrade2.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+db_emjsp.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storag
+e\14543814_Sep_10_2012_00_06_51\files\sysman\jlib\emdb_emjsp.jar\_database\_inst
+ance\_sqlset\_stsExport.class"
+Updating jar file "C:\app\Administrator\product\11.2.0.3\dbhome_1\sysman\jlib\em
+db_emjsp.jar" with "C:\app\Administrator\product\11.2.0.3\dbhome_1\.patch_storag
+e\14543814_Sep_10_2012_00_06_51\files\sysman\jlib\emdb_emjsp.jar\_database\_inst
+ance\_sqlset\_stsImport.class"
+
+Patching component oracle.network.listener, 11.2.0.3.0...
+
+Patching component oracle.sysman.agent, 10.2.0.4.3...
+
+Patching component oracle.ldap.rsf.ic, 11.2.0.3.0...
+
+Patching component oracle.rdbms.deconfig, 11.2.0.3.0...
+
+Patching component oracle.rdbms.dv, 11.2.0.3.0...
+
+Patching component oracle.rdbms.hsodbc, 11.2.0.3.0...
+
+Patching component oracle.ons, 11.2.0.3.0...
+
+Patching component oracle.install.deinstalltool, 11.2.0.3.0...
+RollbackSession removing interim patch '14543814' from inventory
+        1 dir(s) moved.
+
+
+OPatch back to application of the patch '17363850' after auto-rollback.
+
+
+Patching component oracle.rdbms, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.plsql, 11.2.0.3.0...
+
+Patching component oracle.network.rsf, 11.2.0.3.0...
+
+Patching component oracle.precomp.common, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rman, 11.2.0.3.0...
+
+Patching component oracle.rdbms.util, 11.2.0.3.0...
+
+Patching component oracle.ntoledb.odp_net_2, 11.2.0.3.0...
+
+Patching component oracle.rdbms.dbscripts, 11.2.0.3.0...
+
+Patching component oracle.xdk.rsf, 11.2.0.3.0...
+
+Patching component oracle.rdbms.rsf.ic, 11.2.0.3.0...
+
+Patching component oracle.rdbms.oci, 11.2.0.3.0...
+
+Patching component oracle.ntoramts, 11.2.0.3.0...
+
+Patching component oracle.ntoledb, 11.2.0.3.0...
+
+Patching component oracle.ctx, 11.2.0.3.0...
+
+Patching component oracle.odbc.ic, 11.2.0.3.0...
+
+Patching component oracle.has.common.cvu, 11.2.0.3.0...
+
+Patching component oracle.has.deconfig, 11.2.0.3.0...
+
+Patching component oracle.has.rsf, 11.2.0.3.0...
+
+Patching component oracle.swd.oui, 11.2.0.3.0...
+
+Patching component oracle.has.common, 11.2.0.3.0...
+
+Patching component oracle.has.db, 11.2.0.3.0...
+
+Patching component oracle.usm.deconfig, 11.2.0.3.0...
+
+Patching component oracle.sysman.console.db, 11.2.0.3.0...
+
+Patching component oracle.network.listener, 11.2.0.3.0...
+
+Patching component oracle.sysman.agent, 10.2.0.4.3...
+
+Patching component oracle.ldap.rsf.ic, 11.2.0.3.0...
+
+Patching component oracle.rdbms.deconfig, 11.2.0.3.0...
+
+Patching component oracle.rdbms.dv, 11.2.0.3.0...
+
+Patching component oracle.rdbms.hsodbc, 11.2.0.3.0...
+
+Patching component oracle.ons, 11.2.0.3.0...
+
+Patching component oracle.install.deinstalltool, 11.2.0.3.0...
+
+Patching component oracle.oraolap.api, 11.2.0.3.0...
+
+Patching component oracle.oraolap, 11.2.0.3.0...
+
+Patching component oracle.sdo.locator, 11.2.0.3.0...
+
+Patching component oracle.ordim.server, 11.2.0.3.0...
+
+Patching component oracle.sysman.oms.core, 10.2.0.4.4...
+
+Patching component oracle.ldap.owm, 11.2.0.3.0...
+
+Patching component oracle.dbjava.ic, 11.2.0.3.0...
+
+Patching component oracle.ovm, 11.2.0.3.0...
+
+Patching component oracle.sysman.repository.core, 10.2.0.4.4...
+
+Patching component oracle.marvel, 11.2.0.3.0...
+
+Patching component oracle.xdk.parser.java, 11.2.0.3.0...
+
+Patching component oracle.xdk, 11.2.0.3.0...
+
+Patching component oracle.owb.rsf, 11.2.0.3.0...
+
+Verifying the update...
+Patch 17363850 successfully applied
+Log file location: C:\app\Administrator\product\11.2.0.3\dbhome_1\cfgtoollogs\opatch\17363850_Apr_26_2015_15_53_15\apply2015-04-26_15-53-14PM_1.log
+
+OPatch succeeded.
+
+C:\app\Administrator\product\11.2.0.3\dbhome_1\17363850>srvctl start instance -d RACDB -i RACDB2
+
+C:\app\Administrator\product\11.2.0.3\dbhome_1\17363850>net stop orafenceservice
+
+The OraFenceService service is not started.
+
+More help is available by typing NET HELPMSG 3521.
+
+
+C:\app\Administrator\product\11.2.0.3\dbhome_1\17363850>
+
+Copy yang perlu di-copy dari patch
+
+C:\app\11.2.0.3\grid\17363850>crsctl stop crs
+
+C:\app\Administrator\product\11.2.0.3\dbhome_1\17363850>shutdown -f -r -t 0
+
+Post Installation Node1
+-----------------------
+C:\>cd %ORACLE_HOME%\Bundle\Patch26
+
+C:\app\Administrator\product\11.2.0.3\dbhome_1\bundle\Patch26>sqlplus sys as sysdba
+
+SQL*Plus: Release 11.2.0.3.0 Production on Sun Apr 26 16:31:26 2015
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+Enter password:
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, Real Application Clusters, Automatic Storage Management,
+OLAP,
+Data Mining and Real Application Testing options
+
+SQL> @catwinbundle.sql

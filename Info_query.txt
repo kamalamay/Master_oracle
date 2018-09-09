@@ -1,0 +1,190 @@
+exp \'/ as sysdba\'  file=ASH_8Days.dmp log=ASH_8Days.log tables=WRH$\_ACTIVE\_SESSION\_HISTORY query=\"where SAMPLE_TIME\> \(sysdate -8\)\"
+imp userid=\'/ as sysdba\' fromuser=sys touser=sys file=ASH_8Days.dmp log=imp_ASH_8Days.log ignore=y
+
+
+CHECK TABLESPACE
+================
+set line 200 pages 200
+select   ddf.TABLESPACE_NAME as "NAME",
+         ddf.BYTES/1024/1024 as "Total(MB)",
+         (ddf.BYTES-DFS.BYTES)/1024/1024 as "Used(MB)",
+         round(((ddf.BYTES-dfs.BYTES)/ddf.BYTES)*100,2) as "Used(%)",
+         dfs.BYTES/1024/1024 as "Free(MB)",
+         round((1-((ddf.BYTES-dfs.BYTES)/ddf.BYTES))*100,2) as "Free(%)"   
+from    (select TABLESPACE_NAME,
+                sum(BYTES) bytes 
+         from   dba_data_files 
+         group  by TABLESPACE_NAME) ddf,
+        (select TABLESPACE_NAME,
+                sum(BYTES) bytes 
+         from   dba_free_space 
+         group  by TABLESPACE_NAME) dfs
+where    ddf.TABLESPACE_NAME=dfs.TABLESPACE_NAME
+order by ddf.TABLESPACE_NAME asc;
+
+set line 200 pages 200
+col FILE_NAME format a80
+SELECT a.tablespace_name, a.file_name, a.bytes allocated_bytes,
+b.free_bytes
+FROM dba_data_files a,
+(SELECT file_id, SUM(bytes) free_bytes
+FROM dba_free_space b GROUP BY file_id) b
+WHERE a.file_id=b.file_id
+ORDER BY a.tablespace_name;
+
+select substr(file_name,1,50), AUTOEXTENSIBLE, 
+increment_by*8192/1024/1024||' MB' as "Next Extend" 
+from dba_data_files
+order by substr(file_name,1,50) asc;
+
+select increment_by*8192/1024/1024||' MB' as "Next Extend" 
+from dba_data_files
+order by substr(file_name,1,50) asc;
+
+
+select * from (select a.snap_id as "asnapid",c.snap_id as "csnapid",begin_interval_time,end_interval_time,a.value as "avalue",c.value as "cvalue", to_number((c.value-a.value)/1000000/60) as "dbtime" 
+from dba_hist_sys_time_model a,dba_hist_snapshot b, dba_hist_sys_time_model c 
+where a.snap_id=b.snap_id and c.snap_id=a.snap_id+1 and a.stat_name=c.stat_name and a.stat_name like 'DB time'
+and to_char(b.begin_interval_time,'DD-MM-YYYY')>'1-03-2014'
+and to_char(b.end_interval_time,'DD-MM-YYYY')<='24-03-2014'
+order by to_number((c.value-a.value)/1000000/60) desc) where rownum = 1;
+
+
+
+
+Set pages 1000
+Set lines 75
+Select a.execution_end, b.type, b.impact, d.rank, d.type, 
+'Message           : '||b.message MESSAGE,
+'Command To correct: '||c.command COMMAND,
+'Action Message    : '||c.message ACTION_MESSAGE
+From dba_advisor_tasks a, dba_advisor_findings b,
+Dba_advisor_actions c, dba_advisor_recommendations d
+Where a.owner=b.owner and a.task_id=b.task_id
+And b.task_id=d.task_id and b.finding_id=d.finding_id
+And a.task_id=c.task_id and d.rec_id=c.rec_Id
+And a.task_name like 'ADDM%' and a.status='COMPLETED'
+Order by b.impact, d.rank;
+
+
+
+SQL> select file_name,bytes/1024/1024 mb
+from dba_data_files
+where tablespace_name = 'APP_DATA'
+order by file_name;
+
+FILE_NAME																											MB
+------------------------------------------------------------ -------
++DATA/SID/datafile/app_data.259.669898683											20000
++DATA/SID/datafile/app_data.267.636216519											28100
+
+alter database datafile '+PORTALDATA/portal/datafile/portal_idx17.dbf' resize 4G;
+
+alter tablespace APP_DATA add datafile '+DATA' size 20000m;
+
+ronny.n_wibowo@nsn.com
+taufiqur.rahman@nsn.com
+nadif.fabiansyah@nsn.com
+
+
+
+ select count(*) from NTMSIDB.chain_queue;
+ 
+ 
+==================ADDM HANGING TASK=====================
+select owner, task_name, last_execution, execution_start, status
+from dba_advisor_tasks
+where execution_end is null
+order by execution_start desc; 
+ 
+SQL> select 'exec dbms_advisor.delete_task(''' || TASK_NAME || ''' )' from dba_advisor_tasks where execution_end is null order by execution_start desc;
+
+'EXECDBMS_ADVISOR.DELETE_TASK('''||TASK_NAME||''')'
+----------------------------------------------------------------
+exec dbms_advisor.delete_task('SYS_AUTO_SPCADV_1300592007' )
+exec dbms_advisor.delete_task('SYS_AUTO_SPCADV_2700592007' )
+exec dbms_advisor.delete_task('SYS_AUTO_SPCADV_2220592007' )
+exec dbms_advisor.delete_task('ADDM:1488676071_1_33108' )
+exec dbms_advisor.delete_task('ADDM:1488676071_1_33113' )
+
+
+exec dbms_workload_repository.create_snapshot('TYPICAL');
+
+select owner, task_name, last_execution, execution_start, status
+from dba_advisor_tasks
+where execution_end is null
+order by execution_start desc; 
+
+
+=======NUMBER OF SUBSCRIBERS========
+PERFORMANCE
+==========================================================================
+SQL> select sum(USERS) from vassadw.gdm_report_3gcount; (update tiap hari rabu)
+
+SQL> select count(*) from vassadw.gdm_imei_sadm; (detailnya disini)
+
+  COUNT(*)
+----------
+  54018266
+
+
+TIP
+=====================================================
+SQL> select count(SUBSCRIBER_ID) from NTMSUDB.SUBSCRIBERS;
+
+COUNT(SUBSCRIBER_ID)
+--------------------
+            54207856
+            
+            
+            
+            
+
+CREATE USER "FERRY" IDENTIFIED BY ferry
+DEFAULT TABLESPACE "CMSPROD_DATA"
+TEMPORARY TABLESPACE "TEMP";
+
+GRANT "CONNECT" TO "FERRY";
+GRANT "RESOURCE" TO "FERRY";
+
+GRANT CREATE ANY JOB TO "FERRY"
+GRANT CREATE JOB TO "FERRY"
+GRANT UNDER ANY TABLE TO "FERRY"
+GRANT ALTER ANY INDEXTYPE TO "FERRY"
+GRANT CREATE ANY INDEXTYPE TO "FERRY"
+GRANT ALTER ANY TRIGGER TO "FERRY"
+GRANT CREATE ANY TRIGGER TO "FERRY"
+GRANT ALTER ANY PROCEDURE TO "FERRY"
+GRANT CREATE ANY VIEW TO "FERRY"
+GRANT CREATE ANY SYNONYM TO "FERRY"
+GRANT CREATE SYNONYM TO "FERRY"
+GRANT ALTER ANY INDEX TO "FERRY"
+GRANT CREATE ANY INDEX TO "FERRY"
+GRANT UPDATE ANY TABLE TO "FERRY"
+GRANT INSERT ANY TABLE TO "FERRY"
+GRANT SELECT ANY TABLE TO "FERRY"
+GRANT ALTER ANY TABLE TO "FERRY"
+GRANT CREATE ANY TABLE TO "FERRY"
+GRANT CREATE TABLE TO "FERRY"
+
+
+Remove older than 4 days :
+==========================
+find *.trm -mtime +4 -exec rm {} \;
+find *.trc -mtime +4 -exec rm {} \;
+
+List file older than 4 days :
+==========================
+find *.trc -mtime +4 -exec ls -ltrh {} \;
+
+find *.xml -mtime +2 -exec rm {} \;
+
+
+files=($(find /oracle/app/oracle/diag/rdbms/cms/cms2/trace -mtime -4))
+find cms2_m*.trc -mtime +4 -exec ls -ltrh {} \;
+
+REMOVE LISTENER LOG ONLINE :
+============================
+1. stop logging (lsnrctl set log_status off)
+2. del/mv file
+3. start logging (lsnrctl set log_status on)

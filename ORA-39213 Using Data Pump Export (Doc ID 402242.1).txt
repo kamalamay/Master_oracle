@@ -1,0 +1,1 @@
+ORA-39213 Using Data Pump Export (Doc ID 402242.1)

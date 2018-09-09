@@ -1,0 +1,26 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+export JAVA_HOME=/usr/java/jdk1.7.0_25
+export JAVA_OPTIONS=-DDomainRegistrationEnabled=true
+export ORACLE_HOME=/u01/app/oracle/product/fmw/Oracle_IDM1
+export ORACLE_INSTANCE=/u01/app/oracle/admin/oid_inst1
+PATH=$JAVA_HOME/bin:$PATH:$HOME/bin
+export PATH=$ORACLE_HOME/bin:$ORACLE_HOME/ldap/bin:$ORACLE_HOME/ldap/admin:$ORACLE_INSTANCE/bin:$PATH
+export OID_BIND_CPU=32
+alias stopoid='$ORACLE_INSTANCE/bin/opmnctl stopall'
+alias startoid='$ORACLE_INSTANCE/bin/opmnctl startall'
+alias statusoid='$ORACLE_INSTANCE/bin/opmnctl status -l'
+alias stopods='/u01/app/oracle/admin/IDMDomain/aserver/IDMDomain/bin/stopManagedWebLogic.sh wls_ods1'
+alias startods='nohup /u01/app/oracle/admin/IDMDomain/aserver/IDMDomain/bin/startManagedWebLogic.sh wls_ods1 >> /home/oracle/ods.log 2>&1 &'
+alias startadmin='nohup /u01/app/oracle/admin/IDMDomain/aserver/IDMDomain/startWebLogic.sh >> /home/oracle/admin.log 2>&1 &'
+alias stopadmin='/u01/app/oracle/admin/IDMDomain/aserver/IDMDomain/bin/stopWebLogic.sh'
+alias opdiag='oidctl connect=oiddb status -opdiag'
+alias userstat='oiddiag collect_sub=true infile=/home/oracle/diagin.txt < /home/oracle/arg.txt'
+alias cdaudit='cd /u01/app/oracle/admin/oid_inst1/auditlogs/OID/oid1'
+alias cdlog='cd /u01/app/oracle/admin/oid_inst1/diagnostics/logs/OID/oid1'

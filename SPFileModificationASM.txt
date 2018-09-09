@@ -1,0 +1,488 @@
+Modifying SPFILE ASM
+====================
+
+alert_POCRAC1.log
+=================
+2017-09-14T16:16:46.538779+07:00
+Starting ORACLE instance (normal) (OS id: 12644)
+2017-09-14T16:16:46.550301+07:00
+CLI notifier numLatches:13 maxDescs:1082
+2017-09-14T16:16:46.554144+07:00
+**********************************************************************
+2017-09-14T16:16:46.554323+07:00
+Dump of system resources acquired for SHARED GLOBAL AREA (SGA)
+
+2017-09-14T16:16:46.554554+07:00
+ Per process system memlock (soft) limit = UNLIMITED
+2017-09-14T16:16:46.554702+07:00
+ Expected per process system memlock (soft) limit to lock
+ SHARED GLOBAL AREA (SGA) into memory: 19G
+2017-09-14T16:16:46.555017+07:00
+ Available system pagesizes:
+  4K, 2048K
+2017-09-14T16:16:46.555276+07:00
+ Supported system pagesize(s):
+2017-09-14T16:16:46.555438+07:00
+  PAGESIZE  AVAILABLE_PAGES  EXPECTED_PAGES  ALLOCATED_PAGES  ERROR(s)
+2017-09-14T16:16:46.555597+07:00
+        4K       Configured               6         4931590        NONE
+2017-09-14T16:16:46.555855+07:00
+     2048K                0            9633               0        NONE
+2017-09-14T16:16:46.556054+07:00
+RECOMMENDATION:
+2017-09-14T16:16:46.556198+07:00
+ 1. For optimal performance, configure system with expected number
+ of pages for every supported system pagesize prior to the next
+ instance restart operation.
+2017-09-14T16:16:46.565468+07:00
+**********************************************************************
+LICENSE_MAX_SESSION = 0
+LICENSE_SESSIONS_WARNING = 0
+Initial number of CPU is 8
+Number of processor cores in the system is 8
+Number of processor sockets in the system is 2
+Exafusion(Msgq-Auto) enabled
+2017-09-14T16:16:47.845156+07:00
+Using LOG_ARCHIVE_DEST_1 parameter default value as USE_DB_RECOVERY_FILE_DEST
+2017-09-14T16:16:47.858615+07:00
+WARNING: db_recovery_file_dest is same as db_create_file_dest
+Autotune of undo retention is turned on.
+LICENSE_MAX_USERS = 0
+SYS auditing is enabled
+NOTE: remote asm mode is remote (mode 0x2; from cluster type)
+NOTE: Cluster configuration type = CLUSTER [4]
+ADI registration failed for IMC read only area, so not using ADI versioning
+Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production.
+ORACLE_HOME:    /u01/app/oracle/product/12.2.0/db_1
+System name:    Linux
+Node name:      vmr03.mandirisek.co.id
+Release:        3.8.13-68.3.4.el6uek.x86_64
+Version:        #2 SMP Tue Jul 14 15:03:36 PDT 2015
+Machine:        x86_64
+Using parameter settings in server-side spfile +DATA/POCRAC/PARAMETERFILE/spfile.299.954609951
+System parameters with non-default values:
+  processes                = 640
+  nls_language             = "AMERICAN"
+  nls_territory            = "AMERICA"
+  sga_target               = 19264M
+  control_files            = "+DATA/POCRAC/CONTROLFILE/current.288.954609705"
+  control_files            = "+DATA/POCRAC/CONTROLFILE/current.287.954609705"
+  db_block_size            = 8192
+  db_flash_cache_file      = "/dev/sdd"
+  db_flash_cache_size      = 5G
+  compatible               = "12.2.0"
+  log_archive_format       = "%t_%s_%r.arc"
+  cluster_database         = TRUE
+  db_create_file_dest      = "+DATA"
+  db_recovery_file_dest    = "+DATA"
+  db_recovery_file_dest_size= 32G
+  thread                   = 1
+  undo_tablespace          = "UNDOTBS1"
+  instance_number          = 1
+  inmemory_size            = 12G
+  remote_login_passwordfile= "EXCLUSIVE"
+  dispatchers              = "(PROTOCOL=TCP) (SERVICE=POCRACXDB)"
+  local_listener           = "-oraagent-dummy-"
+  audit_file_dest          = "/u01/app/oracle/admin/POCRAC/adump"
+  audit_trail              = "DB"
+  db_name                  = "POCRAC"
+  open_cursors             = 300
+  pga_aggregate_target     = 6418M
+  diagnostic_dest          = "/u01/app/oracle"
+NOTE: remote asm mode is remote (mode 0x2; from cluster type)
+2017-09-14T16:16:48.394190+07:00
+Cluster Communication is configured to use IPs from: GPnP
+IP: 169.254.171.204      Subnet: 169.254.0.0
+KSIPC Loopback IP addresses(OSD):
+127.0.0.1
+KSIPC Available Transports: UDP:TCP
+KSIPC: Client: KCL       Transport: UDP
+KSIPC: Client: DLM       Transport: UDP
+KSIPC CAPABILITIES :IPCLW:GRPAM:TOPO:DLL
+KSXP: ksxpsg_ipclwtrans: 2 UDP
+cluster interconnect IPC version: [IPCLW over UDP(mode 3) ]
+IPC Vendor 1 proto 2
+Oracle instance running with ODM: Oracle Direct NFS ODM Library Version 4.0
+============================================================
+NOTE: PatchLevel of this instance 0
+============================================================
+Starting background process PMON
+2017-09-14T16:16:48.603972+07:00
+PMON started with pid=2, OS id=12662
+Starting background process CLMN
+2017-09-14T16:16:48.649737+07:00
+CLMN started with pid=3, OS id=12664
+Starting background process PSP0
+2017-09-14T16:16:48.684744+07:00
+PSP0 started with pid=4, OS id=12666
+Starting background process IPC0
+2017-09-14T16:16:49.740073+07:00
+IPC0 started with pid=5, OS id=12677
+2017-09-14T16:16:49.740065+07:00
+Starting background process VKTM
+2017-09-14T16:16:49.790137+07:00
+VKTM started with pid=6, OS id=12679 at elevated (RT) priority
+Starting background process GEN0
+2017-09-14T16:16:49.793272+07:00
+VKTM running at (1)millisec precision with DBRM quantum (100)ms
+2017-09-14T16:16:49.820641+07:00
+GEN0 started with pid=7, OS id=12683
+Starting background process MMAN
+2017-09-14T16:16:49.858839+07:00
+MMAN started with pid=8, OS id=12685
+Starting background process GEN1
+2017-09-14T16:16:49.977925+07:00
+GEN1 started with pid=10, OS id=12689_12691
+Starting background process DIAG
+2017-09-14T16:16:50.011577+07:00
+DIAG started with pid=12, OS id=12693
+Starting background process OFSD
+2017-09-14T16:16:50.079408+07:00
+OFSD started with pid=13, OS id=12695_12697
+Starting background process DBRM
+2017-09-14T16:16:50.081110+07:00
+Oracle running with ofslib:'Oracle File Server Library' version=2
+2017-09-14T16:16:50.113113+07:00
+DBRM started with pid=15, OS id=12699
+Starting background process VKRM
+2017-09-14T16:16:50.147122+07:00
+VKRM started with pid=16, OS id=12701
+Starting background process PING
+2017-09-14T16:16:50.182611+07:00
+PING started with pid=17, OS id=12703
+Starting background process SVCB
+2017-09-14T16:16:50.235494+07:00
+SVCB started with pid=18, OS id=12705
+Starting background process ACMS
+2017-09-14T16:16:50.270400+07:00
+ACMS started with pid=19, OS id=12707
+Starting background process PMAN
+2017-09-14T16:16:50.300970+07:00
+PMAN started with pid=20, OS id=12709
+Starting background process DIA0
+2017-09-14T16:16:50.334222+07:00
+DIA0 started with pid=21, OS id=12711
+Starting background process LMON
+2017-09-14T16:16:50.371271+07:00
+LMON started with pid=22, OS id=12713
+Starting background process LMD0
+2017-09-14T16:16:50.404199+07:00
+LMD0 started with pid=23, OS id=12715
+Starting background process LMD1
+2017-09-14T16:16:50.405273+07:00
+LMS0 started with pid=24, OS id=12717 at elevated (RT) priority
+2017-09-14T16:16:50.405276+07:00
+LMS1 started with pid=25, OS id=12719 at elevated (RT) priority
+2017-09-14T16:16:50.406484+07:00
+* Load Monitor used for high load check
+* New Low - High Load Threshold Range = [7680 - 10240]
+2017-09-14T16:16:50.448759+07:00
+LMD1 started with pid=26, OS id=12725
+Starting background process RMS0
+2017-09-14T16:16:50.486535+07:00
+RMS0 started with pid=27, OS id=12727
+Starting background process LMHB
+2017-09-14T16:16:50.526471+07:00
+LMHB started with pid=28, OS id=12729
+Starting background process LCK1
+2017-09-14T16:16:50.567106+07:00
+LCK1 started with pid=29, OS id=12731
+Starting background process DBW0
+2017-09-14T16:16:50.611065+07:00
+DBW0 started with pid=30, OS id=12733
+Starting background process LGWR
+2017-09-14T16:16:50.660423+07:00
+LGWR started with pid=31, OS id=12735
+Starting background process CKPT
+2017-09-14T16:16:50.697054+07:00
+CKPT started with pid=32, OS id=12737
+2017-09-14T16:16:50.749438+07:00
+LGWR slave LG00 created with pid=33, OS pid=12739
+2017-09-14T16:16:50.749471+07:00
+Starting background process SMON
+2017-09-14T16:16:50.794724+07:00
+SMON started with pid=34, OS id=12741
+LGWR slave LG01 created with pid=35, OS pid=12743
+Starting background process SMCO
+Starting background process RECO
+2017-09-14T16:16:50.888821+07:00
+SMCO started with pid=37, OS id=12747
+2017-09-14T16:16:50.916094+07:00
+RECO started with pid=39, OS id=12751
+Starting background process LREG
+2017-09-14T16:16:50.989236+07:00
+LREG started with pid=41, OS id=12755
+Starting background process PXMN
+2017-09-14T16:16:51.058292+07:00
+PXMN started with pid=43, OS id=12759
+Starting background process RBAL
+2017-09-14T16:16:51.086715+07:00
+RBAL started with pid=44, OS id=12761
+Starting background process ASMB
+2017-09-14T16:16:51.116549+07:00
+ASMB started with pid=45, OS id=12763
+Starting background process FENC
+2017-09-14T16:16:51.147302+07:00
+FENC started with pid=46, OS id=12765
+Starting background process MMON
+Starting background process MMNL
+2017-09-14T16:16:51.197074+07:00
+MMON started with pid=47, OS id=12767
+2017-09-14T16:16:51.239631+07:00
+starting up 1 dispatcher(s) for network address '(ADDRESS=(PARTIAL=YES)(PROTOCOL=TCP))'...
+2017-09-14T16:16:51.239642+07:00
+MMNL started with pid=48, OS id=12769
+starting up 1 shared server(s) ...
+2017-09-14T16:16:51.450811+07:00
+lmon registered with NM - instance number 1 (internal mem no 0)
+2017-09-14T16:16:51.689837+07:00
+* Load Monitor used for high load check
+* New Low - High Load Threshold Range = [7680 - 10240]
+2017-09-14T16:16:51.761920+07:00
+* allocate domain 0, valid ? 0
+Attached to domain 0 (addr: 0x305ac48a8)
+2017-09-14T16:16:51.768730+07:00
+Reconfiguration started (old inc 0, new inc 2)
+List of instances (total 1) :
+ 1
+My inst 1 (I'm a new instance)
+ Global Resource Directory frozen
+ Communication channels reestablished
+ Master broadcasted resource hash value bitmaps
+ Non-local Process blocks cleaned out
+2017-09-14T16:16:52.078694+07:00
+ LMS 0: 0 GCS shadows cancelled, 0 closed, 0 Xw survived, skipped 0
+2017-09-14T16:16:52.078826+07:00
+ LMS 1: 0 GCS shadows cancelled, 0 closed, 0 Xw survived, skipped 0
+ Set master node info
+ Submitted all remote-enqueue requests
+ Dwn-cvts replayed, VALBLKs dubious
+ All grantable enqueues granted
+2017-09-14T16:16:52.161132+07:00
+ Post SMON to start 1st pass IR
+ Submitted all GCS remote-cache requests
+ Fix write in gcs resources
+2017-09-14T16:16:52.247145+07:00
+Reconfiguration complete (total time 0.5 secs)
+2017-09-14T16:16:52.249060+07:00
+Starting background process LCK0
+2017-09-14T16:16:52.279307+07:00
+LCK0 started with pid=54, OS id=12782
+2017-09-14T16:16:52.325721+07:00
+NOTE: ASMB0 registering with ASM instance as Flex client 0xffffffffffffffff (reg:3114645170) (new connection)
+NOTE: ASMB0 (12763) connected to ASM instance +ASM1, osid: 12784 (Flex mode; client id 0x1000e)
+NOTE: initiating MARK startup
+Starting background process MARK
+2017-09-14T16:16:52.590221+07:00
+MARK started with pid=55, OS id=12787
+Starting background process RSMN
+2017-09-14T16:16:52.621206+07:00
+RSMN started with pid=56, OS id=12789
+Starting background process TMON
+2017-09-14T16:16:52.671741+07:00
+TMON started with pid=57, OS id=12791
+2017-09-14T16:16:52.738097+07:00
+NOTE: MARK has subscribed
+ORACLE_BASE from environment = /u01/app/oracle
+2017-09-14T16:16:53.120369+07:00
+Using default pga_aggregate_limit of 12836 MB
+2017-09-14T16:16:53.609823+07:00
+ALTER SYSTEM SET local_listener=' (ADDRESS=(PROTOCOL=TCP)(HOST=10.75.66.35)(PORT=1521))' SCOPE=MEMORY SID='POCRAC1';
+2017-09-14T16:16:53.990131+07:00
+ALTER SYSTEM SET remote_listener=' vmr-scan.mandirisek.co.id:1521' SCOPE=MEMORY SID='POCRAC1';
+2017-09-14T16:16:53.994214+07:00
+ALTER SYSTEM SET listener_networks='' SCOPE=MEMORY SID='POCRAC1';
+ALTER DATABASE MOUNT /* db agent *//* {0:1:16} */
+2017-09-14T16:16:54.047282+07:00
+This instance was first to mount
+2017-09-14T16:16:54.893182+07:00
+NOTE: ASMB mounting group 1 (DATA)
+NOTE: ASM background process initiating disk discovery for grp 1 (reqid:0)
+NOTE: Assigning number (1,0) to disk (/dev/sda1)
+SUCCESS: mounted group 1 (DATA)
+NOTE: grp 1 disk 0: DATA_0000 path:/dev/sda1
+2017-09-14T16:16:55.068247+07:00
+NOTE: dependency between database POCRAC and diskgroup resource ora.DATA.dg is established
+2017-09-14T16:16:55.260832+07:00
+KSXPPING: KSXP selected for Ping
+2017-09-14T16:16:59.553644+07:00
+Network throttle feature is disabled as mount time
+
+2017-09-14T16:16:59.896111+07:00
+Successful mount of redo thread 1, with mount id 614346550
+2017-09-14T16:17:00.023160+07:00
+Database mounted in Shared Mode (CLUSTER_DATABASE=TRUE)
+Lost write protection disabled
+Using STANDBY_ARCHIVE_DEST parameter default value as USE_DB_RECOVERY_FILE_DEST
+Completed: ALTER DATABASE MOUNT /* db agent *//* {0:1:16} */
+ALTER DATABASE OPEN /* db agent *//* {0:1:16} */
+This instance was first to open
+Ping without log force is disabled:
+  not an Exadata system.
+Buffer Cache Full DB Caching mode changing from FULL CACHING DISABLED to FULL CACHING ENABLED
+2017-09-14T16:17:00.651303+07:00
+start recovery: pdb 0, passed in flags x4 (domain enable 0)
+2017-09-14T16:17:00.651666+07:00
+Beginning crash recovery of 1 threads
+ parallel recovery started with 7 processes
+2017-09-14T16:17:00.752031+07:00
+start recovery: pdb 0, passed in flags x5 (domain enable 0)
+2017-09-14T16:17:00.752035+07:00
+start recovery: pdb 0, passed in flags x5 (domain enable 0)
+2017-09-14T16:17:00.752077+07:00
+start recovery: pdb 0, passed in flags x5 (domain enable 0)
+2017-09-14T16:17:00.752774+07:00
+start recovery: pdb 0, passed in flags x5 (domain enable 0)
+2017-09-14T16:17:00.753250+07:00
+start recovery: pdb 0, passed in flags x5 (domain enable 0)
+2017-09-14T16:17:00.753518+07:00
+start recovery: pdb 0, passed in flags x5 (domain enable 0)
+2017-09-14T16:17:00.755107+07:00
+start recovery: pdb 0, passed in flags x5 (domain enable 0)
+2017-09-14T16:17:00.810277+07:00
+Started redo scan
+2017-09-14T16:17:00.957075+07:00
+Completed redo scan
+ read 23 KB redo, 23 data blocks need recovery
+2017-09-14T16:17:00.991145+07:00
+Started redo application at
+ Thread 1: logseq 9, block 16659, offset 0, scn 0x0000000000198ac0
+2017-09-14T16:17:01.018560+07:00
+Recovery of Online Redo Log: Thread 1 Group 1 Seq 9 Reading mem 0
+  Mem# 0: +DATA/POCRAC/ONLINELOG/group_1.289.954609709
+  Mem# 1: +DATA/POCRAC/ONLINELOG/group_1.291.954609711
+2017-09-14T16:17:01.025657+07:00
+Completed redo application of 0.01MB
+2017-09-14T16:17:01.030025+07:00
+Error recreating specified db_flash_cache_file=/dev/sdd due to ORA-27041
+2017-09-14T16:17:01.030373+07:00
+Errors in file /u01/app/oracle/diag/rdbms/pocrac/POCRAC1/trace/POCRAC1_dbw0_12733.trc:
+ORA-27041: unable to open file
+Linux-x86_64 Error: 13: Permission denied
+Additional information: 1
+2017-09-14T16:17:01.030685+07:00
+Errors in file /u01/app/oracle/diag/rdbms/pocrac/POCRAC1/trace/POCRAC1_dbw0_12733.trc:
+ORA-27041: unable to open file
+Linux-x86_64 Error: 13: Permission denied
+Additional information: 1
+Errors in file /u01/app/oracle/diag/rdbms/pocrac/POCRAC1/trace/POCRAC1_dbw0_12733.trc  (incident=41201):
+ORA-27041 [] [] [] [] [] [] [] [] [] [] [] []
+Incident details in: /u01/app/oracle/diag/rdbms/pocrac/POCRAC1/incident/incdir_41201/POCRAC1_dbw0_12733_i41201.trc
+2017-09-14T16:17:02.314802+07:00
+USER (ospid: 12733): terminating the instance due to error 27041
+2017-09-14T16:17:02.342796+07:00
+NOTE: Deferred communication with ASM instance
+NOTE: deferred map free for map id 28
+2017-09-14T16:17:02.484935+07:00
+System state dump requested by (instance=1, osid=12733 (DBW0)), summary=[abnormal instance termination].
+System State dumped to trace file /u01/app/oracle/diag/rdbms/pocrac/POCRAC1/trace/POCRAC1_diag_12693_20170914161702.trc
+2017-09-14T16:17:03.426509+07:00
+Dumping diagnostic data in directory=[cdmp_20170914161702], requested by (instance=1, osid=12733 (DBW0)), summary=[abnormal instance termination].
+2017-09-14T16:17:03.722557+07:00
+License high water mark = 8
+2017-09-14T16:17:04.806618+07:00
+Instance terminated by USER, pid = 12733
+2017-09-14T16:17:04.809411+07:00
+Warning: 2 processes are still attach to shmid 2392079:
+ (size: 24576 bytes, creator pid: 12644, last attach/detach pid: 12693)
+2017-09-14T16:17:05.724725+07:00
+USER (ospid: 12869): terminating the instance
+2017-09-14T16:17:05.728302+07:00
+Instance terminated by USER, pid = 12869
+
+Create pfile from spfile
+========================
+[oracle@vmr04 ~]$ . db_env
+[oracle@vmr04 ~]$ sqlplus / as sysdba
+
+SQL*Plus: Release 12.2.0.1.0 Production on Thu Sep 14 16:21:30 2017
+
+Copyright (c) 1982, 2016, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL> create pfile='/home/oracle/initPOCRAC2.ora' from spfile='+DATA/POCRAC/PARAMETERFILE/spfile.299.954609951';
+
+File created.
+
+SQL>
+
+Modify pfile to restore as before
+=================================
+[oracle@vmr04 ~]$ cat initPOCRAC2.ora
+POCRAC2.__data_transfer_cache_size=0
+POCRAC1.__data_transfer_cache_size=0
+POCRAC2.__db_cache_size=5570035712
+POCRAC1.__db_cache_size=5771362304
+POCRAC1.__inmemory_ext_roarea=0
+POCRAC2.__inmemory_ext_roarea=0
+POCRAC2.__inmemory_ext_rwarea=0
+POCRAC1.__inmemory_ext_rwarea=0
+POCRAC2.__java_pool_size=67108864
+POCRAC1.__java_pool_size=67108864
+POCRAC2.__large_pool_size=402653184
+POCRAC1.__large_pool_size=402653184
+POCRAC1.__oracle_base='/u01/app/oracle'#ORACLE_BASE set from environment
+POCRAC2.__oracle_base='/u01/app/oracle'#ORACLE_BASE set from environment
+POCRAC1.__pga_aggregate_target=6777995264
+POCRAC2.__pga_aggregate_target=6777995264
+POCRAC2.__sga_target=20199768064
+POCRAC1.__sga_target=20199768064
+POCRAC2.__shared_io_pool_size=0
+POCRAC1.__shared_io_pool_size=0
+POCRAC2.__shared_pool_size=1207959552
+POCRAC1.__shared_pool_size=1207959552
+POCRAC2.__streams_pool_size=0
+POCRAC1.__streams_pool_size=0
+*.audit_file_dest='/u01/app/oracle/admin/POCRAC/adump'
+*.audit_trail='db'
+*.cluster_database=true
+*.compatible='12.2.0'
+*.control_files='+DATA/POCRAC/CONTROLFILE/current.288.954609705','+DATA/POCRAC/CONTROLFILE/current.287.954609705'
+*.db_block_size=8192
+*.db_create_file_dest='+DATA'
+*.db_flash_cache_file='/dev/sdd'
+*.db_flash_cache_size=5368709120
+*.db_name='POCRAC'
+*.db_recovery_file_dest='+DATA'
+*.db_recovery_file_dest_size=32g
+*.diagnostic_dest='/u01/app/oracle'
+*.dispatchers='(PROTOCOL=TCP) (SERVICE=POCRACXDB)'
+*.inmemory_size=12884901888
+family:dw_helper.instance_mode='read-only'
+POCRAC2.instance_number=2
+POCRAC1.instance_number=1
+*.local_listener='-oraagent-dummy-'
+*.log_archive_format='%t_%s_%r.arc'
+*.nls_language='AMERICAN'
+*.nls_territory='AMERICA'
+*.open_cursors=300
+*.pga_aggregate_target=6418m
+*.processes=640
+*.remote_login_passwordfile='exclusive'
+*.sga_target=19252m
+POCRAC2.thread=2
+POCRAC1.thread=1
+POCRAC1.undo_tablespace='UNDOTBS1'
+POCRAC2.undo_tablespace='UNDOTBS2'
+[oracle@vmr04 ~]$ cp initPOCRAC2.ora initPOCRAC2.ori
+[oracle@vmr04 ~]$ nano initPOCRAC2.ora
+[oracle@vmr04 ~]$
+
+Create spfile to ASM from pfile
+===============================
+SQL> create spfile='+DATA/POCRAC/PARAMETERFILE/spfilePOCRAC_20170914.ora' from pfile='/home/oracle/initPOCRAC2.ora';
+
+File created.
+
+SQL>
+
+Start both instances
+====================
+[oracle@vmr04 ~]$ . grid_env
+[oracle@vmr04 ~]$ srvctl start instance -d POCRAC -i POCRAC2
+[oracle@vmr04 ~]$ srvctl start instance -d POCRAC -i POCRAC1
+[oracle@vmr04 ~]$ srvctl status database -d POCRAC
+Instance POCRAC1 is running on node vmr03
+Instance POCRAC2 is running on node vmr04
+[oracle@vmr04 ~]$

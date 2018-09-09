@@ -1,0 +1,537 @@
+STEP Cloning :
+
+=================================================
+					Pre Clone
+=================================================
+
+1. Preclone database
+
+	cd /finance/db/other/finprod/finproddb/12.1.0/appsutil/scripts/FINPROD_tborcdb14
+	 
+	perl adpreclone.pl dbTier
+                     Copyright (c) 2011, 2014 Oracle Corporation
+                        Redwood Shores, California, USA
+
+                        Oracle E-Business Suite Rapid Clone
+
+                                 Version 12.2
+
+                      adpreclone Version 120.31.12020000.20
+
+	Enter the APPS User Password: 
+	Verifying if Database Patch checker (ETCC) exists in /finance/db/other/finprod/finproddb/12.1.0/appsutil/etcc 
+
+
+	Running:
+	perl /finance/db/other/finprod/finproddb/12.1.0/appsutil/bin/adclone.pl java=/finance/db/other/finprod/finproddb/12.1.0/appsutil/jre mode=stage stage=/finance/db/other/finprod/finproddb/12.1.0/appsutil/clone component=dbTier method=CUSTOM dbctx=/finance/db/other/finprod/finproddb/12.1.0/appsutil/FINPROD_tborcdb14.xml showProgress 
+
+
+	Beginning database tier Stage - Mon Jul 17 13:45:15 2017
+
+	/finance/db/other/finprod/finproddb/12.1.0/appsutil/jre/bin/java -Xmx600M -DCONTEXT_VALIDATED=false -Doracle.installer.oui_loc=/finance/db/other/finprod/finproddb/12.1.0/oui -classpath /finance/db/other/finprod/finproddb/12.1.0/lib/xmlparserv2.jar:/finance/db/other/finprod/finproddb/12.1.0/jdbc/lib/ojdbc6.jar:/finance/db/other/finprod/finproddb/12.1.0/appsutil/java:/finance/db/other/finprod/finproddb/12.1.0/oui/jlib/OraInstaller.jar:/finance/db/other/finprod/finproddb/12.1.0/oui/jlib/ewt3.jar:/finance/db/other/finprod/finproddb/12.1.0/oui/jlib/share.jar:/finance/db/other/finprod/finproddb/12.1.0/oui/jlib/srvm.jar:/finance/db/other/finprod/finproddb/12.1.0/jlib/ojmisc.jar   oracle.apps.ad.clone.StageDBTier -e /finance/db/other/finprod/finproddb/12.1.0/appsutil/FINPROD_tborcdb14.xml -stage /finance/db/other/finprod/finproddb/12.1.0/appsutil/clone -tmp /tmp -method CUSTOM    -showProgress
+	APPS Password : 
+	Log file located at /finance/db/other/finprod/finproddb/12.1.0/appsutil/log/FINPROD_tborcdb14/StageDBTier_07171345.log
+
+	  \     50% completed       
+
+	Completed Stage...
+	Mon Jul 17 13:45:55 2017
+
+	Error: Duplicate data file names exist.
+	Please refer to /finance/db/other/finprod/finproddb/12.1.0/appsutil/temp/dupDBFiles.log 
+	for more details.
+	
+2. Preclone Aplikasi 
+
+	cd $ADMIN_SCRIPTS_HOME
+	
+	perl adpreclone.pl appsTier
+
+                     Copyright (c) 2011, 2014 Oracle Corporation
+                        Redwood Shores, California, USA
+
+                        Oracle E-Business Suite Rapid Clone
+
+                                 Version 12.2
+
+                      adpreclone Version 120.31.12020000.20
+					  
+	Enter the APPS User Password: 
+	Enter the Weblogic AdminServer password : 
+
+	 Checking the status of the Oracle WebLogic Administration Server....
+
+	 Running perl /finance/apps02/finprod/fs1/EBSapps/appl/ad/12.0.0/patch/115/bin/adProvisionEBS.pl ebs-get-serverstatus -contextfile=/finance/apps02/finprod/fs1/inst/apps/FINSIT_tborcsit8/appl/admin/FINSIT_tborcsit8.xml -servername=AdminServer -promptmsg=hide  
+
+
+	The Oracle WebLogic Administration Server is up.
+
+	Running:
+	perl /finance/apps02/finprod/fs1/EBSapps/appl/ad/12.0.0/bin/adclone.pl java=/finance/apps02/finprod/fs1/EBSapps/comn/util/jdk64 mode=stage stage=/finance/apps02/finprod/fs1/EBSapps/comn/clone component=appsTier method= appctx=/finance/apps02/finprod/fs1/inst/apps/FINSIT_tborcsit8/appl/admin/FINSIT_tborcsit8.xml showProgress 
+
+
+
+	 Setting the wls environment 
+
+	Beginning application tier Stage - Fri Jul 14 14:04:45 2017
+
+	/finance/apps02/finprod/fs1/EBSapps/comn/util/jdk64/bin/java -Xmx600M -DCONTEXT_VALIDATED=false -Doracle.installer.oui_loc=/oui -classpath /finance/apps02/finprod/fs1/FMW_Home/webtier/lib/xmlparserv2.jar:/finance/apps02/finprod/fs1/FMW_Home/webtier/jdbc/lib/ojdbc6.jar:/finance/apps02/finprod/fs1/EBSapps/comn/java/classes:/finance/apps02/finprod/fs1/FMW_Home/webtier/oui/jlib/OraInstaller.jar:/finance/apps02/finprod/fs1/FMW_Home/webtier/oui/jlib/ewt3.jar:/finance/apps02/finprod/fs1/FMW_Home/webtier/oui/jlib/share.jar:/finance/apps02/finprod/fs1/FMW_Home/webtier/../Oracle_EBS-app1/oui/jlib/srvm.jar:/finance/apps02/finprod/fs1/FMW_Home/webtier/jlib/ojmisc.jar:/finance/apps02/finprod/fs1/FMW_Home/wlserver_10.3/server/lib/weblogic.jar:/finance/apps02/finprod/fs1/FMW_Home/oracle_common/jlib/obfuscatepassword.jar  oracle.apps.ad.clone.StageAppsTier -e /finance/apps02/finprod/fs1/inst/apps/FINSIT_tborcsit8/appl/admin/FINSIT_tborcsit8.xml -stage /finance/apps02/finprod/fs1/EBSapps/comn/clone -tmp /tmp -method CUSTOM   -showProgress -nopromptmsg 
+
+	Log file located at /finance/apps02/finprod/fs1/inst/apps/FINSIT_tborcsit8/admin/log/clone/StageAppsTier_07141404.log
+
+	  -     20% completed       
+
+	Completed Stage...
+	Fri Jul 14 14:11:11 2017
+	
+	
+3. Copy DB engine to target server 
+   Copy datafile to target if using cold backup.
+   Copy backup file to target if using hot backup.
+4. Copy APPS Engine only fs1/EBSapps to target server
+
+=============================================
+				Post Clone
+=============================================
+
+1. Database
+
+   - clean oraInventory folder.
+     more /etc/oraInst.loc 
+	 inventory_loc=/finance/db/other/finprod/finproddb/oraInventory
+	 
+	 [finance@TBORCSIT8 12.1.0]$ export ORACLE_HOME=/finance/db/other/finprod/finproddb/12.1.0
+	 [finance@TBORCSIT8 12.1.0]$ export ORACLE_SID=FINSIT
+     
+   cd $ORACLE_HOME/appsutil/clone/bin
+   [finance@TBORCSIT8 bin]$ perl adcfgclone.pl dbTechStack
+
+                     Copyright (c) 2002, 2015 Oracle Corporation
+                        Redwood Shores, California, USA
+
+                        Oracle E-Business Suite Rapid Clone
+
+                                 Version 12.2
+
+                      adcfgclone Version 120.63.12020000.56
+
+	Enter the APPS password : 
+
+	Running: Context clone...
+
+	Log file located at /finance/db/other/finprod/finproddb/12.1.0/appsutil/clone/bin/CloneContext_0717150520.log
+
+	Provide the values required for creation of the new Database Context file.
+
+	Target System Hostname (virtual or normal) [tborcsit8] : 
+
+	Target Instance is RAC (y/n) [n] : 
+
+	Target System Database SID : FINPROD
+
+	Target System Base Directory : /finance/db/other/finprod/finproddb
+
+	Target System utl_file_dir Directory List : /usr/tmp
+
+	Number of DATA_TOP's on the Target System [20] : 17
+
+	Target System DATA_TOP Directory 1 : /finance/db/data01/finprod/finproddata
+
+	Target System DATA_TOP Directory 2 : /finance/db/data02/finprod/finproddata
+
+	Target System DATA_TOP Directory 3 : /finance/db/data03/finprod/finproddata
+
+	Target System DATA_TOP Directory 4 : /finance/db/data04/finprod/finproddata
+
+	Target System DATA_TOP Directory 5 : /finance/db/data05/finprod/finproddata
+
+	Target System DATA_TOP Directory 6 : /finance/db/data06/finprod/finproddata
+
+	Target System DATA_TOP Directory 7 : /finance/db/data07/finprod/finproddata
+
+	Target System DATA_TOP Directory 8 : /finance/db/index/finprod/finproddata
+
+	Target System DATA_TOP Directory 9 : /finance/db/index01/finprod/finproddata
+
+	Target System DATA_TOP Directory 10 : /finance/db/index02/finprod/finproddata
+
+	Target System DATA_TOP Directory 11 : /finance/db/index03/finprod/finproddata
+
+	Target System DATA_TOP Directory 12 : /finance/db/index04/finprod/finproddata
+
+	Target System DATA_TOP Directory 13 : /finance/db/index05/finprod/finproddata
+
+	Target System DATA_TOP Directory 14 : /finance/db/index06/finprod/finproddata
+
+	Target System DATA_TOP Directory 15 : /finance/db/index07/finprod/finproddata
+
+	Target System DATA_TOP Directory 16 : /backup/finprod/finproddata
+
+	Target System DATA_TOP Directory 17 : /archive/finprod/finproddata
+
+	Target System RDBMS ORACLE_HOME Directory [/finance/db/other/finprod/finproddb/12.1.0] : 
+
+	Do you want to preserve the Display [localhost:13.0] (y/n)  : n
+
+	Target System Display [tborcsit8:0.0] : 
+
+	Do you want the target system to have the same port values as the source system (y/n) [y] ? : n
+
+	Target System Port Pool [0-99] : 4
+
+	Checking the port pool 4
+	done: Port Pool 4 is free
+	Report file located at /finance/db/other/finprod/finproddb/12.1.0/appsutil/temp/portpool.lst
+	The new database context file has been created :
+	  /finance/db/other/finprod/finproddb/12.1.0/appsutil/FINPROD_tborcsit8.xml
+	Check Clone Context logfile /finance/db/other/finprod/finproddb/12.1.0/appsutil/clone/bin/CloneContext_0717150520.log for details.
+
+	Running Rapid Clone with command:
+
+	Running:
+	perl /finance/db/other/finprod/finproddb/12.1.0/appsutil/clone/bin/adclone.pl java=/finance/db/other/finprod/finproddb/12.1.0/appsutil/clone/bin/../jre mode=apply stage=/finance/db/other/finprod/finproddb/12.1.0/appsutil/clone component=dbTechStack method=CUSTOM dbctxtg=/finance/db/other/finprod/finproddb/12.1.0/appsutil/FINPROD_tborcsit8.xml showProgress contextValidated=true
+
+
+	Beginning rdbms home Apply - Mon Jul 17 15:07:29 2017
+
+	/finance/db/other/finprod/finproddb/12.1.0/appsutil/clone/bin/../jre/bin/java -Xmx600M -DCONTEXT_VALIDATED=true -Doracle.installer.oui_loc=/finance/db/other/finprod/finproddb/12.1.0/oui -classpath /finance/db/other/finprod/finproddb/12.1.0/appsutil/clone/jlib/xmlparserv2.jar:/finance/db/other/finprod/finproddb/12.1.0/appsutil/clone/jlib/ojdbc6.jar:/finance/db/other/finprod/finproddb/12.1.0/appsutil/clone/jlib/java:/finance/db/other/finprod/finproddb/12.1.0/appsutil/clone/jlib/oui/OraInstaller.jar:/finance/db/other/finprod/finproddb/12.1.0/appsutil/clone/jlib/oui/ewt3.jar:/finance/db/other/finprod/finproddb/12.1.0/appsutil/clone/jlib/oui/share.jar:/finance/db/other/finprod/finproddb/12.1.0/appsutil/clone/jlib/oui/srvm.jar:/finance/db/other/finprod/finproddb/12.1.0/appsutil/clone/jlib/ojmisc.jar   oracle.apps.ad.clone.ApplyDBTechStack -e /finance/db/other/finprod/finproddb/12.1.0/appsutil/FINPROD_tborcsit8.xml -stage /finance/db/other/finprod/finproddb/12.1.0/appsutil/clone   -showProgress
+	APPS Password : Log file located at /finance/db/other/finprod/finproddb/12.1.0/appsutil/log/FINPROD_tborcsit8/ApplyDBTechStack_07171507.log
+	  \      0% completed       
+
+	Completed Apply...
+	Mon Jul 17 15:09:26 2017
+
+	Starting database listener for FINPROD:
+	Running:
+	/finance/db/other/finprod/finproddb/12.1.0/appsutil/scripts/FINPROD_tborcsit8/addlnctl.sh start FINPROD
+	Logfile: /finance/db/other/finprod/finproddb/12.1.0/appsutil/log/FINPROD_tborcsit8/addlnctl.txt
+
+	You are running addlnctl.sh version 120.4
+
+
+	Starting listener process FINPROD ...
+
+
+	LSNRCTL for Linux: Version 12.1.0.2.0 - Production on 17-JUL-2017 15:09:26
+
+	Copyright (c) 1991, 2014, Oracle.  All rights reserved.
+
+	Starting /finance/db/other/finprod/finproddb/12.1.0/bin/tnslsnr: please wait...
+
+	TNSLSNR for Linux: Version 12.1.0.2.0 - Production
+	System parameter file is /finance/db/other/finprod/finproddb/12.1.0/network/admin/FINPROD_tborcsit8/listener.ora
+	Log messages written to /finance/db/other/finprod/finproddb/12.1.0/admin/FINPROD_tborcsit8/diag/tnslsnr/TBORCSIT8/finprod/alert/log.xml
+	Listening on: (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=TBORCSIT8.suzuki.co.id)(PORT=1525)))
+
+	Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=tborcsit8.suzuki.co.id)(PORT=1525)))
+	STATUS of the LISTENER
+	------------------------
+	Alias                     FINPROD
+	Version                   TNSLSNR for Linux: Version 12.1.0.2.0 - Production
+	Start Date                17-JUL-2017 15:09:27
+	Uptime                    0 days 0 hr. 0 min. 0 sec
+	Trace Level               off
+	Security                  ON: Local OS Authentication
+	SNMP                      OFF
+	Listener Parameter File   /finance/db/other/finprod/finproddb/12.1.0/network/admin/FINPROD_tborcsit8/listener.ora
+	Listener Log File         /finance/db/other/finprod/finproddb/12.1.0/admin/FINPROD_tborcsit8/diag/tnslsnr/TBORCSIT8/finprod/alert/log.xml
+	Listening Endpoints Summary...
+	  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=TBORCSIT8.suzuki.co.id)(PORT=1525)))
+	Services Summary...
+	Service "FINPROD" has 1 instance(s).
+	  Instance "FINPROD", status UNKNOWN, has 1 handler(s) for this service...
+	The command completed successfully
+
+	addlnctl.sh: exiting with status 0
+
+	addlnctl.sh: check the logfile /finance/db/other/finprod/finproddb/12.1.0/appsutil/log/FINPROD_tborcsit8/addlnctl.txt for more information ...  
+
+
+	Running ETCC to check status of DB technology patches... 
+
+
+	 +===============================================================+ 
+	 |    Copyright (c) 2005, 2017 Oracle and/or its affiliates.     | 
+	 |                     All rights reserved.                      | 
+	 |             Oracle E-Business Suite Release 12.2              | 
+	 |          Database EBS Technology Codelevel Checker            | 
+	 +===============================================================+ 
+
+	Using context file from command line argument:
+	/finance/db/other/finprod/finproddb/12.1.0/appsutil/FINPROD_tborcsit8.xml
+
+	Starting Database EBS Technology Codelevel Checker, Version 120.41 
+	Mon Jul 17 15:09:27 WIB 2017
+	Log file for this session : /finance/db/other/finprod/finproddb/12.1.0/appsutil/etcc/checkDBpatch_13913.log
+
+	Bugfix XML file version: 120.0.12020000.34
+	This file will be used for identifying missing bugfixes. 
+
+	Mapping XML file version: 120.0.12020000.7
+	This file will be used for mapping bugfixes to patches.
+
+
+	[WARNING] DB-ETCC: Bugfix XML file (/finance/db/other/finprod/finproddb/12.1.0/appsutil/etcc/txk_R1220_DB_base_bugs.xml) in current directory is more than 30 days old.
+	 Check if a newer version is available in patch 17537119.
+
+	Identifying database release. 
+	Database release set to 12.1.0.2.
+
+	Connecting to database. 
+
+	+-----------------------------------------------------------------------------+
+	[WARNING] DB-ETCC: Could not connect to database, so unable to check:
+	  - Whether database is in READ-WRITE mode. 
+	  - Existence of table needed to store DB-ETCC results. 
+	  - Enablement of database In-Memory option. 
+		If this feature is enabled, additional fixes need to be verified.
+
+	Resolve the database connectivity issue, and then rerun DB-ETCC.
+	+-----------------------------------------------------------------------------+
+
+	Checking Bugfix XML file for 12.1.0.2_PSU
+
+	Obtained list of bugfixes to be applied and the list to be rolled back.
+	Now checking database ORACLE_HOME.
+
+	The opatch utility is version 12.1.0.1.10.
+	DB-ETCC is compatible with this opatch version.
+
+	Found patch records in the inventory.
+
+	Checking Mapping XML file for 12.1.0.2.170117
+
+	  Missing Bugfix: 14666816  ->  Patch 24568754
+	  Missing Bugfix: 18485835  ->  Patch 24566317
+	  Missing Bugfix: 19239846  ->  Patch 25128602
+	  Missing Bugfix: 20476776  ->  Patch 24568754
+	  Missing Bugfix: 20766180  ->  Patch 20766180
+	  Missing Bugfix: 21028698  ->  Patch 22098146
+	  Missing Bugfix: 21099502  ->  Patch 24566317
+	  Missing Bugfix: 21321429  ->  Patch 21321429
+	  Missing Bugfix: 21614112  ->  Patch 24566317
+	  Missing Bugfix: 21751519  ->  Patch 24568754
+	  Missing Bugfix: 21813400  ->  Patch 25128602
+	  Missing Bugfix: 21864513  ->  Patch 21864513
+	  Missing Bugfix: 21904072  ->  Patch 21904072
+	  Missing Bugfix: 21967332  ->  Patch 21967332
+	  Missing Bugfix: 22229581  ->  Patch 24568754
+	  Missing Bugfix: 22338374  ->  Patch 22338374
+	  Missing Bugfix: 22452653  ->  Patch 24568754
+	  Missing Bugfix: 22568797  ->  Patch 25128602
+	  Missing Bugfix: 22640754  ->  Patch 25128602
+	  Missing Bugfix: 22666802  ->  Patch 25128602
+	  Missing Bugfix: 22731026  ->  Patch 22731026
+	  Missing Bugfix: 22737974  ->  Patch 24568754
+	  Missing Bugfix: 23084142  ->  Patch 25128602
+	  Missing Bugfix: 23632545  ->  Patch 25128602
+	  Missing Bugfix: 23645516  ->  Patch 25128602
+	  Missing Bugfix: 24326444  ->  Patch 24326444
+	  Missing Bugfix: 24385983  ->  Patch 25128602
+	  Missing Bugfix: 24560906  ->  Patch 24560906
+
+	Generating Patch Recommendation Summary.
+
+	===============================================================================
+	PATCH RECOMMENDATION SUMMARY
+	===============================================================================
+	The default patch recommendations to install these missing bugfixes are:
+	-------------------------------------------------------------------------------
+	Oracle Database Release 12.1.0.2 - InMemory status unknown (PATCHSET UPDATE 12.1.0.2.170117)
+	-------------------------------------------------------------------------------
+	  Patch 24568754 [12.1.0.2.161018 version]
+		- Filename: p24568754_12102161018_Linux-x86-64.zip
+
+	  Patch 24566317 [12.1.0.2.160719 version]
+		- Filename: p24566317_12102160719_Linux-x86-64.zip
+
+	  Patch 25128602 [12.1.0.2.170117 version]
+		- Filename: p25128602_12102170117_Linux-x86-64.zip
+
+	  Patch 20766180 [12.1.0.2.4 version]
+		- Filename: p20766180_121024_Generic.zip
+
+	  Patch 22098146
+		- Filename: p22098146_121020_Linux-x86-64.zip
+
+	  Patch 21321429 [12.1.0.2.170117 version]
+		- Filename: p21321429_12102170117_Generic.zip
+
+	  Patch 21864513
+		- Filename: p21864513_121020_Linux-x86-64.zip
+
+	  Patch 21904072
+		- Filename: p21904072_121020_Linux-x86-64.zip
+
+	  Patch 21967332 [12.1.0.2.160419 version]
+		- Filename: p21967332_12102160419_Linux-x86-64.zip
+
+	  Patch 22338374 [12.1.0.2.160119 version]
+		- Filename: p22338374_12102160119_Linux-x86-64.zip
+
+	  Patch 22731026
+		- Filename: p22731026_121020_Generic.zip
+
+	  Patch 24326444 [12.1.0.2.161018 version]
+		- Filename: p24326444_12102161018_Linux-x86-64.zip
+
+	  Patch 24560906 [12.1.0.2.5 version]
+		- Filename: p24560906_121025_Linux-x86-64.zip
+
+
+	+-----------------------------------------------------------------------------+
+	[WARNING] DB-ETCC: Could not connect to database, so unable to check:
+	  - Whether database is in READ-WRITE mode. 
+	  - Existence of table needed to store DB-ETCC results. 
+	  - Enablement of database In-Memory option. 
+		If this feature is enabled, additional fixes need to be verified.
+
+	Resolve the database connectivity issue, and then rerun DB-ETCC.
+	+-----------------------------------------------------------------------------+
+
+	[WARNING] Database not available. DB-ETCC results cannot be stored.
+
+	Finished prerequisite patch testing : Mon Jul 17 15:09:40 WIB 2017
+
+	Log file for this session: /finance/db/other/finprod/finproddb/12.1.0/appsutil/etcc/checkDBpatch_13913.log
+
+	===============================================================================
+	   
+	  [finance@TBORCSIT8 12.1.0]$ lsnrctl status FINPROD
+
+	LSNRCTL for Linux: Version 12.1.0.2.0 - Production on 17-JUL-2017 15:10:20
+
+	Copyright (c) 1991, 2014, Oracle.  All rights reserved.
+
+	Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=tborcsit8.suzuki.co.id)(PORT=1525)))
+	STATUS of the LISTENER
+	------------------------
+	Alias                     FINPROD
+	Version                   TNSLSNR for Linux: Version 12.1.0.2.0 - Production
+	Start Date                17-JUL-2017 15:09:27
+	Uptime                    0 days 0 hr. 0 min. 54 sec
+	Trace Level               off
+	Security                  ON: Local OS Authentication
+	SNMP                      OFF
+	Listener Parameter File   /finance/db/other/finprod/finproddb/12.1.0/network/admin/FINPROD_tborcsit8/listener.ora
+	Listener Log File         /finance/db/other/finprod/finproddb/12.1.0/admin/FINPROD_tborcsit8/diag/tnslsnr/TBORCSIT8/finprod/alert/log.xml
+	Listening Endpoints Summary...
+	  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=TBORCSIT8.suzuki.co.id)(PORT=1525)))
+	Services Summary...
+	Service "FINPROD" has 1 instance(s).
+	  Instance "FINPROD", status UNKNOWN, has 1 handler(s) for this service...
+	The command completed successfully
+	[finance@TBORCSIT8 12.1.0]$ sqlplus / as sysdba
+
+	SQL*Plus: Release 12.1.0.2.0 Production on Mon Jul 17 14:53:53 2017
+
+	Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+	Connected to an idle instance.
+
+	SQL> startup nomount;
+	ORA-32004: obsolete or deprecated parameter(s) specified for RDBMS instance
+	ORACLE instance started.
+
+	Total System Global Area 2147483648 bytes
+	Fixed Size		    3712904 bytes
+	Variable Size		  838862968 bytes
+	Database Buffers	 1291845632 bytes
+	Redo Buffers		   13062144 bytes
+
+
+	[finance@TBORCSIT8 12.1.0]$ rman target /
+
+	Recovery Manager: Release 12.1.0.2.0 - Production on Mon Jul 17 15:12:04 2017
+
+	Copyright (c) 1982, 2014, Oracle and/or its affiliates.  All rights reserved.
+
+	connected to target database: FINPROD (not mounted)
+
+	RMAN> restore controlfile from '/gb_backupdb/FINPROD/ctrl_FINPROD_DB_6cs9ec42_1228_1';
+
+	Starting restore at 17-JUL-17
+	using target database control file instead of recovery catalog
+	allocated channel: ORA_DISK_1
+	channel ORA_DISK_1: SID=2549 device type=DISK
+
+	channel ORA_DISK_1: restoring control file
+	channel ORA_DISK_1: restore complete, elapsed time: 00:00:01
+	output file name=/finance/db/data01/finprod/finproddata/cntrl01.dbf
+	output file name=/finance/db/data02/finprod/finproddata/cntrl02.dbf
+	output file name=/finance/db/data03/finprod/finproddata/cntrl03.dbf
+	Finished restore at 17-JUL-17
+
+	RMAN> alter database mount;
+
+	Statement processed
+	released channel: ORA_DISK_1
+
+	[finance@TBORCSIT8 ~]$ rman target / cmdfile=/home/finance/restore_new.sql log=/home/finance/restore_rman170717.log 
+
+
+	[finance@TBORCSIT8 archive]$ sqlplus / as sysdba
+
+	SQL*Plus: Release 12.1.0.2.0 Production on Tue Jul 18 09:40:25 2017
+
+	Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+
+	Connected to:
+	Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+	With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+
+	SQL> recover database using backup controlfile until cancel;
+	ORA-00279: change 6134925311311 generated at 07/15/2017 19:14:02 needed for
+	thread 1
+	ORA-00289: suggestion :
+	/finance/db/data02/finprod/finproddata/archive/1_35042_947504663.dbf
+	ORA-00280: change 6134925311311 for thread 1 is in sequence #35042
+
+
+	Specify log: {<RET>=suggested | filename | AUTO | CANCEL}
+	cancel
+	Media recovery cancelled.
+
+	SQL> alter database open resetlogs;
+
+	Database altered.
+
+
+	SQL> shutdown immediate;
+	Database closed.
+	Database dismounted.
+	ORACLE instance shut down.
+
+	SQL> startup mount;
+	ORA-32004: obsolete or deprecated parameter(s) specified for RDBMS instance
+	ORACLE instance started.
+
+	Total System Global Area 2147483648 bytes
+	Fixed Size		    3712904 bytes
+	Variable Size		  838862968 bytes
+	Database Buffers	 1291845632 bytes
+	Redo Buffers		   13062144 bytes
+	Database mounted.
+	SQL> archive log list;
+	Database log mode	       Archive Mode
+	Automatic archival	       Enabled
+	Archive destination	       /finance/db/data02/finprod/finproddata/archive
+	Oldest online log sequence     1
+	Next log sequence to archive   1
+	Current log sequence	       1
+	SQL> alter database noarchivelog;
+
+	Database altered.
+
+	SQL> alter database open;
+
+	Database altered.
+
+	SQL> exit
+
+
+2. Application
+
+   cd $COMMON_TOP/clone/bin
+   perl adcfgclone.pl appsTier dualfs

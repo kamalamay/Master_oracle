@@ -1,0 +1,36 @@
+SELECT OWNER, TABLE_NAME FROM DBA_TABLES DT WHERE OWNER='C##AZIZPW' ORDER BY 1, 2 DESC;
+
+GRANT CREATE PROCEDURE TO JOB_USER;
+
+GRANT EXECUTE ON DBMS_LOCK TO JOB_USER;
+
+GRANT EXECUTE ON DBMS_SYSTEM TO JOB_USER;
+
+BEGIN
+DBMS_SCHEDULER.CREATE_JOB (
+   JOB_NAME             => 'C##AZIZPW.GATH_VASSADWANKR',
+   JOB_TYPE             => 'PLSQL_BLOCK',
+   JOB_ACTION           => 'BEGIN DBMS_STATS.GATHER_TABLE_STATS(''C##AZIZPW'',''VASSADWANKR''); END;',
+   START_DATE           => SYSTIMESTAMP,
+   REPEAT_INTERVAL      => 'FREQ=DAILY',
+   END_DATE             =>  NULL,
+   ENABLED              =>  TRUE,
+   COMMENTS             => 'Gather table statistics VASSADWANKR, EMPLOYEES');
+END;
+/
+
+BEGIN
+  DBMS_SCHEDULER.drop_job(job_name => 'C##AZIZPW.GATH_VASSADWANKR');
+END;
+/
+
+select * from dba_scheduler_jobs where job_name='GATH_VASSADWANKR';
+
+SELECT SYSTIMESTAMP FROM DUAL;
+
+select log_date,status from dba_scheduler_job_run_details where job_name='GATH_VASSADWANKR';
+ 
+select * from DBSNMP.BSLN_BASELINES;
+
+--hitung umur
+SELECT ROUND(MONTHS_BETWEEN(SYSDATE, TO_DATE('20-09-1991','DD-MM-YYYY'))/12, 2) UMUR FROM DUAL;

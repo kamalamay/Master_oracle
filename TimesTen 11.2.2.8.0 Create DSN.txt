@@ -1,0 +1,98 @@
+20170517 TimesTen 11.2.2.8.0 Create DSN
+=======================================
+[oracle@spiderman info]$ pwd
+/opt/TimesTen/tt1122/info
+[oracle@spiderman info]$ nano sys.odbc.ini
+
+[ODBC Data Sources]
+AzizTT=TimesTen 11.2.2 Driver
+
+[AzizTT]
+Driver=/opt/TimesTen/tt1122/lib/libtten.so
+DataStore=/opt/TimesTen/tt1122/info/
+LogDir=/opt/TimesTen/tt1122/logs
+PermSize=40
+TempSize=32
+DatabaseCharacterSet=WE8MSWIN1252
+
+[oracle@spiderman bin]$ ./ttStatus 
+TimesTen status report as of Wed May 17 19:44:38 2017
+
+Daemon pid 13013 port 53396 instance tt1122
+TimesTen server pid 13022 started on port 53397
+------------------------------------------------------------------------
+Accessible by group oinstall
+End of report
+[oracle@spiderman bin]$ ./ttIsql AzizTT
+
+Copyright (c) 1996, 2015, Oracle and/or its affiliates. All rights reserved.
+Type ? or "help" for help, type "exit" to quit ttIsql.
+
+
+
+connect "DSN=AzizTT";
+Connection successful: DSN=AzizTT;UID=oracle;DataStore=/opt/TimesTen/tt1122/info/;DatabaseCharacterSet=WE8MSWIN1252;ConnectionCharacterSet=US7ASCII;DRIVER=/opt/TimesTen/tt1122/lib/libtten.so;LogDir=/opt/TimesTen/tt1122/logs;PermSize=40;TempSize=32;TypeMode=0;
+(Default setting AutoCommit=1)
+Command> dssize
+The following values are in KB:
+
+  PERM_ALLOCATED_SIZE:      40960
+  PERM_IN_USE_SIZE:         9473
+  PERM_IN_USE_HIGH_WATER:   9494
+  TEMP_ALLOCATED_SIZE:      32768
+  TEMP_IN_USE_SIZE:         11913
+  TEMP_IN_USE_HIGH_WATER:   13875
+
+Command> call ttlogholds;
+< 0, 3710976, Checkpoint                    , info.ds0 >
+< 0, 16199680, Checkpoint                    , info.ds1 >
+2 rows found.
+Command> call ttrepstateget();
+< IDLE, NO GRID >
+1 row found.
+Command> exit
+Disconnecting...
+Done.
+[oracle@spiderman bin]$ ./ttadmin AzizTT
+RAM Residence Policy            : inUse
+Replication Agent Policy        : manual
+Replication Manually Started    : False
+Cache Agent Policy              : manual
+Cache Agent Manually Started    : False
+[oracle@spiderman bin]$ ./ttIsql AzizTT
+
+Copyright (c) 1996, 2015, Oracle and/or its affiliates. All rights reserved.
+Type ? or "help" for help, type "exit" to quit ttIsql.
+
+
+
+connect "DSN=AzizTT";
+Connection successful: DSN=AzizTT;UID=oracle;DataStore=/opt/TimesTen/tt1122/info/;DatabaseCharacterSet=WE8MSWIN1252;ConnectionCharacterSet=US7ASCII;DRIVER=/opt/TimesTen/tt1122/lib/libtten.so;LogDir=/opt/TimesTen/tt1122/logs;PermSize=40;TempSize=32;TypeMode=0;
+(Default setting AutoCommit=1)
+Command> call ttcachestop();
+ 5010: No OracleNetServiceName specified in DSN
+The command failed.
+Command> exit
+Disconnecting...
+Done.
+[oracle@spiderman bin]$ ./ttadmin AzizTT
+RAM Residence Policy            : inUse
+Replication Agent Policy        : manual
+Replication Manually Started    : False
+Cache Agent Policy              : manual
+Cache Agent Manually Started    : False
+[oracle@spiderman bin]$ ./ttadmin -rampolicy manual AzizTT
+RAM Residence Policy            : manual
+Manually Loaded In RAM          : False
+Replication Agent Policy        : manual
+Replication Manually Started    : False
+Cache Agent Policy              : manual
+Cache Agent Manually Started    : False
+[oracle@spiderman bin]$ ./ttadmin -ramunload AzizTT
+ttAdmin: TimesTen Error: 12025; Data store already manually unloaded from RAM
+[oracle@spiderman bin]$ ./ttdaemonadmin -stop
+TimesTen Daemon stopped.
+[oracle@spiderman bin]$ ./ttdaemonadmin -status
+ttDaemonAdmin: unknown option '-status'
+For a list of options, run "ttDaemonAdmin -help".
+[oracle@spiderman bin]$

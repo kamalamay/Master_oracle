@@ -1,0 +1,31 @@
+I/O Tuning with Different RAID Configurations (Doc ID 30286.1)
+
+Table summarising RAID levels and recommended uses
+
+====================================================================================
+RAID  Type of RAID        Control       Database        Redo Log        Archive Log
+                            File          File            File            File
+====================================================================================
+0     Striping             Avoid*          OK*           Avoid*           Avoid*     
+------------------------------------------------------------------------------------
+1     Shadowing             OK             OK          Recommended       Recommended
+------------------------------------------------------------------------------------
+0+1   Striping +            OK         Recommended       OK            Avoid     
+      Shadowing                           (1)                                                         
+------------------------------------------------------------------------------------
+3     Striping with         OK           Avoid           Avoid            Avoid     
+      Static Parity                       (2)                                                                    
+------------------------------------------------------------------------------------
+5     Striping with         OK           Avoid           Avoid            Avoid     
+      Rotating Parity                     (2)
+------------------------------------------------------------------------------------
+
+ *  RAID 0 does not provide any protection against failures. It requires a strong backup strategy.
+(1) RAID 0+1 is recommended for database files because this avoids hot spots and gives the best possible performance during a disk failure.
+    The disadvantage of RAID 0+1 is that it is a costly configuration.
+(2) When heavy write operation involves this datafile
+
+References
+
+    RAID: High-Performance, Reliable Secondary Storage, (Chen, Peter etal, 1994) References
+    Six Storage Tips for 24x7 Availability (Devaj, Venkat S.), Oracle Magazine

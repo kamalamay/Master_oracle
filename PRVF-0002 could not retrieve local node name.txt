@@ -1,0 +1,10 @@
+PRVF-0002 : could not retrieve local node name
+
+[root@snake01 gridinstaller]# uname -n
+snake01
+[root@snake01 gridinstaller]# hostname
+snake01
+[root@snake01 gridinstaller]# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+[root@snake01 gridinstaller]#

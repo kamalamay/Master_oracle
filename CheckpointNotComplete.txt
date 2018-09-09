@@ -1,0 +1,24 @@
+Fri Apr 25 13:01:33 2014
+Thread 1 cannot allocate new log, sequence 5280
+Checkpoint not complete
+  Current log# 2 seq# 5279 mem# 0: /fra/redo/devecms/redo02.log
+Fri Apr 25 13:02:09 2014
+Thread 1 advanced to log sequence 5280 (LGWR switch)
+  Current log# 3 seq# 5280 mem# 0: /fra/redo/devecms/redo03.log
+Fri Apr 25 13:03:59 2014
+Thread 1 cannot allocate new log, sequence 5281
+Checkpoint not complete
+  Current log# 3 seq# 5280 mem# 0: /fra/redo/devecms/redo03.log
+
+---------------------------------------------------------------
+Info 'cannot allocate new log' itu artinya pada saat redo log switch ke grup baru, terhambat karena proses checkpointing dari redo log sebelumnya belum selesai (checkpoint not complete).
+
+Jika info ini muncul hanya sesekali di alert atau jarang, hal ini bisa diignore karena itu tidak akan signifikant impactnya, dan merupakan 'expected behaviour' dari mekanisme switch log.
+
+Namun jika info ini muncul terus menerus muncul pada setiap switch, maka kemungkinan satu atau beberapa hal berikut bisa dituning, yaitu :
+- resize redo log files menjadi lebih besar, sehingga switch tidak terlalu cepat
+- menambah redo log groups, shg archiver ada waktu utk finish archiving
+- adjust parameter-parameter terkait checkpoint
+- jika tiga hal diatas tidak impact, maka di sisi hardware perlu dipercepat proses IO ke disk lokasi redo log
+
+Demikian penjelasan error tsb dan info penanganannya.

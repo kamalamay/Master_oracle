@@ -1,0 +1,38 @@
+MRP0 started with pid=58, OS id=15816 
+2018-06-08T15:39:06.150075+07:00
+MRP0: Background Managed Standby Recovery process started (DRCRMDSSC)
+2018-06-08T15:39:11.208957+07:00
+ Started logmerger process
+2018-06-08T15:39:11.239926+07:00
+Managed Standby Recovery starting Real Time Apply
+2018-06-08T15:39:11.696396+07:00
+Parallel Media Recovery started with 8 slaves
+2018-06-08T15:39:11.839133+07:00
+Media Recovery Waiting for thread 2 sequence 9
+Fetching gap sequence in thread 2, gap sequence 9-9
+2018-06-08T15:39:12.148460+07:00
+Completed: ALTER DATABASE RECOVER  MANAGED STANDBY DATABASE DISCONNECT FROM SESSION  
+2018-06-08T15:39:34.892938+07:00
+Error 1017 received logging on to the standby
+------------------------------------------------------------
+Check that the primary and standby are using a password file
+and remote_login_passwordfile is set to SHARED or EXCLUSIVE, 
+and that the SYS password is same in the password files.
+      returning error ORA-16191
+------------------------------------------------------------
+FAL[client, ARCs]: Error 16191 connecting to DBRMDSSC for fetching gap sequence
+2018-06-08T15:39:34.894526+07:00
+Errors in file /u01/app/oracle/diag/rdbms/drcrmdssc/DRCRMDSSC/trace/DRCRMDSSC_arcs_15814.trc:
+ORA-16191: Primary log shipping client not logged on standby
+2018-06-08T15:39:45.988255+07:00
+Error 1017 received logging on to the standby
+------------------------------------------------------------
+Check that the primary and standby are using a password file
+and remote_login_passwordfile is set to SHARED or EXCLUSIVE, 
+and that the SYS password is same in the password files.
+      returning error ORA-16191
+------------------------------------------------------------
+FAL[client, USER]: Error 16191 connecting to DBRMDSSC for fetching gap sequence
+2018-06-08T15:39:45.989823+07:00
+Errors in file /u01/app/oracle/diag/rdbms/drcrmdssc/DRCRMDSSC/trace/DRCRMDSSC_pr00_15817.trc:
+ORA-16191: Primary log shipping client not logged on standby

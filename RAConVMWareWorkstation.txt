@@ -1,0 +1,2036 @@
+[root@rac01 orekel]# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+#192.168.58.11  rac01.centos.org        rac01
+# Public network
+10.10.1.110     rac01.centos.org        rac01
+10.10.1.120     rac02.centos.org        rac02
+# VIP network
+10.10.1.111     rac01-vip.centos.org    rac01-vip
+10.10.1.121     rac02-vip.centos.org    rac02-vip
+# Private network
+10.10.2.110     rac01-priv.centos.org   rac01-priv
+10.10.2.120     rac02-priv.centos.org   rac02-priv
+# SCAN
+10.10.1.112     rac-scan.centos.org     rac-scan
+10.10.1.122     rac-scan.centos.org     rac-scan
+[root@rac01 orekel]# cat /etc/sysconfig/network-scripts/ifcfg-ens33
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=none
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=no
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+IPV6_ADDR_GEN_MODE=stable-privacy
+NAME=ens33
+UUID=b2068562-6222-4a53-9419-8e5062e2a28b
+DEVICE=ens33
+ONBOOT=yes
+IPADDR=192.168.58.11
+PREFIX=24
+GATEWAY=192.168.58.1
+PEERDNS=no
+MTU=9000
+[root@rac01 orekel]# ifconfig -a|grep ether -A 1
+        ether 00:0c:29:6a:1d:79  txqueuelen 1000  (Ethernet)
+        RX packets 1477  bytes 120269 (117.4 KiB)
+--
+        ether 00:0c:29:6a:1d:83  txqueuelen 1000  (Ethernet)
+        RX packets 49  bytes 4652 (4.5 KiB)
+--
+        ether 00:0c:29:6a:1d:8d  txqueuelen 1000  (Ethernet)
+        RX packets 70  bytes 6889 (6.7 KiB)
+--
+        ether 52:54:00:f2:6a:90  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+--
+        ether 52:54:00:f2:6a:90  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+[root@rac01 orekel]# ifconfig -a|egrep inet -A 1
+        inet 192.168.58.11  netmask 255.255.255.0  broadcast 192.168.58.255
+        inet6 fe80::20c:29ff:fe6a:1d79  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:6a:1d:79  txqueuelen 1000  (Ethernet)
+--
+        inet 10.10.1.128  netmask 255.255.255.0  broadcast 10.10.1.255
+        inet6 fe80::344e:3448:99bc:ec52  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:6a:1d:83  txqueuelen 1000  (Ethernet)
+--
+        inet 10.10.2.128  netmask 255.255.255.0  broadcast 10.10.2.255
+        inet6 fe80::5347:afef:4fe3:365f  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:6a:1d:8d  txqueuelen 1000  (Ethernet)
+--
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1  (Local Loopback)
+--
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:f2:6a:90  txqueuelen 1000  (Ethernet)
+[root@rac01 orekel]# ifconfig -a
+ens33: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.58.11  netmask 255.255.255.0  broadcast 192.168.58.255
+        inet6 fe80::20c:29ff:fe6a:1d79  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:6a:1d:79  txqueuelen 1000  (Ethernet)
+        RX packets 1601  bytes 130019 (126.9 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 1152  bytes 120896 (118.0 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+ens38: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.10.1.128  netmask 255.255.255.0  broadcast 10.10.1.255
+        inet6 fe80::344e:3448:99bc:ec52  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:6a:1d:83  txqueuelen 1000  (Ethernet)
+        RX packets 55  bytes 5294 (5.1 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 228  bytes 21813 (21.3 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+ens39: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.10.2.128  netmask 255.255.255.0  broadcast 10.10.2.255
+        inet6 fe80::5347:afef:4fe3:365f  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:6a:1d:8d  txqueuelen 1000  (Ethernet)
+        RX packets 78  bytes 7651 (7.4 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 239  bytes 22473 (21.9 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1  (Local Loopback)
+        RX packets 128  bytes 11072 (10.8 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 128  bytes 11072 (10.8 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:f2:6a:90  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0-nic: flags=4098<BROADCAST,MULTICAST>  mtu 1500
+        ether 52:54:00:f2:6a:90  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+[root@rac01 orekel]# vi /etc/sysconfig/network-scripts/ifcfg-Public
+[root@rac01 ~]# cat /etc/sysconfig/network-scripts/ifcfg-Public
+BOOTPROTO=static
+DEFROUTE=yes
+DNS1=10.10.1.110
+DNS2=75.75.75.75
+DOMAIN=centos.org
+IPADDR=10.10.1.110
+NETMASK=255.255.255.0
+IPV4_FAILURE_FATAL=yes
+IPV6INIT=no
+DEVICE=Public
+ONBOOT=yes
+TYPE=Ethernet
+HWADDR=00:0c:29:6a:1d:83
+MTU=9000
+[root@rac01 ~]# vi /etc/sysconfig/network-scripts/ifcfg-Private
+[root@rac01 ~]# cat /etc/sysconfig/network-scripts/ifcfg-Private
+BOOTPROTO=static
+DEFROUTE=yes
+IPADDR=10.10.2.110
+NETMASK=255.255.255.0
+IPV4_FAILURE_FATAL=yes
+IPV6INIT=no
+DEVICE=Private
+ONBOOT=yes
+TYPE=Ethernet
+HWADDR=00:0c:29:6a:1d:8d
+MTU=9000
+[root@rac01 ~]# reboot
+[root@rac01 ~]# ifconfig -a
+Private: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9000
+        inet 10.10.2.110  netmask 255.255.255.0  broadcast 10.10.2.255
+        inet6 fe80::20c:29ff:fe6a:1d8d  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:6a:1d:8d  txqueuelen 1000  (Ethernet)
+        RX packets 19  bytes 3154 (3.0 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 34  bytes 4490 (4.3 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+Public: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9000
+        inet 10.10.1.110  netmask 255.255.255.0  broadcast 10.10.1.255
+        inet6 fe80::20c:29ff:fe6a:1d83  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:6a:1d:83  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 34  bytes 4490 (4.3 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+ens33: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9000
+        inet 192.168.58.11  netmask 255.255.255.0  broadcast 192.168.58.255
+        inet6 fe80::20c:29ff:fe6a:1d79  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:6a:1d:79  txqueuelen 1000  (Ethernet)
+        RX packets 162  bytes 21626 (21.1 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 260  bytes 47004 (45.9 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1  (Local Loopback)
+        RX packets 144  bytes 12344 (12.0 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 144  bytes 12344 (12.0 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:f2:6a:90  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0-nic: flags=4098<BROADCAST,MULTICAST>  mtu 1500
+        ether 52:54:00:f2:6a:90  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+[root@rac01 ~]# vi /etc/resolv.conf
+[root@rac01 ~]# cat /etc/resolv.conf
+# Generated by NetworkManager
+search centos.org
+nameserver 10.10.1.110
+nameserver 75.75.75.75
+[root@rac01 ~]# cd RPMS
+[root@rac01 RPMS]# rpm -Uvh bind-9.9.4-50.el7.x86_64.rpm
+warning: bind-9.9.4-50.el7.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY
+Preparing...                          ################################# [100%]
+Updating / installing...
+   1:bind-32:9.9.4-50.el7             ################################# [100%]
+[root@rac01 RPMS]# vi /etc/named.conf
+[root@rac01 RPMS]# cat /etc/named.conf
+//
+// named.conf
+//
+// Provided by Red Hat bind package to configure the ISC BIND named(8) DNS
+// server as a caching only nameserver (as a localhost DNS resolver only).
+//
+// See /usr/share/doc/bind*/sample/ for example named configuration files.
+//
+// See the BIND Administrator's Reference Manual (ARM) for details about the
+// configuration located in /usr/share/doc/bind-{version}/Bv9ARM.html
+
+options {
+        listen-on port 53 { 127.0.0.1; 10.10.1.110; };
+        listen-on-v6 port 53 { ::1; };
+        directory       "/var/named";
+        dump-file       "/var/named/data/cache_dump.db";
+        statistics-file "/var/named/data/named_stats.txt";
+        memstatistics-file "/var/named/data/named_mem_stats.txt";
+        allow-query     { localhost; };
+
+        /*
+         - If you are building an AUTHORITATIVE DNS server, do NOT enable recursion.
+         - If you are building a RECURSIVE (caching) DNS server, you need to enable
+           recursion.
+         - If your recursive DNS server has a public IP address, you MUST enable access
+           control to limit queries to your legitimate users. Failing to do so will
+           cause your server to become part of large scale DNS amplification
+           attacks. Implementing BCP38 within your network would greatly
+           reduce such attack surface
+        */
+        recursion no;
+
+        dnssec-enable yes;
+        dnssec-validation yes;
+
+        /* Path to ISC DLV key */
+        bindkeys-file "/etc/named.iscdlv.key";
+
+        managed-keys-directory "/var/named/dynamic";
+
+        pid-file "/run/named/named.pid";
+        session-keyfile "/run/named/session.key";
+};
+
+logging {
+        channel default_debug {
+                file "data/named.run";
+                severity dynamic;
+        };
+};
+
+zone "." IN {
+        type hint;
+        file "named.ca";
+};
+zone "centos.org" IN {
+  type master;
+  file "centos.org.zone";
+  allow-update { none; };
+};
+
+include "/etc/named.rfc1912.zones";
+include "/etc/named.root.key";
+
+[root@rac01 RPMS]# vi /var/named/centos.org.zone
+[root@rac01 RPMS]# cat /var/named/centos.org.zone
+$TTL 86400
+@   IN  SOA     rac01.centos.org. root.centos.org. (
+        2013042201  ;Serial
+        3600        ;Refresh
+        1800        ;Retry
+        604800      ;Expire
+        86400       ;Minimum TTL
+)
+@       IN  NS      rac-scan.centos.org.
+rac-scan     IN  A    10.10.1.112
+rac-scan     IN  A    10.10.1.122
+[root@rac01 RPMS]# reboot
+[root@rac01 ~]# service named start
+Redirecting to /bin/systemctl start named.service
+[root@rac01 ~]# chkconfig named on
+Note: Forwarding request to 'systemctl enable named.service'.
+Created symlink from /etc/systemd/system/multi-user.target.wants/named.service to /usr/lib/systemd/system/named.service.
+[root@rac01 ~]# nslookup rac-scan.centos.org
+Server:         10.10.1.110
+Address:        10.10.1.110#53
+
+Name:   rac-scan.centos.org
+Address: 10.10.1.122
+Name:   rac-scan.centos.org
+Address: 10.10.1.112
+
+[root@rac01 ~]# id orekel
+uid=1000(orekel) gid=54321(oinstall) groups=54321(oinstall),54322(dba),54323(oper),54324(backupdba),54325(dgdba),54326(kmdba),54330(racdba)
+[root@rac01 ~]# groupadd asmdba
+[root@rac01 ~]# groupadd asmoper
+[root@rac01 ~]# groupadd asmadmin
+[root@rac01 ~]# usermod -g oinstall -G dba,oper,backupdba,dgdba,kmdba,asmdba,asmoper,asmadmin,racdba orekel
+[root@rac01 ~]# id orekel
+uid=1000(orekel) gid=54321(oinstall) groups=54321(oinstall),54322(dba),54323(oper),54324(backupdba),54325(dgdba),54326(kmdba),54330(racdba),54331(asmdba),54332(asmoper),54333(asmadmin)
+[root@rac01 ~]#
+
+[orekel@rac01 ~]$ mkdir -p /z01/app/12.2.0.1/grid
+[orekel@rac01 ~]$ mkdir -p /z01/app/oracle/product/12.2.0.1/db_1
+[orekel@rac01 ~]$ vi DB.env
+[orekel@rac01 ~]$ cat DB.env
+# Oracle Settings
+export TMP=/tmp
+export TMPDIR=$TMP
+
+export ORACLE_HOSTNAME=rac01.centos.org
+export ORACLE_UNQNAME=MEONG
+export ORACLE_BASE=/z01/app/oracle
+export ORACLE_HOME=$ORACLE_BASE/product/12.2.0.1/db_1
+export ORACLE_SID=MEONG01
+export ORACLE_TERM=xterm
+export BASE_PATH=/usr/sbin:$PATH
+PATH=/usr/sbin:$PATH; export PATH
+PATH=$ORACLE_HOME/bin:$PATH; export PATH
+LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib; export LD_LIBRARY_PATH
+CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib; export CLASSPATH
+[orekel@rac01 ~]$ vi grid.env
+[orekel@rac01 ~]$ cat grid.env
+# Grid Settings
+TMP=/tmp; export TMP
+TMPDIR=$TMP; export TMPDIR
+ORACLE_BASE=/z01/app/oracle; export ORACLE_BASE
+ORACLE_HOME=/z01/app/12.2.0.1/grid; export ORACLE_HOME
+ORACLE_SID=+ASM01; export ORACLE_SID
+PATH=/usr/sbin:$PATH; export PATH
+PATH=$ORACLE_HOME/bin:$PATH; export PATH
+LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib; export LD_LIBRARY_PATH
+CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib; export CLASSPATH
+[orekel@rac01 ~]$
+
+[root@rac01 ~]# poweroff
+
+[root@rac01 ~]# fdisk -l|grep Disk
+Disk /dev/sdc: 1073 MB, 1073741824 bytes, 2097152 sectors ==> OCRVOTE01.vmdk
+Disk /dev/sdb: 32.2 GB, 32212254720 bytes, 62914560 sectors
+Disk label type: dos
+Disk identifier: 0x19a4d8b4
+Disk /dev/sdd: 1073 MB, 1073741824 bytes, 2097152 sectors ==> OCRVOTE02.vmdk
+Disk /dev/sda: 32.2 GB, 32212254720 bytes, 62914560 sectors
+Disk label type: dos
+Disk identifier: 0x00045334
+Disk /dev/sdf: 21.5 GB, 21474836480 bytes, 41943040 sectors ==> DATA20G_01.vmdk
+Disk /dev/sdg: 21.5 GB, 21474836480 bytes, 41943040 sectors ==> DATA20G_02.vmdk
+Disk /dev/sde: 1073 MB, 1073741824 bytes, 2097152 sectors ==> OCRVOTE03.vmdk
+Disk /dev/sdi: 16.1 GB, 16106127360 bytes, 31457280 sectors ==> FRA15G_02.vmdk
+Disk /dev/sdh: 16.1 GB, 16106127360 bytes, 31457280 sectors ==> FRA15G_01.vmdk
+[root@rac01 ~]#
+
+fdisk /dev/sdc
+fdisk /dev/sdd
+fdisk /dev/sdf
+fdisk /dev/sdg
+fdisk /dev/sde
+fdisk /dev/sdi
+fdisk /dev/sdh
+
+[root@rac01 ~]# fdisk /dev/sdc
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table
+Building a new DOS disklabel with disk identifier 0x0a452d19.
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+
+First sector (2048-2097151, default 2048): Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-2097151, default 2097151):
+Using default value 2097151
+Partition 1 of type Linux and of size 1023 MiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@rac01 ~]# fdisk /dev/sdd
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table
+Building a new DOS disklabel with disk identifier 0xa5e96c0d.
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+First sector (2048-2097151, default 2048):
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-2097151, default 2097151):
+Using default value 2097151
+Partition 1 of type Linux and of size 1023 MiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@rac01 ~]# fdisk /dev/sdf
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table
+Building a new DOS disklabel with disk identifier 0x9fc2742a.
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+First sector (2048-41943039, default 2048):
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-41943039, default 41943039):
+Using default value 41943039
+Partition 1 of type Linux and of size 20 GiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@rac01 ~]# fdisk /dev/sdg
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table
+Building a new DOS disklabel with disk identifier 0x0c2127f5.
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+First sector (2048-41943039, default 2048):
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-41943039, default 41943039):
+Using default value 41943039
+Partition 1 of type Linux and of size 20 GiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@rac01 ~]# fdisk /dev/sde
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table
+Building a new DOS disklabel with disk identifier 0xa5de8689.
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+First sector (2048-2097151, default 2048):
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-2097151, default 2097151):
+Using default value 2097151
+Partition 1 of type Linux and of size 1023 MiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@rac01 ~]# fdisk /dev/sdi
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table
+Building a new DOS disklabel with disk identifier 0x51687a56.
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+First sector (2048-31457279, default 2048):
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-31457279, default 31457279):
+Using default value 31457279
+Partition 1 of type Linux and of size 15 GiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@rac01 ~]# fdisk /dev/sdh
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table
+Building a new DOS disklabel with disk identifier 0xf26ad230.
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+First sector (2048-31457279, default 2048):
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-31457279, default 31457279):
+Using default value 31457279
+Partition 1 of type Linux and of size 15 GiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@rac01 ~]# fdisk -l
+
+Disk /dev/sdc: 1073 MB, 1073741824 bytes, 2097152 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x0a452d19
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1            2048     2097151     1047552   83  Linux
+
+Disk /dev/sdb: 32.2 GB, 32212254720 bytes, 62914560 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x19a4d8b4
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048    62914559    31456256   83  Linux
+
+Disk /dev/sdd: 1073 MB, 1073741824 bytes, 2097152 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0xa5e96c0d
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdd1            2048     2097151     1047552   83  Linux
+
+Disk /dev/sda: 32.2 GB, 32212254720 bytes, 62914560 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x00045334
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048    56625151    28311552   83  Linux
+/dev/sda2        56625152    62914559     3144704   82  Linux swap / Solaris
+
+Disk /dev/sdf: 21.5 GB, 21474836480 bytes, 41943040 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x9fc2742a
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdf1            2048    41943039    20970496   83  Linux
+
+Disk /dev/sdg: 21.5 GB, 21474836480 bytes, 41943040 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x0c2127f5
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdg1            2048    41943039    20970496   83  Linux
+
+Disk /dev/sde: 1073 MB, 1073741824 bytes, 2097152 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0xa5de8689
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sde1            2048     2097151     1047552   83  Linux
+
+Disk /dev/sdi: 16.1 GB, 16106127360 bytes, 31457280 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x51687a56
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdi1            2048    31457279    15727616   83  Linux
+
+Disk /dev/sdh: 16.1 GB, 16106127360 bytes, 31457280 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0xf26ad230
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdh1            2048    31457279    15727616   83  Linux
+[root@rac01 ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdc1
+36000c29a7b83359529110d8afe2b0634
+[root@rac01 ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdd1
+36000c29999db9587990703f95c5965d7
+[root@rac01 ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdf1
+36000c29c4ae9b9f51d7fd6ed8e5ccaf7
+[root@rac01 ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdg1
+36000c294b0f7cb521a2e9af204779b52
+[root@rac01 ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sde1
+36000c297bd920fe78da4047d4020b0f4
+[root@rac01 ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdi1
+36000c295ac19c0b2d6a17dc99bd8a87d
+[root@rac01 ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdh1
+36000c297fb4bcde74d7e877ca5f7f9e8
+[root@rac01 ~]# vi /etc/udev/rules.d/99-oracle-asmdevices.rules
+[root@rac01 ~]# cat /etc/udev/rules.d/99-oracle-asmdevices.rules
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c29a7b83359529110d8afe2b0634", SYMLINK+="oracleasm/OCRVOTE01", OWNER="orekel", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c29999db9587990703f95c5965d7", SYMLINK+="oracleasm/OCRVOTE02", OWNER="orekel", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c297bd920fe78da4047d4020b0f4", SYMLINK+="oracleasm/OCRVOTE03", OWNER="orekel", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c29c4ae9b9f51d7fd6ed8e5ccaf7", SYMLINK+="oracleasm/DATA20G_01", OWNER="orekel", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c294b0f7cb521a2e9af204779b52", SYMLINK+="oracleasm/DATA20G_02", OWNER="orekel", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c297fb4bcde74d7e877ca5f7f9e8", SYMLINK+="oracleasm/FRA15G_01", OWNER="orekel", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c295ac19c0b2d6a17dc99bd8a87d", SYMLINK+="oracleasm/FRA15G_02", OWNER="orekel", GROUP="asmadmin", MODE="0660"
+[root@rac01 ~]# /sbin/partprobe /dev/sdc1
+[root@rac01 ~]# /sbin/partprobe /dev/sdd1
+[root@rac01 ~]# /sbin/partprobe /dev/sde1
+[root@rac01 ~]# /sbin/partprobe /dev/sdf1
+[root@rac01 ~]# /sbin/partprobe /dev/sdg1
+[root@rac01 ~]# /sbin/partprobe /dev/sdh1
+[root@rac01 ~]# /sbin/partprobe /dev/sdi1
+[root@rac01 ~]# /sbin/udevadm test /block/sdc/sdc1
+[root@rac01 ~]# /sbin/udevadm test /block/sdd/sdd1
+[root@rac01 ~]# /sbin/udevadm test /block/sde/sde1
+[root@rac01 ~]# /sbin/udevadm test /block/sdf/sdf1
+[root@rac01 ~]# /sbin/udevadm test /block/sdg/sdg1
+[root@rac01 ~]# /sbin/udevadm test /block/sdh/sdh1
+[root@rac01 ~]# /sbin/udevadm test /block/sdi/sdi1
+[root@rac01 ~]# ls -lah /dev/oracleasm/
+total 0
+drwxr-xr-x.  2 root root  180 Jan  8 12:51 .
+drwxr-xr-x. 20 root root 3.7K Jan  8 12:51 ..
+lrwxrwxrwx.  1 root root    7 Jan  8 12:57 DATA20G_01 -> ../sdf1
+lrwxrwxrwx.  1 root root    7 Jan  8 12:57 DATA20G_02 -> ../sdg1
+lrwxrwxrwx.  1 root root    7 Jan  8 12:57 FRA15G_01 -> ../sdh1
+lrwxrwxrwx.  1 root root    7 Jan  8 12:57 FRA15G_02 -> ../sdi1
+lrwxrwxrwx.  1 root root    7 Jan  8 12:56 OCRVOTE01 -> ../sdc1
+lrwxrwxrwx.  1 root root    7 Jan  8 12:57 OCRVOTE02 -> ../sdd1
+lrwxrwxrwx.  1 root root    7 Jan  8 12:57 OCRVOTE03 -> ../sde1
+[root@rac01 ~]# ls -lah /dev/sd*
+brw-rw----. 1 root   disk     8,   0 Jan  8 12:28 /dev/sda
+brw-rw----. 1 root   disk     8,   1 Jan  8 12:28 /dev/sda1
+brw-rw----. 1 root   disk     8,   2 Jan  8 12:28 /dev/sda2
+brw-rw----. 1 root   disk     8,  16 Jan  8 12:28 /dev/sdb
+brw-rw----. 1 root   disk     8,  17 Jan  8 12:28 /dev/sdb1
+brw-rw----. 1 root   disk     8,  32 Jan  8 12:39 /dev/sdc
+brw-rw----. 1 orekel asmadmin 8,  33 Jan  8 12:56 /dev/sdc1
+brw-rw----. 1 root   disk     8,  48 Jan  8 12:39 /dev/sdd
+brw-rw----. 1 orekel asmadmin 8,  49 Jan  8 12:57 /dev/sdd1
+brw-rw----. 1 root   disk     8,  64 Jan  8 12:39 /dev/sde
+brw-rw----. 1 orekel asmadmin 8,  65 Jan  8 12:57 /dev/sde1
+brw-rw----. 1 root   disk     8,  80 Jan  8 12:39 /dev/sdf
+brw-rw----. 1 orekel asmadmin 8,  81 Jan  8 12:57 /dev/sdf1
+brw-rw----. 1 root   disk     8,  96 Jan  8 12:39 /dev/sdg
+brw-rw----. 1 orekel asmadmin 8,  97 Jan  8 12:57 /dev/sdg1
+brw-rw----. 1 root   disk     8, 112 Jan  8 12:39 /dev/sdh
+brw-rw----. 1 orekel asmadmin 8, 113 Jan  8 12:57 /dev/sdh1
+brw-rw----. 1 root   disk     8, 128 Jan  8 12:39 /dev/sdi
+brw-rw----. 1 orekel asmadmin 8, 129 Jan  8 12:57 /dev/sdi1
+[root@rac01 ~]# poweroff
+
+Backup as pregrid
+Cloning to rac02
+Generate new MAC Address for rac02
+
+[root@rac02 ~]# vi /etc/named.conf
+[root@rac02 ~]# cat /etc/named.conf
+//
+// named.conf
+//
+// Provided by Red Hat bind package to configure the ISC BIND named(8) DNS
+// server as a caching only nameserver (as a localhost DNS resolver only).
+//
+// See /usr/share/doc/bind*/sample/ for example named configuration files.
+//
+// See the BIND Administrator's Reference Manual (ARM) for details about the
+// configuration located in /usr/share/doc/bind-{version}/Bv9ARM.html
+
+options {
+        listen-on port 53 { 127.0.0.1; 10.10.1.120; };
+        listen-on-v6 port 53 { ::1; };
+        directory       "/var/named";
+        dump-file       "/var/named/data/cache_dump.db";
+        statistics-file "/var/named/data/named_stats.txt";
+        memstatistics-file "/var/named/data/named_mem_stats.txt";
+        allow-query     { localhost; };
+
+        /*
+         - If you are building an AUTHORITATIVE DNS server, do NOT enable recursion.
+         - If you are building a RECURSIVE (caching) DNS server, you need to enable
+           recursion.
+         - If your recursive DNS server has a public IP address, you MUST enable access
+           control to limit queries to your legitimate users. Failing to do so will
+           cause your server to become part of large scale DNS amplification
+           attacks. Implementing BCP38 within your network would greatly
+           reduce such attack surface
+        */
+        recursion no;
+
+        dnssec-enable yes;
+        dnssec-validation yes;
+
+        /* Path to ISC DLV key */
+        bindkeys-file "/etc/named.iscdlv.key";
+
+        managed-keys-directory "/var/named/dynamic";
+
+        pid-file "/run/named/named.pid";
+        session-keyfile "/run/named/session.key";
+};
+
+logging {
+        channel default_debug {
+                file "data/named.run";
+                severity dynamic;
+        };
+};
+
+zone "." IN {
+        type hint;
+        file "named.ca";
+};
+zone "centos.org" IN {
+  type master;
+  file "centos.org.zone";
+  allow-update { none; };
+};
+
+include "/etc/named.rfc1912.zones";
+include "/etc/named.root.key";
+
+[root@rac02 ~]# vi /var/named/centos.org.zone
+[root@rac02 ~]# cat /var/named/centos.org.zone
+$TTL 86400
+@   IN  SOA     rac02.centos.org. root.centos.org. (
+        2013042201  ;Serial
+        3600        ;Refresh
+        1800        ;Retry
+        604800      ;Expire
+        86400       ;Minimum TTL
+)
+@       IN  NS      rac-scan.centos.org.
+rac-scan     IN  A    10.10.1.112
+rac-scan     IN  A    10.10.1.122
+[root@rac02 ~]# ifconfig -a|egrep ether
+        ether 00:50:56:2b:66:e7  txqueuelen 1000  (Ethernet)
+        ether 00:50:56:2c:65:50  txqueuelen 1000  (Ethernet)
+        ether 00:50:56:2c:d2:5a  txqueuelen 1000  (Ethernet)
+        ether 52:54:00:f2:6a:90  txqueuelen 1000  (Ethernet)
+        ether 52:54:00:f2:6a:90  txqueuelen 1000  (Ethernet)
+[root@rac02 ~]# ifconfig -a
+ens33: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9000
+        inet 192.168.58.12  netmask 255.255.255.0  broadcast 192.168.58.255
+        inet6 fe80::250:56ff:fe2b:66e7  prefixlen 64  scopeid 0x20<link>
+        ether 00:50:56:2b:66:e7  txqueuelen 1000  (Ethernet)
+        RX packets 591  bytes 55874 (54.5 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 505  bytes 70567 (68.9 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+ens38: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.10.1.129  netmask 255.255.255.0  broadcast 10.10.1.255
+        inet6 fe80::1096:c707:a73c:199e  prefixlen 64  scopeid 0x20<link>
+        ether 00:50:56:2c:65:50  txqueuelen 1000  (Ethernet)
+        RX packets 14  bytes 1538 (1.5 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 50  bytes 5654 (5.5 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+ens39: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.10.2.129  netmask 255.255.255.0  broadcast 10.10.2.255
+        inet6 fe80::d399:40cc:1e48:48f2  prefixlen 64  scopeid 0x20<link>
+        ether 00:50:56:2c:d2:5a  txqueuelen 1000  (Ethernet)
+        RX packets 29  bytes 4016 (3.9 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 32  bytes 4574 (4.4 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1  (Local Loopback)
+        RX packets 18  bytes 2190 (2.1 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 18  bytes 2190 (2.1 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:f2:6a:90  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0-nic: flags=4098<BROADCAST,MULTICAST>  mtu 1500
+        ether 52:54:00:f2:6a:90  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+[root@rac02 ~]# vi /etc/sysconfig/network-scripts/ifcfg-Public
+[root@rac02 ~]# cat /etc/sysconfig/network-scripts/ifcfg-Public
+BOOTPROTO=static
+DEFROUTE=yes
+DNS1=10.10.1.120
+DNS2=75.75.75.75
+DOMAIN=centos.org
+IPADDR=10.10.1.120
+NETMASK=255.255.255.0
+IPV4_FAILURE_FATAL=yes
+IPV6INIT=no
+DEVICE=Public
+ONBOOT=yes
+TYPE=Ethernet
+HWADDR=00:50:56:2c:65:50
+MTU=9000
+[root@rac02 ~]# vi /etc/sysconfig/network-scripts/ifcfg-Private
+[root@rac02 ~]# cat /etc/sysconfig/network-scripts/ifcfg-Private
+BOOTPROTO=static
+DEFROUTE=yes
+IPADDR=10.10.2.120
+NETMASK=255.255.255.0
+IPV4_FAILURE_FATAL=yes
+IPV6INIT=no
+DEVICE=Private
+ONBOOT=yes
+TYPE=Ethernet
+HWADDR=00:50:56:2c:d2:5a
+MTU=9000
+[root@rac02 ~]# reboot
+
+[root@rac02 ~]# service named restart
+Redirecting to /bin/systemctl restart named.service
+[root@rac02 ~]# service named status
+Redirecting to /bin/systemctl status named.service
+● named.service - Berkeley Internet Name Domain (DNS)
+   Loaded: loaded (/usr/lib/systemd/system/named.service; enabled; vendor preset: disabled)
+   Active: active (running) since Mon 2018-01-08 14:16:34 WIB; 13s ago
+  Process: 2384 ExecStop=/bin/sh -c /usr/sbin/rndc stop > /dev/null 2>&1 || /bin/kill -TERM $MAINPID (code=exited, status=0/SUCCESS)
+  Process: 2401 ExecStart=/usr/sbin/named -u named -c ${NAMEDCONF} $OPTIONS (code=exited, status=0/SUCCESS)
+  Process: 2398 ExecStartPre=/bin/bash -c if [ ! "$DISABLE_ZONE_CHECKING" == "yes" ]; then /usr/sbin/named-checkconf -z "$NAMEDCONF"; else echo "Checking of zone files is disabled"; fi (code=exited, status=0/SUCCESS)
+ Main PID: 2403 (named)
+   CGroup: /system.slice/named.service
+           └─2403 /usr/sbin/named -u named -c /etc/named.conf
+
+Jan 08 14:16:34 rac02.centos.org named[2403]: zone 0.in-addr.arpa/IN: loaded serial 0
+Jan 08 14:16:34 rac02.centos.org named[2403]: zone centos.org/IN: loaded serial 2013042201
+Jan 08 14:16:34 rac02.centos.org named[2403]: zone 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa/IN: loaded serial 0
+Jan 08 14:16:34 rac02.centos.org named[2403]: zone localhost/IN: loaded serial 0
+Jan 08 14:16:34 rac02.centos.org named[2403]: zone localhost.localdomain/IN: loaded serial 0
+Jan 08 14:16:34 rac02.centos.org named[2403]: zone 1.0.0.127.in-addr.arpa/IN: loaded serial 0
+Jan 08 14:16:34 rac02.centos.org systemd[1]: Started Berkeley Internet Name Domain (DNS).
+Jan 08 14:16:34 rac02.centos.org named[2403]: all zones loaded
+Jan 08 14:16:34 rac02.centos.org named[2403]: running
+Jan 08 14:16:34 rac02.centos.org named[2403]: zone centos.org/IN: sending notifies (serial 2013042201)
+[root@rac02 ~]# nslookup rac-scan.centos.org
+Server:         10.10.1.120
+Address:        10.10.1.120#53
+
+Name:   rac-scan.centos.org
+Address: 10.10.1.122
+Name:   rac-scan.centos.org
+Address: 10.10.1.112
+
+[root@rac02 ~]# nslookup rac-scan
+Server:         10.10.1.120
+Address:        10.10.1.120#53
+
+Name:   rac-scan.centos.org
+Address: 10.10.1.112
+Name:   rac-scan.centos.org
+Address: 10.10.1.122
+
+[root@rac02 ~]# ifconfig -a
+Private: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9000
+        inet 10.10.2.120  netmask 255.255.255.0  broadcast 10.10.2.255
+        inet6 fe80::250:56ff:fe2c:d25a  prefixlen 64  scopeid 0x20<link>
+        ether 00:50:56:2c:d2:5a  txqueuelen 1000  (Ethernet)
+        RX packets 18  bytes 3345 (3.2 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 30  bytes 4221 (4.1 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+Public: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9000
+        inet 10.10.1.120  netmask 255.255.255.0  broadcast 10.10.1.255
+        inet6 fe80::250:56ff:fe2c:6550  prefixlen 64  scopeid 0x20<link>
+        ether 00:50:56:2c:65:50  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 40  bytes 2473 (2.4 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+ens33: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9000
+        inet 192.168.58.12  netmask 255.255.255.0  broadcast 192.168.58.255
+        inet6 fe80::250:56ff:fe2b:66e7  prefixlen 64  scopeid 0x20<link>
+        ether 00:50:56:2b:66:e7  txqueuelen 1000  (Ethernet)
+        RX packets 341  bytes 31902 (31.1 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 305  bytes 37521 (36.6 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1  (Local Loopback)
+        RX packets 42  bytes 4752 (4.6 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 42  bytes 4752 (4.6 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:f2:6a:90  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0-nic: flags=4098<BROADCAST,MULTICAST>  mtu 1500
+        ether 52:54:00:f2:6a:90  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+[root@rac02 ~]# cat /etc/resolv.conf
+# Generated by NetworkManager
+search centos.org
+nameserver 10.10.1.120
+nameserver 75.75.75.75
+[root@rac02 ~]# fdisk -l
+
+Disk /dev/sda: 32.2 GB, 32212254720 bytes, 62914560 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x00045334
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048    56625151    28311552   83  Linux
+/dev/sda2        56625152    62914559     3144704   82  Linux swap / Solaris
+
+Disk /dev/sdc: 1073 MB, 1073741824 bytes, 2097152 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x0a452d19
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1            2048     2097151     1047552   83  Linux
+
+Disk /dev/sdb: 32.2 GB, 32212254720 bytes, 62914560 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x19a4d8b4
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048    62914559    31456256   83  Linux
+
+Disk /dev/sde: 1073 MB, 1073741824 bytes, 2097152 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0xa5de8689
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sde1            2048     2097151     1047552   83  Linux
+
+Disk /dev/sdd: 1073 MB, 1073741824 bytes, 2097152 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0xa5e96c0d
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdd1            2048     2097151     1047552   83  Linux
+
+Disk /dev/sdf: 21.5 GB, 21474836480 bytes, 41943040 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x9fc2742a
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdf1            2048    41943039    20970496   83  Linux
+
+Disk /dev/sdh: 16.1 GB, 16106127360 bytes, 31457280 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0xf26ad230
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdh1            2048    31457279    15727616   83  Linux
+
+Disk /dev/sdi: 16.1 GB, 16106127360 bytes, 31457280 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x51687a56
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdi1            2048    31457279    15727616   83  Linux
+
+Disk /dev/sdg: 21.5 GB, 21474836480 bytes, 41943040 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x0c2127f5
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdg1            2048    41943039    20970496   83  Linux
+[root@rac02 ~]# ls -lah /dev/oracleasm/
+total 0
+drwxr-xr-x.  2 root root  180 Jan  8 14:14 .
+drwxr-xr-x. 20 root root 3.7K Jan  8 14:15 ..
+lrwxrwxrwx.  1 root root    7 Jan  8 14:14 DATA20G_01 -> ../sdf1
+lrwxrwxrwx.  1 root root    7 Jan  8 14:14 DATA20G_02 -> ../sdg1
+lrwxrwxrwx.  1 root root    7 Jan  8 14:14 FRA15G_01 -> ../sdh1
+lrwxrwxrwx.  1 root root    7 Jan  8 14:14 FRA15G_02 -> ../sdi1
+lrwxrwxrwx.  1 root root    7 Jan  8 14:14 OCRVOTE01 -> ../sdc1
+lrwxrwxrwx.  1 root root    7 Jan  8 14:14 OCRVOTE02 -> ../sdd1
+lrwxrwxrwx.  1 root root    7 Jan  8 14:14 OCRVOTE03 -> ../sde1
+[root@rac02 ~]# ls -lah /dev/sd*
+brw-rw----. 1 root   disk     8,   0 Jan  8 14:14 /dev/sda
+brw-rw----. 1 root   disk     8,   1 Jan  8 14:14 /dev/sda1
+brw-rw----. 1 root   disk     8,   2 Jan  8 14:14 /dev/sda2
+brw-rw----. 1 root   disk     8,  16 Jan  8 14:14 /dev/sdb
+brw-rw----. 1 root   disk     8,  17 Jan  8 14:14 /dev/sdb1
+brw-rw----. 1 root   disk     8,  32 Jan  8 14:14 /dev/sdc
+brw-rw----. 1 orekel asmadmin 8,  33 Jan  8 14:14 /dev/sdc1
+brw-rw----. 1 root   disk     8,  48 Jan  8 14:14 /dev/sdd
+brw-rw----. 1 orekel asmadmin 8,  49 Jan  8 14:14 /dev/sdd1
+brw-rw----. 1 root   disk     8,  64 Jan  8 14:14 /dev/sde
+brw-rw----. 1 orekel asmadmin 8,  65 Jan  8 14:14 /dev/sde1
+brw-rw----. 1 root   disk     8,  80 Jan  8 14:14 /dev/sdf
+brw-rw----. 1 orekel asmadmin 8,  81 Jan  8 14:14 /dev/sdf1
+brw-rw----. 1 root   disk     8,  96 Jan  8 14:14 /dev/sdg
+brw-rw----. 1 orekel asmadmin 8,  97 Jan  8 14:14 /dev/sdg1
+brw-rw----. 1 root   disk     8, 112 Jan  8 14:14 /dev/sdh
+brw-rw----. 1 orekel asmadmin 8, 113 Jan  8 14:14 /dev/sdh1
+brw-rw----. 1 root   disk     8, 128 Jan  8 14:14 /dev/sdi
+brw-rw----. 1 orekel asmadmin 8, 129 Jan  8 14:14 /dev/sdi1
+[root@rac02 ~]#
+
+[root@rac01 ~]# ping -c 3 rac02
+PING rac02.centos.org (10.10.1.120) 56(84) bytes of data.
+64 bytes from rac02.centos.org (10.10.1.120): icmp_seq=1 ttl=64 time=3.59 ms
+64 bytes from rac02.centos.org (10.10.1.120): icmp_seq=2 ttl=64 time=0.675 ms
+64 bytes from rac02.centos.org (10.10.1.120): icmp_seq=3 ttl=64 time=0.873 ms
+
+--- rac02.centos.org ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 0.675/1.713/3.593/1.332 ms
+[root@rac01 ~]# ping -c 3 rac02-priv
+PING rac02-priv.centos.org (10.10.2.120) 56(84) bytes of data.
+64 bytes from rac02-priv.centos.org (10.10.2.120): icmp_seq=1 ttl=64 time=1.03 ms
+64 bytes from rac02-priv.centos.org (10.10.2.120): icmp_seq=2 ttl=64 time=0.377 ms
+64 bytes from rac02-priv.centos.org (10.10.2.120): icmp_seq=3 ttl=64 time=0.457 ms
+
+--- rac02-priv.centos.org ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 0.377/0.624/1.039/0.295 ms
+[root@rac01 ~]# ping -c 3 rac01
+PING rac01.centos.org (10.10.1.110) 56(84) bytes of data.
+64 bytes from rac01.centos.org (10.10.1.110): icmp_seq=1 ttl=64 time=0.072 ms
+64 bytes from rac01.centos.org (10.10.1.110): icmp_seq=2 ttl=64 time=0.073 ms
+64 bytes from rac01.centos.org (10.10.1.110): icmp_seq=3 ttl=64 time=0.072 ms
+
+--- rac01.centos.org ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 1999ms
+rtt min/avg/max/mdev = 0.072/0.072/0.073/0.007 ms
+[root@rac01 ~]# ping -c 3 rac01-priv
+PING rac01-priv.centos.org (10.10.2.110) 56(84) bytes of data.
+64 bytes from rac01-priv.centos.org (10.10.2.110): icmp_seq=1 ttl=64 time=0.076 ms
+64 bytes from rac01-priv.centos.org (10.10.2.110): icmp_seq=2 ttl=64 time=0.073 ms
+64 bytes from rac01-priv.centos.org (10.10.2.110): icmp_seq=3 ttl=64 time=0.072 ms
+
+--- rac01-priv.centos.org ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2000ms
+rtt min/avg/max/mdev = 0.072/0.073/0.076/0.010 ms
+[root@rac01 ~]# nslookup rac-scan
+Server:         10.10.1.110
+Address:        10.10.1.110#53
+
+Name:   rac-scan.centos.org
+Address: 10.10.1.112
+Name:   rac-scan.centos.org
+Address: 10.10.1.122
+
+[root@rac01 ~]# nslookup rac-scan
+Server:         10.10.1.110
+Address:        10.10.1.110#53
+
+Name:   rac-scan.centos.org
+Address: 10.10.1.122
+Name:   rac-scan.centos.org
+Address: 10.10.1.112
+
+[root@rac02 ~]# ping -c 3 rac01
+PING rac01.centos.org (10.10.1.110) 56(84) bytes of data.
+64 bytes from rac01.centos.org (10.10.1.110): icmp_seq=1 ttl=64 time=0.593 ms
+64 bytes from rac01.centos.org (10.10.1.110): icmp_seq=2 ttl=64 time=0.611 ms
+64 bytes from rac01.centos.org (10.10.1.110): icmp_seq=3 ttl=64 time=0.588 ms
+
+--- rac01.centos.org ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 0.588/0.597/0.611/0.022 ms
+[root@rac02 ~]# ping -c 3 rac01-priv
+PING rac01-priv.centos.org (10.10.2.110) 56(84) bytes of data.
+64 bytes from rac01-priv.centos.org (10.10.2.110): icmp_seq=1 ttl=64 time=0.413 ms
+64 bytes from rac01-priv.centos.org (10.10.2.110): icmp_seq=2 ttl=64 time=0.418 ms
+64 bytes from rac01-priv.centos.org (10.10.2.110): icmp_seq=3 ttl=64 time=0.465 ms
+
+--- rac01-priv.centos.org ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2000ms
+rtt min/avg/max/mdev = 0.413/0.432/0.465/0.023 ms
+[root@rac02 ~]# ping -c 3 rac02
+PING rac02.centos.org (10.10.1.120) 56(84) bytes of data.
+64 bytes from rac02.centos.org (10.10.1.120): icmp_seq=1 ttl=64 time=0.068 ms
+64 bytes from rac02.centos.org (10.10.1.120): icmp_seq=2 ttl=64 time=0.072 ms
+64 bytes from rac02.centos.org (10.10.1.120): icmp_seq=3 ttl=64 time=0.073 ms
+
+--- rac02.centos.org ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 1999ms
+rtt min/avg/max/mdev = 0.068/0.071/0.073/0.002 ms
+[root@rac02 ~]# ping -c 3 rac02-priv
+PING rac02-priv.centos.org (10.10.2.120) 56(84) bytes of data.
+64 bytes from rac02-priv.centos.org (10.10.2.120): icmp_seq=1 ttl=64 time=0.075 ms
+64 bytes from rac02-priv.centos.org (10.10.2.120): icmp_seq=2 ttl=64 time=0.066 ms
+64 bytes from rac02-priv.centos.org (10.10.2.120): icmp_seq=3 ttl=64 time=0.070 ms
+
+--- rac02-priv.centos.org ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 1998ms
+rtt min/avg/max/mdev = 0.066/0.070/0.075/0.007 ms
+[root@rac02 ~]# nslookup rac-scan
+Server:         10.10.1.120
+Address:        10.10.1.120#53
+
+Name:   rac-scan.centos.org
+Address: 10.10.1.122
+Name:   rac-scan.centos.org
+Address: 10.10.1.112
+
+[root@rac02 ~]# nslookup rac-scan
+Server:         10.10.1.120
+Address:        10.10.1.120#53
+
+Name:   rac-scan.centos.org
+Address: 10.10.1.122
+Name:   rac-scan.centos.org
+Address: 10.10.1.112
+
+[root@rac02 ~]#
+
+[orekel@rac02 ~]$ vi DB.env
+[orekel@rac02 ~]$ cat DB.env
+# Oracle Settings
+export TMP=/tmp
+export TMPDIR=$TMP
+
+export ORACLE_HOSTNAME=rac02.centos.org
+export ORACLE_UNQNAME=MEONG
+export ORACLE_BASE=/z01/app/oracle
+export ORACLE_HOME=$ORACLE_BASE/product/12.2.0.1/db_1
+export ORACLE_SID=MEONG02
+export ORACLE_TERM=xterm
+export BASE_PATH=/usr/sbin:$PATH
+PATH=/usr/sbin:$PATH; export PATH
+PATH=$ORACLE_HOME/bin:$PATH; export PATH
+LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib; export LD_LIBRARY_PATH
+CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib; export CLASSPATH
+[orekel@rac02 ~]$ vi grid.env
+[orekel@rac02 ~]$ cat grid.env
+# Grid Settings
+TMP=/tmp; export TMP
+TMPDIR=$TMP; export TMPDIR
+ORACLE_BASE=/z01/app/oracle; export ORACLE_BASE
+ORACLE_HOME=/z01/app/12.2.0.1/grid; export ORACLE_HOME
+ORACLE_SID=+ASM02; export ORACLE_SID
+PATH=/usr/sbin:$PATH; export PATH
+PATH=$ORACLE_HOME/bin:$PATH; export PATH
+LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib; export LD_LIBRARY_PATH
+CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib; export CLASSPATH
+[orekel@rac02 ~]$ cd /z01/app/12.2.0.1/grid
+[orekel@rac02 grid]$ ls -lh
+total 2.8G
+-rw-r--r--. 1 orekel oinstall 2.8G Jan  8 14:54 V840012-01_grid.zip
+[orekel@rac02 grid]$ unzip V840012-01_grid.zip; rm -fr V840012-01_grid.zip;
+Archive:  V840012-01_grid.zip
+.
+.
+.
+[orekel@rac02 grid]$ . ~/grid.env; env|grep ORA
+ORACLE_SID=+ASM02
+ORACLE_BASE=/z01/app/oracle
+ORACLE_HOME=/z01/app/12.2.0.1/grid
+[orekel@rac02 grid]$
+
+[root@rac02 ~]# rpm -Uvh /z01/app/12.2.0.1/grid/cv/rpm/cvuqdisk-1.0.10-1.rpm
+Preparing...                          ################################# [100%]
+Using default group oinstall to install package
+Updating / installing...
+   1:cvuqdisk-1.0.10-1                ################################# [100%]
+[root@rac02 ~]#
+
+[root@rac01 RPMS]# rpm -Uvh cvuqdisk-1.0.10-1.rpm
+Preparing...                          ################################# [100%]
+Using default group oinstall to install package
+Updating / installing...
+   1:cvuqdisk-1.0.10-1                ################################# [100%]
+[root@rac01 RPMS]#
+
+[root@rac01 RPMS]# firewall-cmd --zone=public --add-port=1521/tcp --permanent
+success
+[root@rac01 RPMS]# cd
+[root@rac01 ~]# firewall-cmd --zone=public --add-port=22/tcp --permanent
+success
+[root@rac01 ~]# firewall-cmd --reload
+success
+[root@rac01 ~]# iptables-save | grep 1521
+-A IN_public_allow -p tcp -m tcp --dport 1521 -m conntrack --ctstate NEW -j ACCEPT
+[root@rac01 ~]# iptables-save | grep 22
+-A POSTROUTING -s 192.168.122.0/24 -d 224.0.0.0/24 -j RETURN
+-A POSTROUTING -s 192.168.122.0/24 -d 255.255.255.255/32 -j RETURN
+-A POSTROUTING -s 192.168.122.0/24 ! -d 192.168.122.0/24 -p tcp -j MASQUERADE --to-ports 1024-65535
+-A POSTROUTING -s 192.168.122.0/24 ! -d 192.168.122.0/24 -p udp -j MASQUERADE --to-ports 1024-65535
+-A POSTROUTING -s 192.168.122.0/24 ! -d 192.168.122.0/24 -j MASQUERADE
+-A FORWARD -d 192.168.122.0/24 -o virbr0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A FORWARD -s 192.168.122.0/24 -i virbr0 -j ACCEPT
+-A IN_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT
+-A IN_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT
+[root@rac01 ~]# iptables -L -n
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination
+ACCEPT     udp  --  0.0.0.0/0            0.0.0.0/0            udp dpt:53
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:53
+ACCEPT     udp  --  0.0.0.0/0            0.0.0.0/0            udp dpt:67
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:67
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0
+INPUT_direct  all  --  0.0.0.0/0            0.0.0.0/0
+INPUT_ZONES_SOURCE  all  --  0.0.0.0/0            0.0.0.0/0
+INPUT_ZONES  all  --  0.0.0.0/0            0.0.0.0/0
+DROP       all  --  0.0.0.0/0            0.0.0.0/0            ctstate INVALID
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-host-prohibited
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+ACCEPT     all  --  0.0.0.0/0            192.168.122.0/24     ctstate RELATED,ESTABLISHED
+ACCEPT     all  --  192.168.122.0/24     0.0.0.0/0
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0
+FORWARD_direct  all  --  0.0.0.0/0            0.0.0.0/0
+FORWARD_IN_ZONES_SOURCE  all  --  0.0.0.0/0            0.0.0.0/0
+FORWARD_IN_ZONES  all  --  0.0.0.0/0            0.0.0.0/0
+FORWARD_OUT_ZONES_SOURCE  all  --  0.0.0.0/0            0.0.0.0/0
+FORWARD_OUT_ZONES  all  --  0.0.0.0/0            0.0.0.0/0
+DROP       all  --  0.0.0.0/0            0.0.0.0/0            ctstate INVALID
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-host-prohibited
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+ACCEPT     udp  --  0.0.0.0/0            0.0.0.0/0            udp dpt:68
+OUTPUT_direct  all  --  0.0.0.0/0            0.0.0.0/0
+
+Chain FORWARD_IN_ZONES (1 references)
+target     prot opt source               destination
+FWDI_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+FWDI_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+FWDI_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+FWDI_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+
+Chain FORWARD_IN_ZONES_SOURCE (1 references)
+target     prot opt source               destination
+
+Chain FORWARD_OUT_ZONES (1 references)
+target     prot opt source               destination
+FWDO_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+FWDO_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+FWDO_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+FWDO_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+
+Chain FORWARD_OUT_ZONES_SOURCE (1 references)
+target     prot opt source               destination
+
+Chain FORWARD_direct (1 references)
+target     prot opt source               destination
+
+Chain FWDI_public (4 references)
+target     prot opt source               destination
+FWDI_public_log  all  --  0.0.0.0/0            0.0.0.0/0
+FWDI_public_deny  all  --  0.0.0.0/0            0.0.0.0/0
+FWDI_public_allow  all  --  0.0.0.0/0            0.0.0.0/0
+ACCEPT     icmp --  0.0.0.0/0            0.0.0.0/0
+
+Chain FWDI_public_allow (1 references)
+target     prot opt source               destination
+
+Chain FWDI_public_deny (1 references)
+target     prot opt source               destination
+
+Chain FWDI_public_log (1 references)
+target     prot opt source               destination
+
+Chain FWDO_public (4 references)
+target     prot opt source               destination
+FWDO_public_log  all  --  0.0.0.0/0            0.0.0.0/0
+FWDO_public_deny  all  --  0.0.0.0/0            0.0.0.0/0
+FWDO_public_allow  all  --  0.0.0.0/0            0.0.0.0/0
+
+Chain FWDO_public_allow (1 references)
+target     prot opt source               destination
+
+Chain FWDO_public_deny (1 references)
+target     prot opt source               destination
+
+Chain FWDO_public_log (1 references)
+target     prot opt source               destination
+
+Chain INPUT_ZONES (1 references)
+target     prot opt source               destination
+IN_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+IN_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+IN_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+IN_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+
+Chain INPUT_ZONES_SOURCE (1 references)
+target     prot opt source               destination
+
+Chain INPUT_direct (1 references)
+target     prot opt source               destination
+
+Chain IN_public (4 references)
+target     prot opt source               destination
+IN_public_log  all  --  0.0.0.0/0            0.0.0.0/0
+IN_public_deny  all  --  0.0.0.0/0            0.0.0.0/0
+IN_public_allow  all  --  0.0.0.0/0            0.0.0.0/0
+ACCEPT     icmp --  0.0.0.0/0            0.0.0.0/0
+
+Chain IN_public_allow (1 references)
+target     prot opt source               destination
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:22 ctstate NEW
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:1521 ctstate NEW
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:22 ctstate NEW
+
+Chain IN_public_deny (1 references)
+target     prot opt source               destination
+
+Chain IN_public_log (1 references)
+target     prot opt source               destination
+
+Chain OUTPUT_direct (1 references)
+target     prot opt source               destination
+[root@rac01 ~]#
+
+[root@rac02 ~]# firewall-cmd --zone=public --add-port=1521/tcp --permanent
+success
+[root@rac02 ~]# cd
+[root@rac02 ~]# firewall-cmd --zone=public --add-port=22/tcp --permanent
+success
+[root@rac02 ~]# firewall-cmd --reload
+success
+[root@rac02 ~]# iptables-save | grep 1521
+-A IN_public_allow -p tcp -m tcp --dport 1521 -m conntrack --ctstate NEW -j ACCEPT
+[root@rac02 ~]# iptables-save | grep 22
+-A POSTROUTING -s 192.168.122.0/24 -d 224.0.0.0/24 -j RETURN
+-A POSTROUTING -s 192.168.122.0/24 -d 255.255.255.255/32 -j RETURN
+-A POSTROUTING -s 192.168.122.0/24 ! -d 192.168.122.0/24 -p tcp -j MASQUERADE --to-ports 1024-65535
+-A POSTROUTING -s 192.168.122.0/24 ! -d 192.168.122.0/24 -p udp -j MASQUERADE --to-ports 1024-65535
+-A POSTROUTING -s 192.168.122.0/24 ! -d 192.168.122.0/24 -j MASQUERADE
+-A FORWARD -d 192.168.122.0/24 -o virbr0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A FORWARD -s 192.168.122.0/24 -i virbr0 -j ACCEPT
+-A IN_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT
+-A IN_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT
+[root@rac02 ~]# iptables -L -n
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination
+ACCEPT     udp  --  0.0.0.0/0            0.0.0.0/0            udp dpt:53
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:53
+ACCEPT     udp  --  0.0.0.0/0            0.0.0.0/0            udp dpt:67
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:67
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0
+INPUT_direct  all  --  0.0.0.0/0            0.0.0.0/0
+INPUT_ZONES_SOURCE  all  --  0.0.0.0/0            0.0.0.0/0
+INPUT_ZONES  all  --  0.0.0.0/0            0.0.0.0/0
+DROP       all  --  0.0.0.0/0            0.0.0.0/0            ctstate INVALID
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-host-prohibited
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+ACCEPT     all  --  0.0.0.0/0            192.168.122.0/24     ctstate RELATED,ESTABLISHED
+ACCEPT     all  --  192.168.122.0/24     0.0.0.0/0
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0
+FORWARD_direct  all  --  0.0.0.0/0            0.0.0.0/0
+FORWARD_IN_ZONES_SOURCE  all  --  0.0.0.0/0            0.0.0.0/0
+FORWARD_IN_ZONES  all  --  0.0.0.0/0            0.0.0.0/0
+FORWARD_OUT_ZONES_SOURCE  all  --  0.0.0.0/0            0.0.0.0/0
+FORWARD_OUT_ZONES  all  --  0.0.0.0/0            0.0.0.0/0
+DROP       all  --  0.0.0.0/0            0.0.0.0/0            ctstate INVALID
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-host-prohibited
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+ACCEPT     udp  --  0.0.0.0/0            0.0.0.0/0            udp dpt:68
+OUTPUT_direct  all  --  0.0.0.0/0            0.0.0.0/0
+
+Chain FORWARD_IN_ZONES (1 references)
+target     prot opt source               destination
+FWDI_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+FWDI_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+FWDI_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+FWDI_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+
+Chain FORWARD_IN_ZONES_SOURCE (1 references)
+target     prot opt source               destination
+
+Chain FORWARD_OUT_ZONES (1 references)
+target     prot opt source               destination
+FWDO_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+FWDO_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+FWDO_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+FWDO_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+
+Chain FORWARD_OUT_ZONES_SOURCE (1 references)
+target     prot opt source               destination
+
+Chain FORWARD_direct (1 references)
+target     prot opt source               destination
+
+Chain FWDI_public (4 references)
+target     prot opt source               destination
+FWDI_public_log  all  --  0.0.0.0/0            0.0.0.0/0
+FWDI_public_deny  all  --  0.0.0.0/0            0.0.0.0/0
+FWDI_public_allow  all  --  0.0.0.0/0            0.0.0.0/0
+ACCEPT     icmp --  0.0.0.0/0            0.0.0.0/0
+
+Chain FWDI_public_allow (1 references)
+target     prot opt source               destination
+
+Chain FWDI_public_deny (1 references)
+target     prot opt source               destination
+
+Chain FWDI_public_log (1 references)
+target     prot opt source               destination
+
+Chain FWDO_public (4 references)
+target     prot opt source               destination
+FWDO_public_log  all  --  0.0.0.0/0            0.0.0.0/0
+FWDO_public_deny  all  --  0.0.0.0/0            0.0.0.0/0
+FWDO_public_allow  all  --  0.0.0.0/0            0.0.0.0/0
+
+Chain FWDO_public_allow (1 references)
+target     prot opt source               destination
+
+Chain FWDO_public_deny (1 references)
+target     prot opt source               destination
+
+Chain FWDO_public_log (1 references)
+target     prot opt source               destination
+
+Chain INPUT_ZONES (1 references)
+target     prot opt source               destination
+IN_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+IN_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+IN_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+IN_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto]
+
+Chain INPUT_ZONES_SOURCE (1 references)
+target     prot opt source               destination
+
+Chain INPUT_direct (1 references)
+target     prot opt source               destination
+
+Chain IN_public (4 references)
+target     prot opt source               destination
+IN_public_log  all  --  0.0.0.0/0            0.0.0.0/0
+IN_public_deny  all  --  0.0.0.0/0            0.0.0.0/0
+IN_public_allow  all  --  0.0.0.0/0            0.0.0.0/0
+ACCEPT     icmp --  0.0.0.0/0            0.0.0.0/0
+
+Chain IN_public_allow (1 references)
+target     prot opt source               destination
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:22 ctstate NEW
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:1521 ctstate NEW
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:22 ctstate NEW
+
+Chain IN_public_deny (1 references)
+target     prot opt source               destination
+
+Chain IN_public_log (1 references)
+target     prot opt source               destination
+
+Chain OUTPUT_direct (1 references)
+target     prot opt source               destination
+[root@rac02 ~]# systemctl stop firewalld
+[root@rac02 ~]# systemctl disable firewalld
+
+[root@rac01 ~]# systemctl stop firewalld
+[root@rac01 ~]# systemctl disable firewalld
+
+[orekel@rac02 ~]$ . grid.env
+[orekel@rac02 ~]$ cd $ORACLE_HOME
+[orekel@rac02 grid]$ ls
+addnode     clone   dbs          dmu           has            javavm  lib      OPatch   ords  plsql    rdbms           runcluvfy.sh  srvm      utl           xdk
+assistants  crs     dc_ocm       env.ora       hs             jdbc    log      opmn     oss   precomp  relnotes        scheduler     suptools  welcome.html
+bin         css     deinstall    evm           install        jdk     md       oracore  oui   QOpatch  rhp             slax          tomcat    wlm
+cdata       cv      demo         gpnp          instantclient  jlib    network  ord      owm   qos      root.sh         sqlpatch      ucp       wwg
+cha         dbjava  diagnostics  gridSetup.sh  inventory      ldap    nls      ordim    perl  racg     rootupgrade.sh  sqlplus       usm       xag
+[orekel@rac02 grid]$ ./runcluvfy.sh stage -pre crsinst -n rac01,rac02 -verbose
+
+ERROR:
+PRVG-10467 : The default Oracle Inventory group could not be determined.
+
+Verifying User Equivalence ...FAILED (PRVG-2019, PRKC-1191)
+PRVF-4009 : User equivalence is not set for nodes: rac01
+Verification will proceed with nodes: rac02
+
+Verifying Physical Memory ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         2.7649GB (2899240.0KB)    8GB (8388608.0KB)         failed
+Verifying Physical Memory ...FAILED (PRVF-7530)
+Verifying Available Physical Memory ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         2.2397GB (2348448.0KB)    50MB (51200.0KB)          passed
+Verifying Available Physical Memory ...PASSED
+Verifying Swap Size ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         2.999GB (3144700.0KB)     2.7649GB (2899240.0KB)    passed
+Verifying Swap Size ...PASSED
+Verifying Free Space: rac02:/usr,rac02:/var,rac02:/etc,rac02:/sbin,rac02:/tmp ...
+  Path              Node Name     Mount point   Available     Required      Status
+  ----------------  ------------  ------------  ------------  ------------  ------------
+  /usr              rac02         /             24.3945GB     25MB          passed
+  /var              rac02         /             24.3945GB     5MB           passed
+  /etc              rac02         /             24.3945GB     25MB          passed
+  /sbin             rac02         /             24.3945GB     10MB          passed
+  /tmp              rac02         /             24.3945GB     1GB           passed
+Verifying Free Space: rac02:/usr,rac02:/var,rac02:/etc,rac02:/sbin,rac02:/tmp ...PASSED
+Verifying User Existence: orekel ...
+  Node Name     Status                    Comment
+  ------------  ------------------------  ------------------------
+  rac02         passed                    exists(1000)
+
+  Verifying Users With Same UID: 1000 ...PASSED
+Verifying User Existence: orekel ...PASSED
+Verifying Group Existence: asmadmin ...
+  Node Name     Status                    Comment
+  ------------  ------------------------  ------------------------
+  rac02         passed                    exists
+Verifying Group Existence: asmadmin ...PASSED
+Verifying Group Existence: asmdba ...
+  Node Name     Status                    Comment
+  ------------  ------------------------  ------------------------
+  rac02         passed                    exists
+Verifying Group Existence: asmdba ...PASSED
+Verifying Group Membership: asmdba ...
+  Node Name         User Exists   Group Exists  User in Group  Status
+  ----------------  ------------  ------------  ------------  ----------------
+  rac02             yes           yes           yes           passed
+Verifying Group Membership: asmdba ...PASSED
+Verifying Group Membership: asmadmin ...
+  Node Name         User Exists   Group Exists  User in Group  Status
+  ----------------  ------------  ------------  ------------  ----------------
+  rac02             yes           yes           yes           passed
+Verifying Group Membership: asmadmin ...PASSED
+Verifying Run Level ...
+  Node Name     run level                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         5                         3,5                       passed
+Verifying Run Level ...PASSED
+Verifying Hard Limit: maximum open file descriptors ...
+  Node Name         Type          Available     Required      Status
+  ----------------  ------------  ------------  ------------  ----------------
+  rac02             hard          65536         65536         passed
+Verifying Hard Limit: maximum open file descriptors ...PASSED
+Verifying Soft Limit: maximum open file descriptors ...
+  Node Name         Type          Available     Required      Status
+  ----------------  ------------  ------------  ------------  ----------------
+  rac02             soft          1024          1024          passed
+Verifying Soft Limit: maximum open file descriptors ...PASSED
+Verifying Hard Limit: maximum user processes ...
+  Node Name         Type          Available     Required      Status
+  ----------------  ------------  ------------  ------------  ----------------
+  rac02             hard          16384         16384         passed
+Verifying Hard Limit: maximum user processes ...PASSED
+Verifying Soft Limit: maximum user processes ...
+  Node Name         Type          Available     Required      Status
+  ----------------  ------------  ------------  ------------  ----------------
+  rac02             soft          16384         2047          passed
+Verifying Soft Limit: maximum user processes ...PASSED
+Verifying Soft Limit: maximum stack size ...
+  Node Name         Type          Available     Required      Status
+  ----------------  ------------  ------------  ------------  ----------------
+  rac02             soft          10240         10240         passed
+Verifying Soft Limit: maximum stack size ...PASSED
+Verifying Architecture ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         x86_64                    x86_64                    passed
+Verifying Architecture ...PASSED
+Verifying OS Kernel Version ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         3.10.0-693.el7.x86_64     3.10.0                    passed
+Verifying OS Kernel Version ...PASSED
+Verifying OS Kernel Parameter: semmsl ...
+  Node Name         Current       Configured    Required      Status        Comment
+  ----------------  ------------  ------------  ------------  ------------  ------------
+  rac02             250           250           250           passed
+Verifying OS Kernel Parameter: semmsl ...PASSED
+Verifying OS Kernel Parameter: semmns ...
+  Node Name         Current       Configured    Required      Status        Comment
+  ----------------  ------------  ------------  ------------  ------------  ------------
+  rac02             32000         32000         32000         passed
+Verifying OS Kernel Parameter: semmns ...PASSED
+Verifying OS Kernel Parameter: semopm ...
+  Node Name         Current       Configured    Required      Status        Comment
+  ----------------  ------------  ------------  ------------  ------------  ------------
+  rac02             100           100           100           passed
+Verifying OS Kernel Parameter: semopm ...PASSED
+Verifying OS Kernel Parameter: semmni ...
+  Node Name         Current       Configured    Required      Status        Comment
+  ----------------  ------------  ------------  ------------  ------------  ------------
+  rac02             128           128           128           passed
+Verifying OS Kernel Parameter: semmni ...PASSED
+Verifying OS Kernel Parameter: shmmax ...
+  Node Name         Current       Configured    Required      Status        Comment
+  ----------------  ------------  ------------  ------------  ------------  ------------
+  rac02             4398046511104  4398046511104  1484410880    passed
+Verifying OS Kernel Parameter: shmmax ...PASSED
+Verifying OS Kernel Parameter: shmmni ...
+  Node Name         Current       Configured    Required      Status        Comment
+  ----------------  ------------  ------------  ------------  ------------  ------------
+  rac02             4096          4096          4096          passed
+Verifying OS Kernel Parameter: shmmni ...PASSED
+Verifying OS Kernel Parameter: shmall ...
+  Node Name         Current       Configured    Required      Status        Comment
+  ----------------  ------------  ------------  ------------  ------------  ------------
+  rac02             1073741824    1073741824    289924        passed
+Verifying OS Kernel Parameter: shmall ...PASSED
+Verifying OS Kernel Parameter: file-max ...
+  Node Name         Current       Configured    Required      Status        Comment
+  ----------------  ------------  ------------  ------------  ------------  ------------
+  rac02             6815744       6815744       6815744       passed
+Verifying OS Kernel Parameter: file-max ...PASSED
+Verifying OS Kernel Parameter: ip_local_port_range ...
+  Node Name         Current       Configured    Required      Status        Comment
+  ----------------  ------------  ------------  ------------  ------------  ------------
+  rac02             between 9000 & 65500  between 9000 & 65500  between 9000 & 65535  passed
+Verifying OS Kernel Parameter: ip_local_port_range ...PASSED
+Verifying OS Kernel Parameter: rmem_default ...
+  Node Name         Current       Configured    Required      Status        Comment
+  ----------------  ------------  ------------  ------------  ------------  ------------
+  rac02             262144        262144        262144        passed
+Verifying OS Kernel Parameter: rmem_default ...PASSED
+Verifying OS Kernel Parameter: rmem_max ...
+  Node Name         Current       Configured    Required      Status        Comment
+  ----------------  ------------  ------------  ------------  ------------  ------------
+  rac02             4194304       4194304       4194304       passed
+Verifying OS Kernel Parameter: rmem_max ...PASSED
+Verifying OS Kernel Parameter: wmem_default ...
+  Node Name         Current       Configured    Required      Status        Comment
+  ----------------  ------------  ------------  ------------  ------------  ------------
+  rac02             262144        262144        262144        passed
+Verifying OS Kernel Parameter: wmem_default ...PASSED
+Verifying OS Kernel Parameter: wmem_max ...
+  Node Name         Current       Configured    Required      Status        Comment
+  ----------------  ------------  ------------  ------------  ------------  ------------
+  rac02             1048576       1048576       1048576       passed
+Verifying OS Kernel Parameter: wmem_max ...PASSED
+Verifying OS Kernel Parameter: aio-max-nr ...
+  Node Name         Current       Configured    Required      Status        Comment
+  ----------------  ------------  ------------  ------------  ------------  ------------
+  rac02             1048576       1048576       1048576       passed
+Verifying OS Kernel Parameter: aio-max-nr ...PASSED
+Verifying Package: binutils-2.23.52.0.1 ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         binutils-2.25.1-31.base.el7  binutils-2.23.52.0.1      passed
+Verifying Package: binutils-2.23.52.0.1 ...PASSED
+Verifying Package: compat-libcap1-1.10 ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         compat-libcap1-1.10-7.el7  compat-libcap1-1.10       passed
+Verifying Package: compat-libcap1-1.10 ...PASSED
+Verifying Package: libgcc-4.8.2 (x86_64) ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         libgcc(x86_64)-4.8.5-16.el7  libgcc(x86_64)-4.8.2      passed
+Verifying Package: libgcc-4.8.2 (x86_64) ...PASSED
+Verifying Package: libstdc++-4.8.2 (x86_64) ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         libstdc++(x86_64)-4.8.5-16.el7  libstdc++(x86_64)-4.8.2   passed
+Verifying Package: libstdc++-4.8.2 (x86_64) ...PASSED
+Verifying Package: libstdc++-devel-4.8.2 (x86_64) ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         libstdc++-devel(x86_64)-4.8.5-16.el7  libstdc++-devel(x86_64)-4.8.2  passed
+Verifying Package: libstdc++-devel-4.8.2 (x86_64) ...PASSED
+Verifying Package: sysstat-10.1.5 ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         sysstat-10.1.5-12.el7     sysstat-10.1.5            passed
+Verifying Package: sysstat-10.1.5 ...PASSED
+Verifying Package: gcc-c++-4.8.2 ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         missing                   gcc-c++-4.8.2             failed
+Verifying Package: gcc-c++-4.8.2 ...FAILED (PRVF-7532)
+Verifying Package: ksh ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         ksh                       ksh                       passed
+Verifying Package: ksh ...PASSED
+Verifying Package: make-3.82 ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         make-3.82-23.el7          make-3.82                 passed
+Verifying Package: make-3.82 ...PASSED
+Verifying Package: glibc-2.17 (x86_64) ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         glibc(x86_64)-2.17-196.el7  glibc(x86_64)-2.17        passed
+Verifying Package: glibc-2.17 (x86_64) ...PASSED
+Verifying Package: glibc-devel-2.17 (x86_64) ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         glibc-devel(x86_64)-2.17-196.el7  glibc-devel(x86_64)-2.17  passed
+Verifying Package: glibc-devel-2.17 (x86_64) ...PASSED
+Verifying Package: libaio-0.3.109 (x86_64) ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         libaio(x86_64)-0.3.109-13.el7  libaio(x86_64)-0.3.109    passed
+Verifying Package: libaio-0.3.109 (x86_64) ...PASSED
+Verifying Package: libaio-devel-0.3.109 (x86_64) ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         libaio-devel(x86_64)-0.3.109-13.el7  libaio-devel(x86_64)-0.3.109  passed
+Verifying Package: libaio-devel-0.3.109 (x86_64) ...PASSED
+Verifying Package: nfs-utils-1.2.3-15 ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         nfs-utils-1.3.0-0.48.el7  nfs-utils-1.2.3-15        passed
+Verifying Package: nfs-utils-1.2.3-15 ...PASSED
+Verifying Package: smartmontools-6.2-4 ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         smartmontools-6.2-8.el7   smartmontools-6.2-4       passed
+Verifying Package: smartmontools-6.2-4 ...PASSED
+Verifying Package: net-tools-2.0-0.17 ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         net-tools-2.0-0.22.20131004git.el7  net-tools-2.0-0.17        passed
+Verifying Package: net-tools-2.0-0.17 ...PASSED
+Verifying Port Availability for component "Oracle Notification Service (ONS)" ...
+  Node Name         Port Number   Protocol      Available     Status
+  ----------------  ------------  ------------  ------------  ----------------
+  rac02             6200          TCP           yes           successful
+  rac02             6100          TCP           yes           successful
+Verifying Port Availability for component "Oracle Notification Service (ONS)" ...PASSED
+Verifying Port Availability for component "Oracle Cluster Synchronization Services (CSSD)" ...
+  Node Name         Port Number   Protocol      Available     Status
+  ----------------  ------------  ------------  ------------  ----------------
+  rac02             42424         TCP           yes           successful
+Verifying Port Availability for component "Oracle Cluster Synchronization Services (CSSD)" ...PASSED
+Verifying Users With Same UID: 0 ...PASSED
+Verifying Current Group ID ...PASSED
+Verifying Root user consistency ...
+  Node Name                             Status
+  ------------------------------------  ------------------------
+  rac02                                 passed
+Verifying Root user consistency ...PASSED
+Verifying Package: cvuqdisk-1.0.10-1 ...
+  Node Name     Available                 Required                  Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         cvuqdisk-1.0.10-1         cvuqdisk-1.0.10-1         passed
+Verifying Package: cvuqdisk-1.0.10-1 ...PASSED
+Verifying Node Connectivity ...
+  Verifying Hosts File ...
+  Node Name                             Status
+  ------------------------------------  ------------------------
+  rac02                                 passed
+  Verifying Hosts File ...PASSED
+
+Interface information for node "rac02"
+
+ Name   IP Address      Subnet          Gateway         Def. Gateway    HW Address        MTU
+ ------ --------------- --------------- --------------- --------------- ----------------- ------
+ ens33  192.168.58.12   192.168.58.0    0.0.0.0         192.168.58.1    00:50:56:2B:66:E7 9000
+ Public 10.10.1.120     10.10.1.0       0.0.0.0         192.168.58.1    00:50:56:2C:65:50 9000
+ Private 10.10.2.120     10.10.2.0       0.0.0.0         192.168.58.1    00:50:56:2C:D2:5A 9000
+ virbr0 192.168.122.1   192.168.122.0   0.0.0.0         192.168.58.1    52:54:00:F2:6A:90 1500
+
+Check: MTU consistency of the subnet "10.10.2.0".
+
+  Node              Name          IP Address    Subnet        MTU
+  ----------------  ------------  ------------  ------------  ----------------
+  rac02             Private       10.10.2.120   10.10.2.0     9000
+
+Check: MTU consistency of the subnet "10.10.1.0".
+
+  Node              Name          IP Address    Subnet        MTU
+  ----------------  ------------  ------------  ------------  ----------------
+  rac02             Public        10.10.1.120   10.10.1.0     9000
+
+Check: MTU consistency of the subnet "192.168.122.0".
+
+  Node              Name          IP Address    Subnet        MTU
+  ----------------  ------------  ------------  ------------  ----------------
+  rac02             virbr0        192.168.122.1  192.168.122.0  1500
+
+Check: MTU consistency of the subnet "192.168.58.0".
+
+  Node              Name          IP Address    Subnet        MTU
+  ----------------  ------------  ------------  ------------  ----------------
+  rac02             ens33         192.168.58.12  192.168.58.0  9000
+  Verifying Check that maximum (MTU) size packet goes through subnet ...PASSED
+Verifying Node Connectivity ...PASSED
+Verifying Multicast check ...
+Checking subnet "10.10.2.0" for multicast communication with multicast group "224.0.0.251"
+Verifying Multicast check ...PASSED
+Verifying Network Time Protocol (NTP) ...
+  Verifying '/etc/chrony.conf' ...
+  Node Name                             File exists?
+  ------------------------------------  ------------------------
+  rac02                                 yes
+
+  Verifying '/etc/chrony.conf' ...PASSED
+  Verifying '/var/run/ntpd.pid' ...
+  Node Name                             File exists?
+  ------------------------------------  ------------------------
+  rac02                                 no
+
+  Verifying '/var/run/ntpd.pid' ...PASSED
+  Verifying '/var/run/chronyd.pid' ...
+  Node Name                             File exists?
+  ------------------------------------  ------------------------
+  rac02                                 no
+
+  Verifying '/var/run/chronyd.pid' ...PASSED
+Verifying Network Time Protocol (NTP) ...FAILED
+Verifying Same core file name pattern ...PASSED
+Verifying User Mask ...
+  Node Name     Available                 Required                  Comment
+  ------------  ------------------------  ------------------------  ----------
+  rac02         0022                      0022                      passed
+Verifying User Mask ...PASSED
+Verifying User Not In Group "root": orekel ...
+  Node Name     Status                    Comment
+  ------------  ------------------------  ------------------------
+  rac02         passed                    does not exist
+Verifying User Not In Group "root": orekel ...PASSED
+Verifying Time zone consistency ...PASSED
+Verifying resolv.conf Integrity ...
+  Verifying (Linux) resolv.conf Integrity ...
+  Node Name                             Status
+  ------------------------------------  ------------------------
+  rac02                                 failed
+
+  checking response for name "rac02" from each of the name servers specified in
+  "/etc/resolv.conf"
+
+  Node Name     Source                    Comment                   Status
+  ------------  ------------------------  ------------------------  ----------
+  rac02         10.10.1.120               IPv4                      failed
+  rac02         75.75.75.75               IPv4                      failed
+  Verifying (Linux) resolv.conf Integrity ...FAILED (PRVF-5636, PRVG-10048)
+Verifying resolv.conf Integrity ...FAILED (PRVF-5636, PRVG-10048)
+Verifying DNS/NIS name service ...PASSED
+Verifying Domain Sockets ...PASSED
+Verifying /boot mount ...PASSED
+Verifying Daemon "avahi-daemon" not configured and running ...
+  Node Name     Configured                Status
+  ------------  ------------------------  ------------------------
+  rac02         no                        passed
+
+  Node Name     Running?                  Status
+  ------------  ------------------------  ------------------------
+  rac02         yes                       failed
+Verifying Daemon "avahi-daemon" not configured and running ...FAILED (PRVG-1360)
+Verifying Daemon "proxyt" not configured and running ...
+  Node Name     Configured                Status
+  ------------  ------------------------  ------------------------
+  rac02         no                        passed
+
+  Node Name     Running?                  Status
+  ------------  ------------------------  ------------------------
+  rac02         no                        passed
+Verifying Daemon "proxyt" not configured and running ...PASSED
+Verifying User Equivalence ...PASSED
+Verifying /dev/shm mounted as temporary file system ...FAILED (PRVE-0421)
+Verifying File system mount options for path /var ...PASSED
+Verifying zeroconf check ...PASSED
+Verifying ASM Filter Driver configuration ...PASSED
+
+Pre-check for cluster services setup was unsuccessful on all the nodes.
+
+
+Failures were encountered during execution of CVU verification request "stage -pre crsinst".
+
+Verifying User Equivalence ...FAILED
+rac01: PRVG-2019 : Check for equivalence of user "orekel" from node "rac02" to
+       node "rac01" failed
+
+       PRKC-1191 : Remote command execution setup check for node rac01 using
+       shell /usr/bin/ssh failed.
+       Connection closed by 10.10.1.110 port 22
+
+Verifying Physical Memory ...FAILED
+rac02: PRVF-7530 : Sufficient physical memory is not available on node "rac02"
+       [Required physical memory = 8GB (8388608.0KB)]
+
+Verifying Package: gcc-c++-4.8.2 ...FAILED
+rac02: PRVF-7532 : Package "gcc-c++" is missing on node "rac02"
+
+Verifying Network Time Protocol (NTP) ...FAILED
+Verifying resolv.conf Integrity ...FAILED
+rac02: PRVF-5636 : The DNS response time for an unreachable node exceeded
+       "15000" ms on following nodes: rac02
+rac02: PRVG-10048 : Name "rac02" was not resolved to an address of the
+       specified type by name servers o"10.10.1.120".
+rac02: PRVG-10048 : Name "rac02" was not resolved to an address of the
+       specified type by name servers o"75.75.75.75".
+rac02: Check for integrity of file "/etc/resolv.conf" failed
+
+
+  Verifying (Linux) resolv.conf Integrity ...FAILED
+  rac02: PRVF-5636 : The DNS response time for an unreachable node exceeded
+         "15000" ms on following nodes: rac02
+  rac02: PRVG-10048 : Name "rac02" was not resolved to an address of the
+         specified type by name servers o"10.10.1.120".
+  rac02: PRVG-10048 : Name "rac02" was not resolved to an address of the
+         specified type by name servers o"75.75.75.75".
+
+Verifying Daemon "avahi-daemon" not configured and running ...FAILED
+rac02: PRVG-1360 : Daemon process "avahi-daemon" is running on node "rac02"
+
+Verifying /dev/shm mounted as temporary file system ...FAILED
+rac02: PRVE-0421 : No entry exists in /etc/fstab for mounting /dev/shm
+
+
+CVU operation performed:      stage -pre crsinst
+Date:                         Jan 8, 2018 3:38:29 PM
+CVU home:                     /z01/app/12.2.0.1/grid/
+User:                         orekel
+[orekel@rac02 grid]$
+
+VMWARE-WORKSTATION NOT SUPPORTED CLUSTERING

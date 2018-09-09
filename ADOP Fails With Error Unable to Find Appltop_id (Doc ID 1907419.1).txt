@@ -1,0 +1,52 @@
+ADOP Fails With Error Unable to Find Appltop_id (Doc ID 1907419.1)
+
+oravis@solarisdev:/u01/oracle/PROD/fs1/inst/apps/PROD_solarisdev/admin/scripts$ adop phase=cleanup
+
+Enter the APPS password:
+Enter the SYSTEM password:
+Enter the WLSADMIN password:
+
+Validating credentials.
+
+Initializing.
+    Run Edition context  : /u01/oracle/PROD/fs1/inst/apps/PROD_solarisdev/appl/admin/PROD_solarisdev.xml
+    Patch edition context: /u01/oracle/PROD/fs2/inst/apps/PROD_solarisdev/appl/admin/PROD_solarisdev.xml
+    Patch file system free space: 96.78 GB
+
+Validating system setup.
+    [UNEXPECTED]Unable to find appltop_id for host solarisdev in database
+    Node registry is valid.
+    [WARNING]   ETCC: The following required database fixes have not been applied to node solarisdev:
+                  19239846
+                  21321429
+                  21813400
+                  22568797
+                  22666802
+                  23084142
+                  23632545
+                  23645516
+                  24326444
+                  24385983
+                  24560906
+                  24589081
+                  25099339
+                  25919622
+                  25755742
+                Refer to My Oracle Support Knowledge Document 1594274.1 for instructions.
+    [WARNING]   MTCC has not been run. Apply Patch 17537119 and run checkMTpatch.sh.
+
+Checking for existing adop sessions.
+    [UNEXPECTED]Unable to find appltop_id for host solarisdev in database
+    [UNEXPECTED]Invalid APPL_TOP ID: "".
+    [UNEXPECTED]Unrecoverable error occurred. Exiting current adop session.
+
+
+[STATEMENT] Please run adopscanlog utility, using the command
+
+"adopscanlog -latest=yes"
+
+to get the list of the log files along with snippet of the error message corresponding to each log file.
+
+
+adop exiting with status = 2 (Fail)
+oravis@solarisdev:/u01/oracle/PROD/fs1/inst/apps/PROD_solarisdev/admin/scripts$

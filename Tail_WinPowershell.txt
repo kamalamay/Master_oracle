@@ -1,0 +1,1 @@
+Get-Content -Path D:\app\oracle\diag\rdbms\plindo\plindo\trace\alert_plindo.log -Tail 100 -Wait

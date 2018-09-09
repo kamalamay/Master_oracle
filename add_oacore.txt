@@ -1,0 +1,26 @@
+perl /vol/PROD/fs1/EBSapps/appl/ad/12.0.0/patch/115/bin/adProvisionEBS.pl  ebs-create-managedserver -contextfile=/vol/PROD/fs1/inst/apps/PROD_mspapp/appl/admin/PROD_mspapp.xml -managedsrvname=oacore_server2 -servicetype=oacore -managedsrvport=7203 -logfile=/tmp/oacore2.log
+
+perl $FND_TOP/patch/115/bin/txkSetAppsConf.pl -ctxfile=$CONTEXT_FILE -outfile=/tmp/txkSetAppsConf.log -configoption=addMS -oacore=mspapp.msp.id:7203
+
+
+
+
+
+patch edition
+
+adadminsrvctl.sh start forcepatchfs 
+
+from run editon
+perl $AD_TOP/patch/115/bin/adProvisionEBS.pl ebs-create-managedserver -contextfile=$CONTEXT_FILE -managedsrvname=oacore_server2 -servicetype=oacore -managedsrvport=7204 -logfile=\tmp\oacore2_2.log
+
+
+perl $AD_TOP/bin/adSyncContext.pl -contextfile=/vol/PROD/fs2/inst/apps/PROD_mspapp/appl/admin/PROD_mspapp.xml
+
+
+java oracle.apps.ad.autoconfig.InstantiateFile -e /vol/PROD/fs2/inst/apps/PROD_mspapp/appl/admin/PROD_mspapp.xml -tmpl \
+/vol/PROD/fs2/EBSapps/appl/ad/12.0.0/admin/template/fsclone_config_txt.tmp -out \
+/vol/PROD/fs2/inst/apps/PROD_mspapp/appl/admin/fsclone_config.txt
+
+
+perl $FND_TOP/patch/115/bin/txkSetAppsConf.pl -ctxfile=/vol/PROD/fs2/inst/apps/PROD_mspapp/appl/admin/PROD_mspapp.xml -outfile=/tmp/oacore2_3.log -configoption=addMS -oacore=mspapp.msp.id:7204
+

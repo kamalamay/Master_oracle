@@ -1,0 +1,31 @@
+Housekeeping APPS 12.1.x
+########################
+-bash-3.2$ cd $INST_TOP/logs/ora/10.1.3/Apache
+error_log*
+access_log*
+
+-bash-3.2$ cd $INST_TOP/logs/ora/10.1.2/reports/cache
+o*.txt
+o*.xml
+
+-bash-3.2$ cd $INST_TOP/logs/ora/10.1.2/forms
+em_*.rti
+frmweb_dump*
+
+-bash-3.2$ cd $INST_TOP/logs/appl/conc/out
+*.log
+*PDF
+*.out
+
+Housekeeping APPS 12.2.x
+########################
+$INST_TOP/logs/ora/10.1.2/reports/cache
+o*
+
+$INST_TOP/logs/ora/10.1.2/forms
+em*rti
+frmweb_dump*
+
+$APPLCSF/out
+*out
+*PDF

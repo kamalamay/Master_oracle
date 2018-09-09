@@ -1,0 +1,73 @@
+Switch HA Oracle Cluster
+========================
+
+-bash-3.2$ hostname
+misdbcgk2
+-bash-3.2$ cat /etc/hosts
+#
+# Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
+# Use is subject to license terms.
+#
+# Internet host table
+#
+::1             localhost
+127.0.0.1       localhost loghost
+
+#Node 1
+192.168.4.51     cosdbcgk1.ptjas.co.id cosdbcgk1
+192.168.4.52     misdbcgk1.ptjas.co.id misdbcgk1
+192.168.4.53     hisdbcgk1.ptjas.co.id hisdbcgk1
+192.168.4.40     cappscgk1.ptjas.co.id cappscgk1
+#Node 2
+192.168.4.61     cosdbcgk2.ptjas.co.id cosdbcgk2
+192.168.4.62     misdbcgk2.ptjas.co.id
+192.168.4.63     hisdbcgk2.ptjas.co.id hisdbcgk2
+192.168.4.41     cappscgk2.ptjas.co.id cappscgk2
+#Virtual IP
+192.168.4.71     cosdbcgk
+192.168.4.72     misdbcgk misdbcgk2
+192.168.4.73     hisdbcgk
+192.168.4.45     cappscgk
+-bash-3.2$
+
+root@hisdbcgk2 # clrg status
+
+=== Cluster Resource Groups ===
+
+Group Name       Node Name       Suspended      Status
+----------       ---------       ---------      ------
+ha-ora-rg        hisdbcgk2       No             Online
+                 hisdbcgk1       No             Offline
+
+root@hisdbcgk2 # clrg switch -n ^C
+root@hisdbcgk2 # clrg status -n hisdbcgk1 ha-ora-rg
+clrg:  (C481918) Specified resource group "ha-ora-rg" does not meet the criteria set by the "-t", "-r", "-n", and "-s" options.
+
+=== Cluster Resource Groups ===
+
+Group Name       Node Name       Suspended      Status
+----------       ---------       ---------      ------
+root@hisdbcgk2 # bash    
+root@hisdbcgk2 # clrg switch -n hisdbcgk1 ha-ora-rg
+root@hisdbcgk2 #
+
+root@misdbcgk1 # clrg status
+
+=== Cluster Resource Groups ===
+
+Group Name       Node Name       Suspended      Status
+----------       ---------       ---------      ------
+ha-ora-rg        misdbcgk1       No             Online
+                 misdbcgk2       No             Offline
+
+root@misdbcgk1 # clrg switch -n misdbcgk2 ha-ora-rg
+root@misdbcgk1 # clrg status
+
+=== Cluster Resource Groups ===
+
+Group Name       Node Name       Suspended      Status
+----------       ---------       ---------      ------
+ha-ora-rg        misdbcgk1       No             Offline
+                 misdbcgk2       No             Online
+
+root@misdbcgk1 #

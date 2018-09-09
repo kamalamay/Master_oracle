@@ -1,0 +1,177 @@
+Source:
+http://madhanappsdba.blogspot.co.id/2014/12/how-to-compile-oracle-apps-r12-forms.html
+
+How to compile Oracle Apps 11i Forms
+============================
+Check whether the forms that you want to generate are not in use at the time you are generating them.
+ If they are in use when you generate the fmx files, the forms client session terminates.
+1) Login to the Forms server node as applmgr and run .env file to set the applications environment.
+2) Change directory to $AU_TOP/forms/US.
+3) Use the “f60gen” command to generate the fmx files for the fmb files.
+4) Issue the following command
+$ f60gen module=<formname>.fmb userid=apps/<apps_pwd> output_file=/forms/US/<formname>.fmx
+
+How to compile Oracle Apps R12 Forms
+=============================
+1) Log into the forms tier.
+2) Set the applications environment
+3) Ensure that the $FORMS_PATH includes $AU_TOP/resource and $AU_TOP/resource/stub, for example
+echo $FORMS_PATH
+/u01/oracle/DEV/apps/apps_st/appl/au/12.0.0/resource:
+/u01/oracle/DEV/apps/apps_st/appl/au/12.0.0/resource/stub
+4) Compile the form
+a)- If you are using forms customizations (CUily: verdana,geneva;">1) Log into the forms tier.
+2) Set the applications environment
+3) Ensure that the $FORMS_PATH includes $AU_TOP/resource and $AU_TOP/resource/stub, for example
+echo $FORMS_PATH
+/u01/oracle/DEV/apps/apps_st/appl/au/12.0.0/resource:
+/u01/oracle/DEV/apps/apps_st/appl/au/12.0.0/resource/stub
+4) Compile the form
+a)- If you are using forms customizations (CUSTOM.pll) then run the command below to compile the form.
+frmcmp_batch.sh module=<path to fmb file> userid=APPS/APPS output_file=
+<full path to fmx output file> module_type=form compile_all=special
+For eg:-
+frmcmp_batch.sh module=/u01/oracle/TEST/apps/apps_st/appl/au/12.0.0/forms/US/
+XXX.fmb userid=APPS/APPS output_file=/u01/oracle/TEST/apps/apps_st/appl/inv/
+12.0.0/forms/US/XXX.fmx module_type=form compile_all=special
+b) If you are NOT using forms customizations, then run the command below to compile the form.
+frmcmp_batch.sh module=<path to fmb file> userid=APPS/APPS output_file=
+<full path to fmx output file> module_type=form
+For example..
+frmcmp_batch.sh module=/u01/oracle/TEST/apps/apps_st/appl/au/12.0.0/forms/US/
+XXX.fmb userid=APPS/APPS  output_file=/u01/oracle/TEST/apps/apps_st/appl/inv/
+12.0.0/forms/US/XXX.fmx module_type=form
+
+
+How to Generate a Specific Schema Form through AD utility adadmin:
+=================================================
+
+
+1. Start the adadmin Utility
+bash-3.00$ adadmin
+Note:-From a command line session, as the applmgr user, start the adadmin utility.
+Please note that if your system is configured using more than one tier and more than one APPL_TOP (in contrast to the shared APPL_TOP), you should run this utility from each forms tier.
+
+2. Step Through the Initial adadmin Questions
+Your default directory is '/oracle/prod/apps/apps_st/appl'.
+Is this the correct APPL_TOP [Yes] ?
+Note:-If the above is true, then hit the [Enter] key.
+AD Administration records your AD Administration session in a text file
+you specify.  Enter your AD Administration log file name or press [Return]
+to accept the default file name shown in brackets.
+Filename [adadmin.log] : POXBWVRP.log
+Note:-Here you can record your adadmin session in a specific log file like above.
+************* Start of AD Administration session *************
+AD Administration version: 12.0.0
+AD Administration started at: Tue May 07 2013 21:01:17
+APPL_TOP is set to /oracle/prod/apps/apps_st/appl
+You can be notified by email if a failure occurs.
+Do you wish to activate this feature [No] ?
+Note:-This option only works in UNIX and the purpose of this question is to notify the AD administrator by mail if any failure occurred while adadmin was running in unattended mode.
+Please enter the batchsize [1000] :
+Note:-This option asks for a specific batch size, to reserve memory when adadmin validates package and procedure information. This option only is meaningful when running database administrative related tasks. For the purpose of generating a form, you can leave the default value.
+You are about to use or modify Oracle Applications product tables
+in your ORACLE database 'ancprod'
+using ORACLE executables in '/oracle/prod/apps/tech_st/10.1.2'.
+Is this the correct database [Yes] ?
+Note:-If correct, hit the [Enter] key. Otherwise, exit this utility by typing "abort" plus the [b] key and verify if your environment has been sourced correctly.
+AD Administration needs the password for your 'SYSTEM' ORACLE schema
+in order to determine your installation configuration.
+Enter the password for your 'SYSTEM' ORACLE schema:
+Note:-Here you must enter your SYSTEM database user password.
+The ORACLE username specified below for Application Object Library
+uniquely identifies your existing product group: APPLSYS
+Enter the ORACLE password of Application Object Library [APPS] :
+Note:-Here you must enter your SYSTEM database user password.
+After finally reaching this point, the utility will try to connect to your database and get information regarding your system.
+
+3. The next step which requires user interaction is the main menu:
+            AD Administration Main Menu
+   --------------------------------------------------
+   1.    Generate Applications Files menu
+   2.    Maintain Applications Files menu
+   3.    Compile/Reload Applications Database Entities menu
+   4.    Maintain Applications Database Entities menu
+   5.    Change Maintenance Mode
+   6.    Exit AD Administration
+
+Enter your choice [6] : 1
+
+         Generate Applications Files
+   ----------------------------------------
+   1.    Generate message files
+   2.    Generate form files
+   3.    Generate report files
+   4.    Generate product JAR files
+   5.    Return to Main Menu
+
+Enter your choice [5] : 2
+
+AD utilities can support a maximum of 999 workers. Your
+current database configuration supports a maximum of 276 workers.
+Oracle recommends that you use between 64 and 128 workers.
+Enter the number of workers [64] : 8
+Note:-In order to determine the optimal number of workers for your system, you should consider the following general rule:
+Total of available workers for your system = (Number of processors) x 3
+Your current character set is "UTF8".
+Do you want to generate Oracle Forms objects
+using this character set [Yes] ?
+Note:-If this is your correct character set, hit [Enter].  Otherwise, please verify your environment.
+Do you want to regenerate Oracle Forms PL/SQL library files [Yes] ?
+Note:-In this case, we will generate PL/SQL library files, so you might reply 'y' to the above question.
+Do you want to regenerate Oracle Forms menu files [Yes] ?
+Note:-Same as above; reply 'y' to this question.
+Do you want to regenerate Oracle Forms executable files [Yes] ?
+Note:-Here, hit [Enter] to accept the default 'Yes'
+Enter list of products ('all' for all products) [all] : PO
+Note:-Now, we need to specify the Application short name. (po for Purchasing Order, gl, for General Ledger, ap for Payables, and so on).  In our example we will be using module fnd (Application Object Library).
+In 11i, the entry must be typed using lowercase characters.
+Generate specific forms objects for each selected product [No] ? Yes
+Note:-Answer 'y' to this question, since it will regenerate all forms for the module selected previously if 'No' is answered here.
+The current set of installed languages is: US
+Please select languages for generating Oracle Forms files.
+You may select all of the above languages, or just a subset.
+Enter list of languages ('all' for all of the above) [all] :
+Note:-In this case, reply 'all', since this will regenerate the form for all existing languages.
+You selected the following languages: US
+Is this the correct set of languages [Yes] ?
+Reading product form information...
+Selecting Oracle Forms PL/SQL library files and menu files to generate...
+Selecting library and menu files for Purchasing...
+List of libraries and menus in Purchasing :
+   POASTDCM.pll   POXAPAPC.pll   POXAPINT.pll   POXBWVRP.pll   POXCOMSG.pll
+    POXCORE.pll   POXCOSEU.pll   POXCPDOC.pll   POXDOCEC.pll   POXDOCON.pll
+   POXDOPRE.pll   POXGMLCR.pll   POXGMLCT.pll   POXGMLPO.pll   POXGMLRQ.pll
+   POXOPROC.pll   POXPIPLL.pll   POXPIPOH.pll   POXPIPOL.pll   POXPIPOS.pll
+   POXPIRFV.pll   POXPIRQH.pll   POXPIRQL.pll    POXPOAH.pll   POXPOCTR.pll
+   POXPODIS.pll   POXPODMC.pll   POXPOEAC.pll   POXPOEGA.pll   POXPOEPO.pll
+   POXPOPOL.pll   POXPOPOS.pll   POXPORCV.pll   POXPOREL.pll   POXPORMC.pll
+   POXPOVCT.pll   POXPOVP1.pll   POXPOVP2.pll   POXPRCDF.pll   POXPROJA.pll
+   POXPROJM.pll   POXRIHDR.pll   POXRILNS.pll   POXRQDIS.pll   POXRQHDR.pll
+   POXRQLNS.pll   POXRQMOD.pll   POXRQVR1.pll   POXRQVR2.pll   POXSCAPP.pll
+   POXSCRFV.pll   POXSCSAQ.pll   POXSCSI2.pll   POXSCSIL.pll   POXSTIFT.pll
+   RCVCOFND.pll   RCVCOTRX.pll   RCVCOUOM.pll   RCVGMLCR.pll   RCVGMLTX.pll
+   RCVMRFND.pll   RCVMRMAT.pll   RCVRCCON.pll   RCVRCCUR.pll   RCVRCERH.pll
+   RCVRCERL.pll   RCVRCMUR.pll   RCVRCVRC.pll   RCVSHESH.pll   RCVSTDRO.pll
+   RCVTXECO.pll   RCVTXERE.pll   RCVTXERT.pll   RCVTXVTX.pll
+Enter libraries and menus to generate, or enter 'all' [all] : POXBWVRP.pll
+Selecting product forms to generate...
+Selecting forms for Purchasing...
+List of forms in Purchasing :
+   POASTDCM.fmx   POASTDSR.fmx   POXBWVRP.fmx   POXCPDOC.fmx   POXDOAPP.fmx
+   POXDOCEC.fmx   POXDOCON.fmx   POXDOFDO.fmx   POXDOPRE.fmx   POXDOREP.fmx
+   POXGAORG.fmx   POXOPROC.fmx   POXPCATN.fmx    POXPOAH.fmx   POXPODMC.fmx
+   POXPOEAC.fmx   POXPOEPO.fmx   POXPOERL.fmx   POXPORMC.fmx   POXPOVCT.fmx
+   POXPOVPO.fmx   POXPRCDF.fmx   POXQUEMQ.fmx   POXRQARQ.fmx   POXRQERQ.fmx
+   POXRQMOD.fmx   POXRQTMP.fmx   POXRQVRQ.fmx   POXSCAPP.fmx   POXSCASL.fmx
+   POXSCERQ.fmx   POXSCSAQ.fmx   POXSCSIC.fmx   POXSTASL.fmx   POXSTDCG.fmx
+   POXSTDCS.fmx   POXSTDLC.fmx   POXSTDPC.fmx   POXSTIFT.fmx   POXSTITS.fmx
+   POXSTPRS.fmx   POXSTRLM.fmx   POXSVASL.fmx   POXTAXCT.fmx   POXTAXDT.fmx
+   RCVCOFND.fmx   RCVCOSTA.fmx   RCVRCERC.fmx   RCVRCMUR.fmx   RCVRCVRC.fmx
+   RCVSHESH.fmx   RCVSTAND.fmx   RCVSTDRO.fmx   RCVTXECO.fmx   RCVTXERE.fmx
+   RCVTXERT.fmx   RCVTXVTX.fmx
+Enter forms to generate, or enter 'all' [all] : POXBWVRP.fmx
+Note:-Enter ‘POXBWVRP.fmx’ at the prompt. Once you do so, adadmin will invoke the appropriate forms compiler and will regenerate the forms.
+Generating Oracle Forms objects...
+Note:-If any error is found, review the adadmin log file and the adworker log file(s).  The adworker log files are also located under $APPL_TOP/admin/<INSTANCE_NAME>/log directory.  The file name is adworkxx.log where xx is the number of the worker that had failed.
+If submitting the problem to Oracle Support as a service request, please upload the adadmin log and the relevant adworker log.

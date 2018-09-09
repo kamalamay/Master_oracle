@@ -1,0 +1,2 @@
+CLONING RAC-ASM TO NON-RAC NON-ASM
+https://sites.google.com/site/oraclerac009/f-rac-cloning/cloning/rac-to-non-rac-cloning

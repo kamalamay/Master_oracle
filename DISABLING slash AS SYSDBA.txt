@@ -1,0 +1,28 @@
+HOW TO DISABLING SQLPLUS / AS SYSDBA
+------------------------------------
+
+[prastyo@localhost ~]$ nano /home/prastyo/app/prastyo/product/11.2.0/dbhome_1/network/admin/sqlnet.ora
+
+add line:
+SQLNET.AUTHENTICATION_SERVICES=NONE
+
+Ctrl+X to save
+
+[prastyo@localhost ~]$ sqlplus / as sysdba
+
+SQL*Plus: Release 11.2.0.1.0 Production on Tue Jun 3 11:17:03 2014
+
+Copyright (c) 1982, 2009, Oracle.  All rights reserved.
+
+ERROR:
+ORA-01031: insufficient privileges
+
+
+Enter user-name: sys as sysdba
+Enter password: 
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> exit

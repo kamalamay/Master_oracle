@@ -1,0 +1,118 @@
+20170517 TimesTen 11.2.2.8.0 Create DB Cache
+============================================
+[oracle@spiderman ~]$ . TimesTen.env 
+[oracle@spiderman ~]$ cd $TT_HOME/info
+[oracle@spiderman info]$ ls
+cluster.oracle.ini  DemoDataStore  sys.odbc.ini       timestend.pid   ttendaemon.options  ttmesg.log
+DBI591c45c7.0       snmp.ini       sys.ttconnect.ini  ttcacheadvisor  tterrors.log
+[oracle@spiderman info]$ cat ttendaemon.options 
+# Commented values are default values
+#-supportlog /opt/TimesTen/tt1122/info/ttmesg.log
+#-maxsupportlogfiles 10
+#-maxsupportlogsize 10485760
+#-userlog /opt/TimesTen/tt1122/info/tterrors.log
+#-maxuserlogfiles 10
+#-maxuserlogsize 0x100000
+#
+-verbose
+-tns_admin /z01/app/oracle/product/11204/db_h1/network/admin
+-server 53397
+[oracle@spiderman info]$ ttmodinstall
+The daemon for instance 'tt1122' is currently configured to use port 53396.
+Would you like to change this port? [ no ] no
+The server for instance 'tt1122' is currently configured to use port 53397.
+Would you like to change this port? [ no ] no
+TNS_ADMIN for the instance 'tt1122' is currently set to '/z01/app/oracle/product/11204/db_h1/network/admin'.
+Would you like to change TNS_ADMIN for this instance? [ yes ] yes
+Please enter a value for TNS_ADMIN (q=quit)? [  ] /z01/app/oracle/product/11204/db_h1/network/admin
+
+Do you want to restart the daemon using the new configuration? [ yes ] yes
+Restarting the daemon ...
+TimesTen Daemon stopped.
+TimesTen Daemon startup OK.
+Instance tt1122 is now configured with TNS_ADMIN=/z01/app/oracle/product/11204/db_h1/network/admin
+Would you like to configure TimesTen Replication with Oracle Clusterware? [ no ] no
+Done ...
+[oracle@spiderman info]$
+
+[oracle@spiderman admin]$ . ~/.bash_profile
+[oracle@spiderman admin]$ rlwrap sqlplus scott/scott@PARKER
+
+SQL*Plus: Release 11.2.0.4.0 Production on Wed May 17 21:08:12 2017
+
+Copyright (c) 1982, 2013, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+
+SQL>
+
+[oracle@spiderman info]$ nano sys.odbc.ini
+OracleNetServiceName=PARKER
+
+[oracle@spiderman info]$ ttdaemonadmin -stop
+TimesTen Daemon stopped.
+[oracle@spiderman info]$ ttdaemonadmin -start
+TimesTen Daemon startup OK.
+[oracle@spiderman info]$ ttIsql AzizTT
+
+Copyright (c) 1996, 2015, Oracle and/or its affiliates. All rights reserved.
+Type ? or "help" for help, type "exit" to quit ttIsql.
+
+
+
+connect "DSN=AzizTT";
+Connection successful: DSN=AzizTT;UID=oracle;DataStore=/opt/TimesTen/tt1122/info/;DatabaseCharacterSet=WE8MSWIN1252;ConnectionCharacterSet=US7ASCII;DRIVER=/opt/TimesTen/tt1122/lib/libtten.so;LogDir=/opt/TimesTen/tt1122/logs;PermSize=40;TempSize=32;TypeMode=0;OracleNetServiceName=PARKER;
+(Default setting AutoCommit=1)
+Command> dssize
+The following values are in KB:
+
+  PERM_ALLOCATED_SIZE:      40960
+  PERM_IN_USE_SIZE:         9473
+  PERM_IN_USE_HIGH_WATER:   9473
+  TEMP_ALLOCATED_SIZE:      32768
+  TEMP_IN_USE_SIZE:         9446
+  TEMP_IN_USE_HIGH_WATER:   9509
+
+Command> host ttstatus
+TimesTen status report as of Wed May 17 22:47:33 2017
+
+Daemon pid 17824 port 53396 instance tt1122
+TimesTen server pid 17833 started on port 53397
+------------------------------------------------------------------------
+Data store /opt/TimesTen/tt1122/info
+There are 12 connections to the data store
+Shared Memory KEY 0x12011b2f ID 2162727
+PL/SQL Memory KEY 0x13011b2f ID 2195496 Address 0x7fa0000000
+Type            PID     Context             Connection Name              ConnID
+Process         17978   0x00000000016c2a80  aziztt                            1
+Subdaemon       17828   0x00000000018f1c60  Manager                         142
+Subdaemon       17828   0x0000000001949140  Rollback                        141
+Subdaemon       17828   0x00007fd38c0008c0  Checkpoint                      136
+Subdaemon       17828   0x00007fd3900008c0  AsyncMV                         133
+Subdaemon       17828   0x00007fd3940008c0  Aging                           134
+Subdaemon       17828   0x00007fd3980008c0  Monitor                         137
+Subdaemon       17828   0x00007fd39c0008c0  Flusher                         135
+Subdaemon       17828   0x00007fd3a00008c0  HistGC                          139
+Subdaemon       17828   0x00007fd3a40008c0  Log Marker                      138
+Subdaemon       17828   0x00007fd3ac0008c0  IndexGC                         132
+Subdaemon       17828   0x00007fd3c00008c0  Deadlock Detector               140
+Replication policy  : Manual
+Cache Agent policy  : Manual
+PL/SQL enabled.
+------------------------------------------------------------------------
+Accessible by group oinstall
+End of report
+Command> create user scott identified by scott;
+
+User created.
+
+Command> grant create session, create table to scott;
+Command> connect "dsn=AzizTT;uid=scott;oraclepwd=********";
+Enter password for 'scott': 
+Connection successful: DSN=AzizTT;UID=scott;DataStore=/opt/TimesTen/tt1122/info/;DatabaseCharacterSet=WE8MSWIN1252;ConnectionCharacterSet=US7ASCII;DRIVER=/opt/TimesTen/tt1122/lib/libtten.so;LogDir=/opt/TimesTen/tt1122/logs;PermSize=40;TempSize=32;TypeMode=0;OracleNetServiceName=PARKER;
+(Default setting AutoCommit=1)
+con1: Command>

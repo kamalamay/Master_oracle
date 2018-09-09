@@ -1,0 +1,181 @@
+[root@jeruk RPMs]# yum install postgresql-server
+
+[root@jeruk RPMs]# /usr/bin/postgresql-setup initdb
+Initializing database ... OK
+
+[root@jeruk RPMs]# systemctl start postgresql
+[root@jeruk RPMs]# systemctl status postgresql
+● postgresql.service - PostgreSQL database server
+   Loaded: loaded (/usr/lib/systemd/system/postgresql.service; disabled; vendor preset: disabled)
+   Active: active (running) since Kam 2017-10-19 23:22:22 WIB; 5s ago
+  Process: 10110 ExecStart=/usr/bin/pg_ctl start -D ${PGDATA} -s -o -p ${PGPORT} -w -t 300 (code=exited, status=0/SUCCESS)
+  Process: 10100 ExecStartPre=/usr/bin/postgresql-check-db-dir ${PGDATA} (code=exited, status=0/SUCCESS)
+ Main PID: 10113 (postgres)
+   CGroup: /system.slice/postgresql.service
+           ├─10113 /usr/bin/postgres -D /var/lib/pgsql/data -p 5432
+           ├─10114 postgres: logger process   
+           ├─10116 postgres: checkpointer process   
+           ├─10117 postgres: writer process   
+           ├─10118 postgres: wal writer process   
+           ├─10119 postgres: autovacuum launcher process   
+           └─10120 postgres: stats collector process   
+
+Okt 19 23:22:21 jeruk.buah.net systemd[1]: Starting PostgreSQL database server...
+Okt 19 23:22:22 jeruk.buah.net systemd[1]: Started PostgreSQL database server.
+[root@jeruk RPMs]# systemctl enable postgresql
+Created symlink from /etc/systemd/system/multi-user.target.wants/postgresql.service to /usr/lib/systemd/system/postgresql.service.
+[root@jeruk RPMs]# su - postgres
+-bash-4.2$ id
+uid=26(postgres) gid=26(postgres) groups=26(postgres) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+-bash-4.2$ psql
+psql (9.2.18)
+Type "help" for help.
+
+postgres=# \password postgres
+Enter new password: postgres789
+Enter it again: postgres789
+postgres=#
+
+[root@jeruk RPMs]# firewall-cmd --permanent --add-port=5432/tcp
+success
+[root@jeruk RPMs]# firewall-cmd --permanent --add-port=80/tcp
+success
+[root@jeruk RPMs]# firewall-cmd --reload
+success
+[root@jeruk RPMs]# iptables -L -n
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+ACCEPT     udp  --  0.0.0.0/0            0.0.0.0/0            udp dpt:53
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:53
+ACCEPT     udp  --  0.0.0.0/0            0.0.0.0/0            udp dpt:67
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:67
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           
+INPUT_direct  all  --  0.0.0.0/0            0.0.0.0/0           
+INPUT_ZONES_SOURCE  all  --  0.0.0.0/0            0.0.0.0/0           
+INPUT_ZONES  all  --  0.0.0.0/0            0.0.0.0/0           
+DROP       all  --  0.0.0.0/0            0.0.0.0/0            ctstate INVALID
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-host-prohibited
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+ACCEPT     all  --  0.0.0.0/0            192.168.122.0/24     ctstate RELATED,ESTABLISHED
+ACCEPT     all  --  192.168.122.0/24     0.0.0.0/0           
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           
+FORWARD_direct  all  --  0.0.0.0/0            0.0.0.0/0           
+FORWARD_IN_ZONES_SOURCE  all  --  0.0.0.0/0            0.0.0.0/0           
+FORWARD_IN_ZONES  all  --  0.0.0.0/0            0.0.0.0/0           
+FORWARD_OUT_ZONES_SOURCE  all  --  0.0.0.0/0            0.0.0.0/0           
+FORWARD_OUT_ZONES  all  --  0.0.0.0/0            0.0.0.0/0           
+DROP       all  --  0.0.0.0/0            0.0.0.0/0            ctstate INVALID
+REJECT     all  --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-host-prohibited
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+ACCEPT     udp  --  0.0.0.0/0            0.0.0.0/0            udp dpt:68
+OUTPUT_direct  all  --  0.0.0.0/0            0.0.0.0/0           
+
+Chain FORWARD_IN_ZONES (1 references)
+target     prot opt source               destination         
+FWDI_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto] 
+FWDI_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto] 
+
+Chain FORWARD_IN_ZONES_SOURCE (1 references)
+target     prot opt source               destination         
+
+Chain FORWARD_OUT_ZONES (1 references)
+target     prot opt source               destination         
+FWDO_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto] 
+FWDO_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto] 
+
+Chain FORWARD_OUT_ZONES_SOURCE (1 references)
+target     prot opt source               destination         
+
+Chain FORWARD_direct (1 references)
+target     prot opt source               destination         
+
+Chain FWDI_public (2 references)
+target     prot opt source               destination         
+FWDI_public_log  all  --  0.0.0.0/0            0.0.0.0/0           
+FWDI_public_deny  all  --  0.0.0.0/0            0.0.0.0/0           
+FWDI_public_allow  all  --  0.0.0.0/0            0.0.0.0/0           
+ACCEPT     icmp --  0.0.0.0/0            0.0.0.0/0           
+
+Chain FWDI_public_allow (1 references)
+target     prot opt source               destination         
+
+Chain FWDI_public_deny (1 references)
+target     prot opt source               destination         
+
+Chain FWDI_public_log (1 references)
+target     prot opt source               destination         
+
+Chain FWDO_public (2 references)
+target     prot opt source               destination         
+FWDO_public_log  all  --  0.0.0.0/0            0.0.0.0/0           
+FWDO_public_deny  all  --  0.0.0.0/0            0.0.0.0/0           
+FWDO_public_allow  all  --  0.0.0.0/0            0.0.0.0/0           
+
+Chain FWDO_public_allow (1 references)
+target     prot opt source               destination         
+
+Chain FWDO_public_deny (1 references)
+target     prot opt source               destination         
+
+Chain FWDO_public_log (1 references)
+target     prot opt source               destination         
+
+Chain INPUT_ZONES (1 references)
+target     prot opt source               destination         
+IN_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto] 
+IN_public  all  --  0.0.0.0/0            0.0.0.0/0           [goto] 
+
+Chain INPUT_ZONES_SOURCE (1 references)
+target     prot opt source               destination         
+
+Chain INPUT_direct (1 references)
+target     prot opt source               destination         
+
+Chain IN_public (2 references)
+target     prot opt source               destination         
+IN_public_log  all  --  0.0.0.0/0            0.0.0.0/0           
+IN_public_deny  all  --  0.0.0.0/0            0.0.0.0/0           
+IN_public_allow  all  --  0.0.0.0/0            0.0.0.0/0           
+ACCEPT     icmp --  0.0.0.0/0            0.0.0.0/0           
+
+Chain IN_public_allow (1 references)
+target     prot opt source               destination         
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:22 ctstate NEW
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:1521 ctstate NEW
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:5432 ctstate NEW
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80 ctstate NEW
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:5500 ctstate NEW
+
+Chain IN_public_deny (1 references)
+target     prot opt source               destination         
+
+Chain IN_public_log (1 references)
+target     prot opt source               destination         
+
+Chain OUTPUT_direct (1 references)
+target     prot opt source               destination         
+[root@jeruk RPMs]#
+
+postgres=# createuser azizdba
+postgres-# exit
+postgres-# \quit
+-bash-4.2$ createuser azizdba
+-bash-4.2$ createdb limau
+-bash-4.2$ psql
+psql (9.2.18)
+Type "help" for help.
+
+postgres=# alter user azizdba with encrypted password 'azizdba789';
+ALTER ROLE
+postgres=# grant all privileges on database limau to azizdba;
+GRANT
+postgres=#

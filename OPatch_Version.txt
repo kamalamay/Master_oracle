@@ -1,0 +1,4 @@
+cd $ORACLE_HOME/OPatch
+opatch version
+opatch lsinventory -detail
+

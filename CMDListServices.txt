@@ -1,0 +1,13 @@
+C:\>sc queryex type= service state= all | find "Oracle"
+SERVICE_NAME: OracleOraDB12Home2TNSListenerLISTEN_PATTRICK
+DISPLAY_NAME: OracleOraDB12Home2TNSListenerLISTEN_PATTRICK
+SERVICE_NAME: OracleRemExecServiceV2
+DISPLAY_NAME: OracleRemExecServiceV2
+SERVICE_NAME: OracleServicePATTRICK
+DISPLAY_NAME: OracleServicePATTRICK
+SERVICE_NAME: OracleJobSchedulerPATTRICK
+DISPLAY_NAME: OracleJobSchedulerPATTRICK
+SERVICE_NAME: OracleVssWriterPATTRICK
+DISPLAY_NAME: OracleVssWriterPATTRICK
+
+C:\>

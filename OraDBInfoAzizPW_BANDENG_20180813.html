@@ -1,0 +1,9346 @@
+SQL> --Collect DB Info by AzizPW version 4.5
+<br>
+SQL> REM Collect DB Info by AzizPW version 4.5
+<br>
+SQL> ALTER SESSION SET NLS_DATE_FORMAT='DD-Mon-RR HH24:MI:SS';
+<br>
+
+Session altered.<br>
+<br>
+
+
+Elapsed: 00:00:00.01
+SQL> 
+<br>
+SQL> --Document information
+<br>
+SQL> COL USER FOR A15
+<br>
+SQL> SELECT USER, 'OracleDB Info by AzizPW ver. 4.5' SCRIPT, SYSDATE COLLECT_DATE FROM DUAL;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+USER
+</th>
+<th scope="col">
+SCRIPT
+</th>
+<th scope="col">
+COLLECT_DATE
+</th>
+</tr>
+<tr>
+<td>
+SYS
+</td>
+<td>
+OracleDB Info by AzizPW ver. 4.5
+</td>
+<td>
+13-Aug-18 18:03:49
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.00
+SQL> 
+<br>
+SQL> --Resource limit
+<br>
+SQL> SET LINES 160 PAGES 5000 TIMING ON TRIM ON ECHO ON;
+<br>
+SQL> COL INST_ID FOR 9;
+<br>
+SQL> COL RESOURCE_NAME FOR A25;
+<br>
+SQL> COL CURRENT_UTILIZATION FOR 9;
+<br>
+SQL> COL MAX_UTILIZATION FOR 9;
+<br>
+SQL> COL INIT_ALLOC FOR A10;
+<br>
+SQL> COL LIMIT_VAL FOR A10;
+<br>
+SQL> SELECT /*+ PARALLEL(2)*/ RESOURCE_NAME, CURRENT_UTILIZATION CUR_UTIL, MAX_UTILIZATION MAX_UTIL, INITIAL_ALLOCATION INIT_ALLOC, LIMIT_VALUE LIMIT_VAL FROM GV$RESOURCE_LIMIT;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+RESOURCE_NAME
+</th>
+<th scope="col">
+CUR_UTIL
+</th>
+<th scope="col">
+MAX_UTIL
+</th>
+<th scope="col">
+INIT_ALLOC
+</th>
+<th scope="col">
+LIMIT_VAL
+</th>
+</tr>
+<tr>
+<td>
+processes
+</td>
+<td align="right">
+        64
+</td>
+<td align="right">
+        94
+</td>
+<td>
+       300
+</td>
+<td>
+       300
+</td>
+</tr>
+<tr>
+<td>
+sessions
+</td>
+<td align="right">
+        69
+</td>
+<td align="right">
+       105
+</td>
+<td>
+       472
+</td>
+<td>
+       472
+</td>
+</tr>
+<tr>
+<td>
+enqueue_locks
+</td>
+<td align="right">
+        17
+</td>
+<td align="right">
+        81
+</td>
+<td>
+      5700
+</td>
+<td>
+      5700
+</td>
+</tr>
+<tr>
+<td>
+enqueue_resources
+</td>
+<td align="right">
+        17
+</td>
+<td align="right">
+        38
+</td>
+<td>
+      2296
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+ges_procs
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td>
+         0
+</td>
+<td>
+         0
+</td>
+</tr>
+<tr>
+<td>
+ges_ress
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td>
+         0
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+ges_locks
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td>
+         0
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+ges_cache_ress
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td>
+         0
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+ges_reg_msgs
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td>
+         0
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+ges_big_msgs
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td>
+         0
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+ges_rsv_msgs
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td>
+         0
+</td>
+<td>
+         0
+</td>
+</tr>
+<tr>
+<td>
+gcs_resources
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td>
+         0
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+gcs_shadows
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td>
+         0
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+smartio_overhead_memory
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td>
+         0
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+smartio_buffer_memory
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td>
+         0
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+smartio_metadata_memory
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td>
+         0
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+smartio_sessions
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td>
+         0
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+dml_locks
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+        19
+</td>
+<td>
+      2076
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+temporary_table_locks
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         5
+</td>
+<td>
+ UNLIMITED
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+transactions
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         1
+</td>
+<td>
+       519
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+branches
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td>
+       519
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+cmtcallbk
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         2
+</td>
+<td>
+       519
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+max_rollback_segments
+</td>
+<td align="right">
+        11
+</td>
+<td align="right">
+        11
+</td>
+<td>
+       519
+</td>
+<td>
+     65535
+</td>
+</tr>
+<tr>
+<td>
+sort_segment_locks
+</td>
+<td align="right">
+         2
+</td>
+<td align="right">
+         4
+</td>
+<td>
+ UNLIMITED
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+k2q_locks
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td>
+       944
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+max_shared_servers
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+         2
+</td>
+<td>
+ UNLIMITED
+</td>
+<td>
+ UNLIMITED
+</td>
+</tr>
+<tr>
+<td>
+parallel_max_servers
+</td>
+<td align="right">
+         8
+</td>
+<td align="right">
+        32
+</td>
+<td>
+        80
+</td>
+<td>
+     32767
+</td>
+</tr>
+</table>
+<p>
+
+27 rows selected.<br>
+<br>
+
+
+Elapsed: 00:00:00.01
+SQL> 
+<br>
+SQL> --Parameter information
+<br>
+SQL> --COL NAME FOR A40;
+<br>
+SQL> --COL TYPE FOR 9999;
+<br>
+SQL> --COL DISPLAY_VALUE FOR A110;
+<br>
+SQL> --SELECT NAME,TYPE,DISPLAY_VALUE FROM V$PARAMETER ORDER BY 1;
+<br>
+SQL> SHO PARAMETER;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+NAME
+</th>
+<th scope="col">
+TYPE
+</th>
+<th scope="col">
+VALUE
+</th>
+</tr>
+<tr>
+<td>
+DBFIPS_140
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+O7_DICTIONARY_ACCESSIBILITY
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+active_instance_count
+</td>
+<td>
+integer
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+allow_global_dblinks
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+allow_group_access_to_sga
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+approx_for_aggregation
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+approx_for_count_distinct
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+approx_for_percentile
+</td>
+<td>
+string
+</td>
+<td>
+none
+</td>
+</tr>
+<tr>
+<td>
+aq_tm_processes
+</td>
+<td>
+integer
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+archive_lag_target
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+asm_diskgroups
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+asm_diskstring
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+asm_io_processes
+</td>
+<td>
+integer
+</td>
+<td>
+20
+</td>
+</tr>
+<tr>
+<td>
+asm_power_limit
+</td>
+<td>
+integer
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+asm_preferred_read_failure_groups
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+audit_file_dest
+</td>
+<td>
+string
+</td>
+<td>
+/z02/app/orekel/admin/BANDENG/
+adump
+</td>
+</tr>
+<tr>
+<td>
+audit_sys_operations
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+audit_syslog_level
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+audit_trail
+</td>
+<td>
+string
+</td>
+<td>
+DB
+</td>
+</tr>
+<tr>
+<td>
+autotask_max_active_pdbs
+</td>
+<td>
+integer
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<td>
+awr_pdb_autoflush_enabled
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+awr_snapshot_time_offset
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+background_core_dump
+</td>
+<td>
+string
+</td>
+<td>
+partial
+</td>
+</tr>
+<tr>
+<td>
+background_dump_dest
+</td>
+<td>
+string
+</td>
+<td>
+/z02/app/orekel/product/12.2.0
+.1/db1/rdbms/log
+</td>
+</tr>
+<tr>
+<td>
+backup_tape_io_slaves
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+bitmap_merge_area_size
+</td>
+<td>
+integer
+</td>
+<td>
+1048576
+</td>
+</tr>
+<tr>
+<td>
+blank_trimming
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+buffer_pool_keep
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+buffer_pool_recycle
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+cdb_cluster
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+cdb_cluster_name
+</td>
+<td>
+string
+</td>
+<td>
+BANDENG
+</td>
+</tr>
+<tr>
+<td>
+cell_offload_compaction
+</td>
+<td>
+string
+</td>
+<td>
+ADAPTIVE
+</td>
+</tr>
+<tr>
+<td>
+cell_offload_decryption
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+cell_offload_parameters
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+cell_offload_plan_display
+</td>
+<td>
+string
+</td>
+<td>
+AUTO
+</td>
+</tr>
+<tr>
+<td>
+cell_offload_processing
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+cell_offloadgroup_name
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+circuits
+</td>
+<td>
+integer
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+client_result_cache_lag
+</td>
+<td>
+big integer
+</td>
+<td>
+3000
+</td>
+</tr>
+<tr>
+<td>
+client_result_cache_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+clonedb
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+clonedb_dir
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+cluster_database
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+cluster_database_instances
+</td>
+<td>
+integer
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+cluster_interconnects
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+commit_logging
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+commit_point_strength
+</td>
+<td>
+integer
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+commit_wait
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+commit_write
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+common_user_prefix
+</td>
+<td>
+string
+</td>
+<td>
+C##
+</td>
+</tr>
+<tr>
+<td>
+compatible
+</td>
+<td>
+string
+</td>
+<td>
+12.2.0
+</td>
+</tr>
+<tr>
+<td>
+connection_brokers
+</td>
+<td>
+string
+</td>
+<td>
+((TYPE=DEDICATED)(BROKERS=1)),
+ ((TYPE=EMON)(BROKERS=1))
+</td>
+</tr>
+<tr>
+<td>
+containers_parallel_degree
+</td>
+<td>
+integer
+</td>
+<td>
+65535
+</td>
+</tr>
+<tr>
+<td>
+control_file_record_keep_time
+</td>
+<td>
+integer
+</td>
+<td>
+60
+</td>
+</tr>
+<tr>
+<td>
+control_files
+</td>
+<td>
+string
+</td>
+<td>
++DATA/BANDENG/CONTROLFILE/curr
+ent.262.968473473, +DATA/BANDE
+NG/CONTROLFILE/current.261.968
+473475
+</td>
+</tr>
+<tr>
+<td>
+control_management_pack_access
+</td>
+<td>
+string
+</td>
+<td>
+DIAGNOSTIC+TUNING
+</td>
+</tr>
+<tr>
+<td>
+core_dump_dest
+</td>
+<td>
+string
+</td>
+<td>
+/z02/app/orekel/diag/rdbms/ban
+deng/BANDENG/cdump
+</td>
+</tr>
+<tr>
+<td>
+cpu_count
+</td>
+<td>
+integer
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<td>
+create_bitmap_area_size
+</td>
+<td>
+integer
+</td>
+<td>
+8388608
+</td>
+</tr>
+<tr>
+<td>
+create_stored_outlines
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+cursor_bind_capture_destination
+</td>
+<td>
+string
+</td>
+<td>
+memory+disk
+</td>
+</tr>
+<tr>
+<td>
+cursor_invalidation
+</td>
+<td>
+string
+</td>
+<td>
+IMMEDIATE
+</td>
+</tr>
+<tr>
+<td>
+cursor_sharing
+</td>
+<td>
+string
+</td>
+<td>
+EXACT
+</td>
+</tr>
+<tr>
+<td>
+cursor_space_for_time
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+data_guard_sync_latency
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+data_transfer_cache_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+db_16k_cache_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+db_2k_cache_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+db_32k_cache_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+db_4k_cache_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+db_8k_cache_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+db_big_table_cache_percent_target
+</td>
+<td>
+string
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+db_block_buffers
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+db_block_checking
+</td>
+<td>
+string
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+db_block_checksum
+</td>
+<td>
+string
+</td>
+<td>
+TYPICAL
+</td>
+</tr>
+<tr>
+<td>
+db_block_size
+</td>
+<td>
+integer
+</td>
+<td>
+8192
+</td>
+</tr>
+<tr>
+<td>
+db_cache_advice
+</td>
+<td>
+string
+</td>
+<td>
+ON
+</td>
+</tr>
+<tr>
+<td>
+db_cache_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+db_create_file_dest
+</td>
+<td>
+string
+</td>
+<td>
++DATA
+</td>
+</tr>
+<tr>
+<td>
+db_create_online_log_dest_1
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+db_create_online_log_dest_2
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+db_create_online_log_dest_3
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+db_create_online_log_dest_4
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+db_create_online_log_dest_5
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+db_domain
+</td>
+<td>
+string
+</td>
+<td>
+centos.org
+</td>
+</tr>
+<tr>
+<td>
+db_file_multiblock_read_count
+</td>
+<td>
+integer
+</td>
+<td>
+95
+</td>
+</tr>
+<tr>
+<td>
+db_file_name_convert
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+db_files
+</td>
+<td>
+integer
+</td>
+<td>
+200
+</td>
+</tr>
+<tr>
+<td>
+db_flash_cache_file
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+db_flash_cache_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+db_flashback_retention_target
+</td>
+<td>
+integer
+</td>
+<td>
+1440
+</td>
+</tr>
+<tr>
+<td>
+db_index_compression_inheritance
+</td>
+<td>
+string
+</td>
+<td>
+NONE
+</td>
+</tr>
+<tr>
+<td>
+db_keep_cache_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+db_lost_write_protect
+</td>
+<td>
+string
+</td>
+<td>
+NONE
+</td>
+</tr>
+<tr>
+<td>
+db_name
+</td>
+<td>
+string
+</td>
+<td>
+BANDENG
+</td>
+</tr>
+<tr>
+<td>
+db_performance_profile
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+db_recovery_file_dest
+</td>
+<td>
+string
+</td>
+<td>
++FRA
+</td>
+</tr>
+<tr>
+<td>
+db_recovery_file_dest_size
+</td>
+<td>
+big integer
+</td>
+<td>
+4G
+</td>
+</tr>
+<tr>
+<td>
+db_recycle_cache_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+db_securefile
+</td>
+<td>
+string
+</td>
+<td>
+PREFERRED
+</td>
+</tr>
+<tr>
+<td>
+db_ultra_safe
+</td>
+<td>
+string
+</td>
+<td>
+OFF
+</td>
+</tr>
+<tr>
+<td>
+db_unique_name
+</td>
+<td>
+string
+</td>
+<td>
+BANDENG
+</td>
+</tr>
+<tr>
+<td>
+db_unrecoverable_scn_tracking
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+db_writer_processes
+</td>
+<td>
+integer
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+dbwr_io_slaves
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+ddl_lock_timeout
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+default_sharing
+</td>
+<td>
+string
+</td>
+<td>
+metadata
+</td>
+</tr>
+<tr>
+<td>
+deferred_segment_creation
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+dg_broker_config_file1
+</td>
+<td>
+string
+</td>
+<td>
+/z02/app/orekel/product/12.2.0
+.1/db1/dbs/dr1BANDENG.dat
+</td>
+</tr>
+<tr>
+<td>
+dg_broker_config_file2
+</td>
+<td>
+string
+</td>
+<td>
+/z02/app/orekel/product/12.2.0
+.1/db1/dbs/dr2BANDENG.dat
+</td>
+</tr>
+<tr>
+<td>
+dg_broker_start
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+diagnostic_dest
+</td>
+<td>
+string
+</td>
+<td>
+/z02/app/orekel
+</td>
+</tr>
+<tr>
+<td>
+disable_pdb_feature
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+disk_asynch_io
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+dispatchers
+</td>
+<td>
+string
+</td>
+<td>
+(PROTOCOL=TCP) (SERVICE=BANDEN
+GXDB)
+</td>
+</tr>
+<tr>
+<td>
+distributed_lock_timeout
+</td>
+<td>
+integer
+</td>
+<td>
+60
+</td>
+</tr>
+<tr>
+<td>
+dml_locks
+</td>
+<td>
+integer
+</td>
+<td>
+2076
+</td>
+</tr>
+<tr>
+<td>
+dnfs_batch_size
+</td>
+<td>
+integer
+</td>
+<td>
+4096
+</td>
+</tr>
+<tr>
+<td>
+dst_upgrade_insert_conv
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+enable_automatic_maintenance_pdb
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+enable_ddl_logging
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+enable_dnfs_dispatcher
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+enable_goldengate_replication
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+enable_pluggable_database
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+enabled_PDBs_on_standby
+</td>
+<td>
+string
+</td>
+<td>
+*
+</td>
+</tr>
+<tr>
+<td>
+encrypt_new_tablespaces
+</td>
+<td>
+string
+</td>
+<td>
+CLOUD_ONLY
+</td>
+</tr>
+<tr>
+<td>
+event
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+exafusion_enabled
+</td>
+<td>
+integer
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+external_keystore_credential_locatio
+n
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+fal_client
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+fal_server
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+fast_start_io_target
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+fast_start_mttr_target
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+fast_start_parallel_rollback
+</td>
+<td>
+string
+</td>
+<td>
+LOW
+</td>
+</tr>
+<tr>
+<td>
+file_mapping
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+fileio_network_adapters
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+filesystemio_options
+</td>
+<td>
+string
+</td>
+<td>
+none
+</td>
+</tr>
+<tr>
+<td>
+fixed_date
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+gcs_server_processes
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+global_names
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+global_txn_processes
+</td>
+<td>
+integer
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+hash_area_size
+</td>
+<td>
+integer
+</td>
+<td>
+131072
+</td>
+</tr>
+<tr>
+<td>
+heat_map
+</td>
+<td>
+string
+</td>
+<td>
+OFF
+</td>
+</tr>
+<tr>
+<td>
+hi_shared_memory_address
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+hs_autoregister
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+ifile
+</td>
+<td>
+file
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+inmemory_adg_enabled
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+inmemory_clause_default
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+inmemory_expressions_usage
+</td>
+<td>
+string
+</td>
+<td>
+ENABLE
+</td>
+</tr>
+<tr>
+<td>
+inmemory_force
+</td>
+<td>
+string
+</td>
+<td>
+DEFAULT
+</td>
+</tr>
+<tr>
+<td>
+inmemory_max_populate_servers
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+inmemory_query
+</td>
+<td>
+string
+</td>
+<td>
+ENABLE
+</td>
+</tr>
+<tr>
+<td>
+inmemory_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+inmemory_trickle_repopulate_servers_
+percent
+</td>
+<td>
+integer
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+inmemory_virtual_columns
+</td>
+<td>
+string
+</td>
+<td>
+MANUAL
+</td>
+</tr>
+<tr>
+<td>
+instance_abort_delay_time
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+instance_groups
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+instance_mode
+</td>
+<td>
+string
+</td>
+<td>
+READ-WRITE
+</td>
+</tr>
+<tr>
+<td>
+instance_name
+</td>
+<td>
+string
+</td>
+<td>
+BANDENG
+</td>
+</tr>
+<tr>
+<td>
+instance_number
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+instance_type
+</td>
+<td>
+string
+</td>
+<td>
+RDBMS
+</td>
+</tr>
+<tr>
+<td>
+instant_restore
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+java_jit_enabled
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+java_max_sessionspace_size
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+java_pool_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+java_restrict
+</td>
+<td>
+string
+</td>
+<td>
+none
+</td>
+</tr>
+<tr>
+<td>
+java_soft_sessionspace_limit
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+job_queue_processes
+</td>
+<td>
+integer
+</td>
+<td>
+4000
+</td>
+</tr>
+<tr>
+<td>
+large_pool_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+ldap_directory_access
+</td>
+<td>
+string
+</td>
+<td>
+NONE
+</td>
+</tr>
+<tr>
+<td>
+ldap_directory_sysauth
+</td>
+<td>
+string
+</td>
+<td>
+no
+</td>
+</tr>
+<tr>
+<td>
+license_max_sessions
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+license_max_users
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+license_sessions_warning
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+listener_networks
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+local_listener
+</td>
+<td>
+string
+</td>
+<td>
+LISTENER_BANDENG
+</td>
+</tr>
+<tr>
+<td>
+lock_name_space
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+lock_sga
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+log_archive_config
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_1
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_10
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_11
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_12
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_13
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_14
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_15
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_16
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_17
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_18
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_19
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_2
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_20
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_21
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_22
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_23
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_24
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_25
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_26
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_27
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_28
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_29
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_3
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_30
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_31
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_4
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_5
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_6
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_7
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_8
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_9
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_1
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_10
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_11
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_12
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_13
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_14
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_15
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_16
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_17
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_18
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_19
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_2
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_20
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_21
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_22
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_23
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_24
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_25
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_26
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_27
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_28
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_29
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_3
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_30
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_31
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_4
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_5
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_6
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_7
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_8
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_dest_state_9
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+<tr>
+<td>
+log_archive_duplex_dest
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+log_archive_format
+</td>
+<td>
+string
+</td>
+<td>
+%t_%s_%r.arc
+</td>
+</tr>
+<tr>
+<td>
+log_archive_max_processes
+</td>
+<td>
+integer
+</td>
+<td>
+4
+</td>
+</tr>
+<tr>
+<td>
+log_archive_min_succeed_dest
+</td>
+<td>
+integer
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+log_archive_start
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+log_archive_trace
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+log_buffer
+</td>
+<td>
+big integer
+</td>
+<td>
+7624K
+</td>
+</tr>
+<tr>
+<td>
+log_checkpoint_interval
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+log_checkpoint_timeout
+</td>
+<td>
+integer
+</td>
+<td>
+1800
+</td>
+</tr>
+<tr>
+<td>
+log_checkpoints_to_alert
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+log_file_name_convert
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+long_module_action
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+max_datapump_jobs_per_pdb
+</td>
+<td>
+integer
+</td>
+<td>
+100
+</td>
+</tr>
+<tr>
+<td>
+max_dispatchers
+</td>
+<td>
+integer
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+max_dump_file_size
+</td>
+<td>
+string
+</td>
+<td>
+unlimited
+</td>
+</tr>
+<tr>
+<td>
+max_idle_time
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+max_iops
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+max_mbps
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+max_pdbs
+</td>
+<td>
+integer
+</td>
+<td>
+4098
+</td>
+</tr>
+<tr>
+<td>
+max_shared_servers
+</td>
+<td>
+integer
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+max_string_size
+</td>
+<td>
+string
+</td>
+<td>
+STANDARD
+</td>
+</tr>
+<tr>
+<td>
+memory_max_target
+</td>
+<td>
+big integer
+</td>
+<td>
+1136M
+</td>
+</tr>
+<tr>
+<td>
+memory_target
+</td>
+<td>
+big integer
+</td>
+<td>
+1136M
+</td>
+</tr>
+<tr>
+<td>
+nls_calendar
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+nls_comp
+</td>
+<td>
+string
+</td>
+<td>
+BINARY
+</td>
+</tr>
+<tr>
+<td>
+nls_currency
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+nls_date_format
+</td>
+<td>
+string
+</td>
+<td>
+DD-Mon-RR HH24:MI:SS
+</td>
+</tr>
+<tr>
+<td>
+nls_date_language
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+nls_dual_currency
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+nls_iso_currency
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+nls_language
+</td>
+<td>
+string
+</td>
+<td>
+AMERICAN
+</td>
+</tr>
+<tr>
+<td>
+nls_length_semantics
+</td>
+<td>
+string
+</td>
+<td>
+BYTE
+</td>
+</tr>
+<tr>
+<td>
+nls_nchar_conv_excp
+</td>
+<td>
+string
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+nls_numeric_characters
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+nls_sort
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+nls_territory
+</td>
+<td>
+string
+</td>
+<td>
+AMERICA
+</td>
+</tr>
+<tr>
+<td>
+nls_time_format
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+nls_time_tz_format
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+nls_timestamp_format
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+nls_timestamp_tz_format
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+noncdb_compatible
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+object_cache_max_size_percent
+</td>
+<td>
+integer
+</td>
+<td>
+10
+</td>
+</tr>
+<tr>
+<td>
+object_cache_optimal_size
+</td>
+<td>
+integer
+</td>
+<td>
+10240000
+</td>
+</tr>
+<tr>
+<td>
+ofs_threads
+</td>
+<td>
+integer
+</td>
+<td>
+4
+</td>
+</tr>
+<tr>
+<td>
+olap_page_pool_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+one_step_plugin_for_pdb_with_tde
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+open_cursors
+</td>
+<td>
+integer
+</td>
+<td>
+300
+</td>
+</tr>
+<tr>
+<td>
+open_links
+</td>
+<td>
+integer
+</td>
+<td>
+4
+</td>
+</tr>
+<tr>
+<td>
+open_links_per_instance
+</td>
+<td>
+integer
+</td>
+<td>
+4
+</td>
+</tr>
+<tr>
+<td>
+optimizer_adaptive_plans
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+optimizer_adaptive_reporting_only
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+optimizer_adaptive_statistics
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+optimizer_capture_sql_plan_baselines
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+optimizer_dynamic_sampling
+</td>
+<td>
+integer
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<td>
+optimizer_features_enable
+</td>
+<td>
+string
+</td>
+<td>
+12.2.0.1
+</td>
+</tr>
+<tr>
+<td>
+optimizer_index_caching
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+optimizer_index_cost_adj
+</td>
+<td>
+integer
+</td>
+<td>
+100
+</td>
+</tr>
+<tr>
+<td>
+optimizer_inmemory_aware
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+optimizer_mode
+</td>
+<td>
+string
+</td>
+<td>
+ALL_ROWS
+</td>
+</tr>
+<tr>
+<td>
+optimizer_secure_view_merging
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+optimizer_use_invisible_indexes
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+optimizer_use_pending_statistics
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+optimizer_use_sql_plan_baselines
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+os_authent_prefix
+</td>
+<td>
+string
+</td>
+<td>
+ops$
+</td>
+</tr>
+<tr>
+<td>
+os_roles
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+outbound_dblink_protocols
+</td>
+<td>
+string
+</td>
+<td>
+ALL
+</td>
+</tr>
+<tr>
+<td>
+parallel_adaptive_multi_user
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+parallel_degree_limit
+</td>
+<td>
+string
+</td>
+<td>
+CPU
+</td>
+</tr>
+<tr>
+<td>
+parallel_degree_policy
+</td>
+<td>
+string
+</td>
+<td>
+MANUAL
+</td>
+</tr>
+<tr>
+<td>
+parallel_execution_message_size
+</td>
+<td>
+integer
+</td>
+<td>
+16384
+</td>
+</tr>
+<tr>
+<td>
+parallel_force_local
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+parallel_instance_group
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+parallel_max_servers
+</td>
+<td>
+integer
+</td>
+<td>
+80
+</td>
+</tr>
+<tr>
+<td>
+parallel_min_percent
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+parallel_min_servers
+</td>
+<td>
+integer
+</td>
+<td>
+8
+</td>
+</tr>
+<tr>
+<td>
+parallel_min_time_threshold
+</td>
+<td>
+string
+</td>
+<td>
+AUTO
+</td>
+</tr>
+<tr>
+<td>
+parallel_servers_target
+</td>
+<td>
+integer
+</td>
+<td>
+32
+</td>
+</tr>
+<tr>
+<td>
+parallel_threads_per_cpu
+</td>
+<td>
+integer
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<td>
+pdb_file_name_convert
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+pdb_lockdown
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+pdb_os_credential
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+permit_92_wrap_format
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+pga_aggregate_limit
+</td>
+<td>
+big integer
+</td>
+<td>
+2G
+</td>
+</tr>
+<tr>
+<td>
+pga_aggregate_target
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+plscope_settings
+</td>
+<td>
+string
+</td>
+<td>
+IDENTIFIERS:NONE
+</td>
+</tr>
+<tr>
+<td>
+plsql_ccflags
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+plsql_code_type
+</td>
+<td>
+string
+</td>
+<td>
+INTERPRETED
+</td>
+</tr>
+<tr>
+<td>
+plsql_debug
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+plsql_optimize_level
+</td>
+<td>
+integer
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<td>
+plsql_v2_compatibility
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+plsql_warnings
+</td>
+<td>
+string
+</td>
+<td>
+DISABLE:ALL
+</td>
+</tr>
+<tr>
+<td>
+pre_page_sga
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+processes
+</td>
+<td>
+integer
+</td>
+<td>
+300
+</td>
+</tr>
+<tr>
+<td>
+processor_group_name
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+query_rewrite_enabled
+</td>
+<td>
+string
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+query_rewrite_integrity
+</td>
+<td>
+string
+</td>
+<td>
+enforced
+</td>
+</tr>
+<tr>
+<td>
+rdbms_server_dn
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+read_only_open_delayed
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+recovery_parallelism
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+recyclebin
+</td>
+<td>
+string
+</td>
+<td>
+on
+</td>
+</tr>
+<tr>
+<td>
+redo_transport_user
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+remote_dependencies_mode
+</td>
+<td>
+string
+</td>
+<td>
+TIMESTAMP
+</td>
+</tr>
+<tr>
+<td>
+remote_listener
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+remote_login_passwordfile
+</td>
+<td>
+string
+</td>
+<td>
+EXCLUSIVE
+</td>
+</tr>
+<tr>
+<td>
+remote_os_authent
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+remote_os_roles
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+remote_recovery_file_dest
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+replication_dependency_tracking
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+resource_limit
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+resource_manage_goldengate
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+resource_manager_cpu_allocation
+</td>
+<td>
+integer
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<td>
+resource_manager_plan
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+result_cache_max_result
+</td>
+<td>
+integer
+</td>
+<td>
+5
+</td>
+</tr>
+<tr>
+<td>
+result_cache_max_size
+</td>
+<td>
+big integer
+</td>
+<td>
+2912K
+</td>
+</tr>
+<tr>
+<td>
+result_cache_mode
+</td>
+<td>
+string
+</td>
+<td>
+MANUAL
+</td>
+</tr>
+<tr>
+<td>
+result_cache_remote_expiration
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+resumable_timeout
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+rollback_segments
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+sec_case_sensitive_logon
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+sec_max_failed_login_attempts
+</td>
+<td>
+integer
+</td>
+<td>
+3
+</td>
+</tr>
+<tr>
+<td>
+sec_protocol_error_further_action
+</td>
+<td>
+string
+</td>
+<td>
+(DROP,3)
+</td>
+</tr>
+<tr>
+<td>
+sec_protocol_error_trace_action
+</td>
+<td>
+string
+</td>
+<td>
+TRACE
+</td>
+</tr>
+<tr>
+<td>
+sec_return_server_release_banner
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+serial_reuse
+</td>
+<td>
+string
+</td>
+<td>
+disable
+</td>
+</tr>
+<tr>
+<td>
+service_names
+</td>
+<td>
+string
+</td>
+<td>
+BANDENG.centos.org
+</td>
+</tr>
+<tr>
+<td>
+session_cached_cursors
+</td>
+<td>
+integer
+</td>
+<td>
+50
+</td>
+</tr>
+<tr>
+<td>
+session_max_open_files
+</td>
+<td>
+integer
+</td>
+<td>
+10
+</td>
+</tr>
+<tr>
+<td>
+sessions
+</td>
+<td>
+integer
+</td>
+<td>
+472
+</td>
+</tr>
+<tr>
+<td>
+sga_max_size
+</td>
+<td>
+big integer
+</td>
+<td>
+1136M
+</td>
+</tr>
+<tr>
+<td>
+sga_min_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+sga_target
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+shadow_core_dump
+</td>
+<td>
+string
+</td>
+<td>
+partial
+</td>
+</tr>
+<tr>
+<td>
+shared_memory_address
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+shared_pool_reserved_size
+</td>
+<td>
+big integer
+</td>
+<td>
+8M
+</td>
+</tr>
+<tr>
+<td>
+shared_pool_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+shared_server_sessions
+</td>
+<td>
+integer
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+shared_servers
+</td>
+<td>
+integer
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+shrd_dupl_table_refresh_rate
+</td>
+<td>
+integer
+</td>
+<td>
+60
+</td>
+</tr>
+<tr>
+<td>
+skip_unusable_indexes
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+smtp_out_server
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+sort_area_retained_size
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+sort_area_size
+</td>
+<td>
+integer
+</td>
+<td>
+65536
+</td>
+</tr>
+<tr>
+<td>
+spatial_vector_acceleration
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+spfile
+</td>
+<td>
+string
+</td>
+<td>
++DATA/BANDENG/PARAMETERFILE/sp
+file.270.968474557
+</td>
+</tr>
+<tr>
+<td>
+sql92_security
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+sql_trace
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+sqltune_category
+</td>
+<td>
+string
+</td>
+<td>
+DEFAULT
+</td>
+</tr>
+<tr>
+<td>
+standby_archive_dest
+</td>
+<td>
+string
+</td>
+<td>
+?#/dbs/arch
+</td>
+</tr>
+<tr>
+<td>
+standby_db_preserve_states
+</td>
+<td>
+string
+</td>
+<td>
+NONE
+</td>
+</tr>
+<tr>
+<td>
+standby_file_management
+</td>
+<td>
+string
+</td>
+<td>
+MANUAL
+</td>
+</tr>
+<tr>
+<td>
+star_transformation_enabled
+</td>
+<td>
+string
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+statistics_level
+</td>
+<td>
+string
+</td>
+<td>
+TYPICAL
+</td>
+</tr>
+<tr>
+<td>
+streams_pool_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+tape_asynch_io
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+target_pdbs
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+temp_undo_enabled
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+thread
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+threaded_execution
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+timed_os_statistics
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+timed_statistics
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+trace_enabled
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+tracefile_identifier
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+transactions
+</td>
+<td>
+integer
+</td>
+<td>
+519
+</td>
+</tr>
+<tr>
+<td>
+transactions_per_rollback_segment
+</td>
+<td>
+integer
+</td>
+<td>
+5
+</td>
+</tr>
+<tr>
+<td>
+undo_management
+</td>
+<td>
+string
+</td>
+<td>
+AUTO
+</td>
+</tr>
+<tr>
+<td>
+undo_retention
+</td>
+<td>
+integer
+</td>
+<td>
+900
+</td>
+</tr>
+<tr>
+<td>
+undo_tablespace
+</td>
+<td>
+string
+</td>
+<td>
+UNDOTBS1
+</td>
+</tr>
+<tr>
+<td>
+unified_audit_sga_queue_size
+</td>
+<td>
+integer
+</td>
+<td>
+1048576
+</td>
+</tr>
+<tr>
+<td>
+uniform_log_timestamp_format
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+use_dedicated_broker
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+use_large_pages
+</td>
+<td>
+string
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+user_dump_dest
+</td>
+<td>
+string
+</td>
+<td>
+/z02/app/orekel/product/12.2.0
+.1/db1/rdbms/log
+</td>
+</tr>
+<tr>
+<td>
+utl_file_dir
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+workarea_size_policy
+</td>
+<td>
+string
+</td>
+<td>
+AUTO
+</td>
+</tr>
+<tr>
+<td>
+xml_db_events
+</td>
+<td>
+string
+</td>
+<td>
+enable
+</td>
+</tr>
+</table>
+<p>
+<br>
+SQL> 
+<br>
+SQL> --Invalid Objects
+<br>
+SQL> SET LINES 160 PAGES 5000 TIMING ON TRIM ON ECHO ON;
+<br>
+SQL> SELECT COUNT(1)INV_OBJ FROM DBA_OBJECTS WHERE STATUS='INVALID';
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+INV_OBJ
+</th>
+</tr>
+<tr>
+<td align="right">
+         0
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.04
+SQL> COL OBJ_NAME FOR A60;
+<br>
+SQL> SELECT /*+ PARALLEL(4)*/OBJECT_TYPE, OWNER||'.'||OBJECT_NAME OBJ_NAME FROM DBA_OBJECTS WHERE STATUS='INVALID' ORDER BY 2,1;
+<br>
+
+no rows selected
+
+<br>
+Elapsed: 00:00:00.07
+SQL> 
+<br>
+SQL> --Database information
+<br>
+SQL> SET LINES 160 PAGES 5000 TIMING ON TRIM ON ECHO ON;
+<br>
+SQL> COL HOST_NAME FOR A30;
+<br>
+SQL> COL DB_ROLE FOR A15;
+<br>
+SQL> COL OS FOR A30;
+<br>
+SQL> COL INSTANCE_NAME FOR A10;
+<br>
+SQL> COL DBNAME FOR A10;
+<br>
+SQL> COL LOG_MODE FOR A15;
+<br>
+SQL> COL OPEN_MODE FOR A15;
+<br>
+SQL> COL PLATFORM_NAME FOR A25;
+<br>
+SQL> COL FORCE_LOGGING FOR A3;
+<br>
+SQL> SELECT NAME,DB_UNIQUE_NAME,DBID,CREATED,LOG_MODE,OPEN_MODE,DATABASE_ROLE,PLATFORM_NAME,FORCE_LOGGING FROM V$DATABASE;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+NAME
+</th>
+<th scope="col">
+DB_UNIQUE_NAME
+</th>
+<th scope="col">
+DBID
+</th>
+<th scope="col">
+CREATED
+</th>
+<th scope="col">
+LOG_MODE
+</th>
+<th scope="col">
+OPEN_MODE
+</th>
+<th scope="col">
+DATABASE_ROLE
+</th>
+<th scope="col">
+PLATFORM_NAME
+</th>
+<th scope="col">
+FOR
+</th>
+</tr>
+<tr>
+<td>
+BANDENG
+</td>
+<td>
+BANDENG
+</td>
+<td align="right">
+4201625281
+</td>
+<td>
+19-Feb-18 04:24:33
+</td>
+<td>
+ARCHIVELOG
+</td>
+<td>
+READ WRITE
+</td>
+<td>
+PRIMARY
+</td>
+<td>
+Linux x86 64-bit
+</td>
+<td>
+NO
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.02
+SQL> SELECT INSTANCE_NUMBER,INSTANCE_NAME,STATUS,HOST_NAME,STARTUP_TIME,VERSION,DATABASE_TYPE FROM GV$INSTANCE ORDER BY 1;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+INSTANCE_NUMBER
+</th>
+<th scope="col">
+INSTANCE_N
+</th>
+<th scope="col">
+STATUS
+</th>
+<th scope="col">
+HOST_NAME
+</th>
+<th scope="col">
+STARTUP_TIME
+</th>
+<th scope="col">
+VERSION
+</th>
+<th scope="col">
+DATABASE_TYPE
+</th>
+</tr>
+<tr>
+<td align="right">
+         1
+</td>
+<td>
+BANDENG
+</td>
+<td>
+OPEN
+</td>
+<td>
+iwak.centos.org
+</td>
+<td>
+13-Aug-18 17:03:43
+</td>
+<td>
+12.2.0.1.0
+</td>
+<td>
+SINGLE
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.00
+SQL> 
+<br>
+SQL> --Database version
+<br>
+SQL> SELECT BANNER FROM V$VERSION;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+BANNER
+</th>
+</tr>
+<tr>
+<td>
+Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production
+</td>
+</tr>
+<tr>
+<td>
+PL/SQL Release 12.2.0.1.0 - Production
+</td>
+</tr>
+<tr>
+<td>
+CORE	12.2.0.1.0	Production
+</td>
+</tr>
+<tr>
+<td>
+TNS for Linux: Version 12.2.0.1.0 - Production
+</td>
+</tr>
+<tr>
+<td>
+NLSRTL Version 12.2.0.1.0 - Production
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.01
+SQL> 
+<br>
+SQL> --E-Business Suite version
+<br>
+SQL> SELECT RELEASE_NAME EBS_VERSION FROM APPS.FND_PRODUCT_GROUPS;
+<br>
+<pre>
+SELECT RELEASE_NAME EBS_VERSION FROM APPS.FND_PRODUCT_GROUPS
+                                          *
+</pre>
+ERROR at line 1:
+<br>
+ORA-00942: table or view does not exist 
+<br>
+
+
+Elapsed: 00:00:00.00
+SQL> 
+<br>
+SQL> --Memory information
+<br>
+SQL> SHO PARAMETER MEMORY;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+NAME
+</th>
+<th scope="col">
+TYPE
+</th>
+<th scope="col">
+VALUE
+</th>
+</tr>
+<tr>
+<td>
+hi_shared_memory_address
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+inmemory_adg_enabled
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+inmemory_clause_default
+</td>
+<td>
+string
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+inmemory_expressions_usage
+</td>
+<td>
+string
+</td>
+<td>
+ENABLE
+</td>
+</tr>
+<tr>
+<td>
+inmemory_force
+</td>
+<td>
+string
+</td>
+<td>
+DEFAULT
+</td>
+</tr>
+<tr>
+<td>
+inmemory_max_populate_servers
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+inmemory_query
+</td>
+<td>
+string
+</td>
+<td>
+ENABLE
+</td>
+</tr>
+<tr>
+<td>
+inmemory_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+inmemory_trickle_repopulate_servers_
+percent
+</td>
+<td>
+integer
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+inmemory_virtual_columns
+</td>
+<td>
+string
+</td>
+<td>
+MANUAL
+</td>
+</tr>
+<tr>
+<td>
+memory_max_target
+</td>
+<td>
+big integer
+</td>
+<td>
+1136M
+</td>
+</tr>
+<tr>
+<td>
+memory_target
+</td>
+<td>
+big integer
+</td>
+<td>
+1136M
+</td>
+</tr>
+<tr>
+<td>
+optimizer_inmemory_aware
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+shared_memory_address
+</td>
+<td>
+integer
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+<p>
+<br>
+SQL> SELECT * FROM V$MEMORY_TARGET_ADVICE ORDER BY 1;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+MEMORY_SIZE
+</th>
+<th scope="col">
+MEMORY_SIZE_FACTOR
+</th>
+<th scope="col">
+ESTD_DB_TIME
+</th>
+<th scope="col">
+ESTD_DB_TIME_FACTOR
+</th>
+<th scope="col">
+VERSION
+</th>
+<th scope="col">
+CON_ID
+</th>
+</tr>
+<tr>
+<td align="right">
+       568
+</td>
+<td align="right">
+        .5
+</td>
+<td align="right">
+       233
+</td>
+<td align="right">
+     1.357
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+       852
+</td>
+<td align="right">
+       .75
+</td>
+<td align="right">
+       172
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+      1420
+</td>
+<td align="right">
+      1.25
+</td>
+<td align="right">
+       196
+</td>
+<td align="right">
+    1.1374
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+      1704
+</td>
+<td align="right">
+       1.5
+</td>
+<td align="right">
+       172
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+      1988
+</td>
+<td align="right">
+      1.75
+</td>
+<td align="right">
+       172
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+      2272
+</td>
+<td align="right">
+         2
+</td>
+<td align="right">
+       172
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+</table>
+<p>
+
+6 rows selected.<br>
+<br>
+
+
+Elapsed: 00:00:00.01
+SQL> SHO PARAMETER SGA;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+NAME
+</th>
+<th scope="col">
+TYPE
+</th>
+<th scope="col">
+VALUE
+</th>
+</tr>
+<tr>
+<td>
+allow_group_access_to_sga
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+lock_sga
+</td>
+<td>
+boolean
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+pre_page_sga
+</td>
+<td>
+boolean
+</td>
+<td>
+TRUE
+</td>
+</tr>
+<tr>
+<td>
+sga_max_size
+</td>
+<td>
+big integer
+</td>
+<td>
+1136M
+</td>
+</tr>
+<tr>
+<td>
+sga_min_size
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+sga_target
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+unified_audit_sga_queue_size
+</td>
+<td>
+integer
+</td>
+<td>
+1048576
+</td>
+</tr>
+</table>
+<p>
+<br>
+SQL> SELECT * FROM V$SGA_TARGET_ADVICE ORDER BY 1;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+SGA_SIZE
+</th>
+<th scope="col">
+SGA_SIZE_FACTOR
+</th>
+<th scope="col">
+ESTD_DB_TIME
+</th>
+<th scope="col">
+ESTD_DB_TIME_FACTOR
+</th>
+<th scope="col">
+ESTD_PHYSICAL_READS
+</th>
+<th scope="col">
+ESTD_BUFFER_CACHE_SIZE
+</th>
+<th scope="col">
+ESTD_SHARED_POOL_SIZE
+</th>
+<th scope="col">
+CON_ID
+</th>
+</tr>
+<tr>
+<td align="right">
+       168
+</td>
+<td align="right">
+       .25
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+     10288
+</td>
+<td align="right">
+       224
+</td>
+<td align="right">
+       352
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+       336
+</td>
+<td align="right">
+        .5
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+     10288
+</td>
+<td align="right">
+       224
+</td>
+<td align="right">
+       352
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+       504
+</td>
+<td align="right">
+       .75
+</td>
+<td align="right">
+       181
+</td>
+<td align="right">
+    1.0523
+</td>
+<td align="right">
+     10288
+</td>
+<td align="right">
+       128
+</td>
+<td align="right">
+       272
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+       672
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+       172
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+     10288
+</td>
+<td align="right">
+       224
+</td>
+<td align="right">
+       352
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+       840
+</td>
+<td align="right">
+      1.25
+</td>
+<td align="right">
+       172
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+     10288
+</td>
+<td align="right">
+       384
+</td>
+<td align="right">
+       336
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+      1008
+</td>
+<td align="right">
+       1.5
+</td>
+<td align="right">
+       172
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+     10288
+</td>
+<td align="right">
+       544
+</td>
+<td align="right">
+       336
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+      1176
+</td>
+<td align="right">
+      1.75
+</td>
+<td align="right">
+       172
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+     10288
+</td>
+<td align="right">
+       704
+</td>
+<td align="right">
+       336
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+      1344
+</td>
+<td align="right">
+         2
+</td>
+<td align="right">
+       172
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+     10288
+</td>
+<td align="right">
+       864
+</td>
+<td align="right">
+       336
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+</table>
+<p>
+
+8 rows selected.<br>
+<br>
+
+
+Elapsed: 00:00:00.01
+SQL> SHO PARAMETER PGA;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+NAME
+</th>
+<th scope="col">
+TYPE
+</th>
+<th scope="col">
+VALUE
+</th>
+</tr>
+<tr>
+<td>
+pga_aggregate_limit
+</td>
+<td>
+big integer
+</td>
+<td>
+2G
+</td>
+</tr>
+<tr>
+<td>
+pga_aggregate_target
+</td>
+<td>
+big integer
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+<p>
+<br>
+SQL> SELECT * FROM V$PGA_TARGET_ADVICE ORDER BY 1;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+PGA_TARGET_FOR_ESTIMATE
+</th>
+<th scope="col">
+PGA_TARGET_FACTOR
+</th>
+<th scope="col">
+ADV
+</th>
+<th scope="col">
+BYTES_PROCESSED
+</th>
+<th scope="col">
+ESTD_TIME
+</th>
+<th scope="col">
+ESTD_EXTRA_BYTES_RW
+</th>
+<th scope="col">
+ESTD_PGA_CACHE_HIT_PERCENTAGE
+</th>
+<th scope="col">
+ESTD_OVERALLOC_COUNT
+</th>
+<th scope="col">
+CON_ID
+</th>
+</tr>
+<tr>
+<td align="right">
+  60817408
+</td>
+<td align="right">
+      .125
+</td>
+<td>
+ON
+</td>
+<td align="right">
+ 875641856
+</td>
+<td align="right">
+      1699
+</td>
+<td align="right">
+ 313055232
+</td>
+<td align="right">
+        74
+</td>
+<td align="right">
+         6
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+ 121634816
+</td>
+<td align="right">
+       .25
+</td>
+<td>
+ON
+</td>
+<td align="right">
+ 875641856
+</td>
+<td align="right">
+      1699
+</td>
+<td align="right">
+ 313055232
+</td>
+<td align="right">
+        74
+</td>
+<td align="right">
+         6
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+ 243269632
+</td>
+<td align="right">
+        .5
+</td>
+<td>
+ON
+</td>
+<td align="right">
+ 875641856
+</td>
+<td align="right">
+      1699
+</td>
+<td align="right">
+ 313055232
+</td>
+<td align="right">
+        74
+</td>
+<td align="right">
+         5
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+ 364904448
+</td>
+<td align="right">
+       .75
+</td>
+<td>
+ON
+</td>
+<td align="right">
+ 875641856
+</td>
+<td align="right">
+      1647
+</td>
+<td align="right">
+ 276080640
+</td>
+<td align="right">
+        76
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+ 486539264
+</td>
+<td align="right">
+         1
+</td>
+<td>
+ON
+</td>
+<td align="right">
+ 875641856
+</td>
+<td align="right">
+      1252
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+       100
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+ 583846912
+</td>
+<td align="right">
+       1.2
+</td>
+<td>
+ON
+</td>
+<td align="right">
+ 875641856
+</td>
+<td align="right">
+      1252
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+       100
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+ 681154560
+</td>
+<td align="right">
+       1.4
+</td>
+<td>
+ON
+</td>
+<td align="right">
+ 875641856
+</td>
+<td align="right">
+      1252
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+       100
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+ 778462208
+</td>
+<td align="right">
+       1.6
+</td>
+<td>
+ON
+</td>
+<td align="right">
+ 875641856
+</td>
+<td align="right">
+      1252
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+       100
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+ 875769856
+</td>
+<td align="right">
+       1.8
+</td>
+<td>
+ON
+</td>
+<td align="right">
+ 875641856
+</td>
+<td align="right">
+      1252
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+       100
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+ 973078528
+</td>
+<td align="right">
+         2
+</td>
+<td>
+ON
+</td>
+<td align="right">
+ 875641856
+</td>
+<td align="right">
+      1252
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+       100
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+1459617792
+</td>
+<td align="right">
+         3
+</td>
+<td>
+ON
+</td>
+<td align="right">
+ 875641856
+</td>
+<td align="right">
+      1252
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+       100
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+1946157056
+</td>
+<td align="right">
+         4
+</td>
+<td>
+ON
+</td>
+<td align="right">
+ 875641856
+</td>
+<td align="right">
+      1252
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+       100
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+2919235584
+</td>
+<td align="right">
+         6
+</td>
+<td>
+ON
+</td>
+<td align="right">
+ 875641856
+</td>
+<td align="right">
+      1252
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+       100
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+3892314112
+</td>
+<td align="right">
+         8
+</td>
+<td>
+ON
+</td>
+<td align="right">
+ 875641856
+</td>
+<td align="right">
+      1252
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+       100
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+</table>
+<p>
+
+14 rows selected.<br>
+<br>
+
+
+Elapsed: 00:00:00.00
+SQL> 
+<br>
+SQL> --Redo log information
+<br>
+SQL> COL MEMBER FOR A80;
+<br>
+SQL> SELECT * FROM V$LOGFILE ORDER BY 1,3,4;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+GROUP#
+</th>
+<th scope="col">
+STATUS
+</th>
+<th scope="col">
+TYPE
+</th>
+<th scope="col">
+MEMBER
+</th>
+<th scope="col">
+IS_
+</th>
+<th scope="col">
+CON_ID
+</th>
+</tr>
+<tr>
+<td align="right">
+         1
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+ONLINE
+</td>
+<td>
++DATA/BANDENG/ONLINELOG/group_1.263.968473483
+</td>
+<td>
+NO
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+         1
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+ONLINE
+</td>
+<td>
++DATA/BANDENG/ONLINELOG/group_1.266.968473537
+</td>
+<td>
+YES
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+         2
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+ONLINE
+</td>
+<td>
++DATA/BANDENG/ONLINELOG/group_2.264.968473485
+</td>
+<td>
+NO
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+         2
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+ONLINE
+</td>
+<td>
++DATA/BANDENG/ONLINELOG/group_2.268.968473547
+</td>
+<td>
+YES
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+         3
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+ONLINE
+</td>
+<td>
++DATA/BANDENG/ONLINELOG/group_3.265.968473485
+</td>
+<td>
+NO
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+<tr>
+<td align="right">
+         3
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+ONLINE
+</td>
+<td>
++DATA/BANDENG/ONLINELOG/group_3.267.968473543
+</td>
+<td>
+YES
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+</table>
+<p>
+
+6 rows selected.<br>
+<br>
+
+
+Elapsed: 00:00:00.01
+SQL> COL STATUS FOR A10;
+<br>
+SQL> SELECT GROUP#, THREAD#, SEQUENCE#, ROUND((BYTES/1024/1024),2)REDO_MB, MEMBERS, ARCHIVED, STATUS, FIRST_CHANGE# FROM V$LOG ORDER BY 1;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+GROUP#
+</th>
+<th scope="col">
+THREAD#
+</th>
+<th scope="col">
+SEQUENCE#
+</th>
+<th scope="col">
+REDO_MB
+</th>
+<th scope="col">
+MEMBERS
+</th>
+<th scope="col">
+ARC
+</th>
+<th scope="col">
+STATUS
+</th>
+<th scope="col">
+FIRST_CHANGE#
+</th>
+</tr>
+<tr>
+<td align="right">
+         1
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+         4
+</td>
+<td align="right">
+       200
+</td>
+<td align="right">
+         2
+</td>
+<td>
+YES
+</td>
+<td>
+INACTIVE
+</td>
+<td align="right">
+   1645594
+</td>
+</tr>
+<tr>
+<td align="right">
+         2
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+         5
+</td>
+<td align="right">
+       200
+</td>
+<td align="right">
+         2
+</td>
+<td>
+NO
+</td>
+<td>
+CURRENT
+</td>
+<td align="right">
+   1645602
+</td>
+</tr>
+<tr>
+<td align="right">
+         3
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+         3
+</td>
+<td align="right">
+       200
+</td>
+<td align="right">
+         2
+</td>
+<td>
+YES
+</td>
+<td>
+INACTIVE
+</td>
+<td align="right">
+   1642647
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.01
+SQL> 
+<br>
+SQL> --Tablespace information
+<br>
+SQL> SET LINES 160 PAGES 5000 TIMING ON TRIM ON ECHO ON;
+<br>
+SQL> --MB version
+<br>
+SQL> SELECT /*+ PARALLEL(4)*/
+<br>
+  2    DDF.TABLESPACE_NAME, ROUND(DDF.BYTES/1024/1024,2)ALLOCATED_MB, ROUND((DDF.BYTES-DFS.BYTES)/1024/1024,2)USED_MB,
+<br>
+  3    ROUND(((DDF.BYTES-DFS.BYTES)/DDF.BYTES)*100,2)PERCENT_USED, ROUND(DFS.BYTES/1024/1024,2)FREE_MB, ROUND((1-((DDF.BYTES-DFS.BYTES)/DDF.BYTES))*100,2)PERCENT_FREE
+<br>
+  4  FROM (SELECT TABLESPACE_NAME,SUM(BYTES) BYTES FROM DBA_DATA_FILES GROUP BY TABLESPACE_NAME) DDF
+<br>
+  5  JOIN (SELECT TABLESPACE_NAME,SUM(BYTES) BYTES FROM DBA_FREE_SPACE GROUP BY TABLESPACE_NAME) DFS ON DDF.TABLESPACE_NAME=DFS.TABLESPACE_NAME ORDER BY 4 DESC;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+TABLESPACE_NAME
+</th>
+<th scope="col">
+ALLOCATED_MB
+</th>
+<th scope="col">
+USED_MB
+</th>
+<th scope="col">
+PERCENT_USED
+</th>
+<th scope="col">
+FREE_MB
+</th>
+<th scope="col">
+PERCENT_FREE
+</th>
+</tr>
+<tr>
+<td>
+SYSTEM
+</td>
+<td align="right">
+       800
+</td>
+<td align="right">
+    796.13
+</td>
+<td align="right">
+  99.52
+</td>
+<td align="right">
+      3.88
+</td>
+<td align="right">
+    .48
+</td>
+</tr>
+<tr>
+<td>
+UNDOTBS1
+</td>
+<td align="right">
+        65
+</td>
+<td align="right">
+     64.69
+</td>
+<td align="right">
+  99.52
+</td>
+<td align="right">
+       .31
+</td>
+<td align="right">
+    .48
+</td>
+</tr>
+<tr>
+<td>
+SYSAUX
+</td>
+<td align="right">
+       480
+</td>
+<td align="right">
+     449.5
+</td>
+<td align="right">
+  93.65
+</td>
+<td align="right">
+      30.5
+</td>
+<td align="right">
+   6.35
+</td>
+</tr>
+<tr>
+<td>
+USERS
+</td>
+<td align="right">
+         5
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+  20.00
+</td>
+<td align="right">
+         4
+</td>
+<td align="right">
+  80.00
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.29
+SQL> --GB version
+<br>
+SQL> COL USED_GB FOR 999999.99;
+<br>
+SQL> COL PERCENT_USED FOR 999.99;
+<br>
+SQL> COL FREE_GB FOR 999999.99;
+<br>
+SQL> COL PERCENT_FREE FOR 999.99;
+<br>
+SQL> SELECT /*+ PARALLEL(8)*/
+<br>
+  2    DDF.TABLESPACE_NAME, ROUND(DDF.BYTES/1024/1024/1024,2)ALLOCATED_GB, ROUND((DDF.BYTES-DFS.BYTES)/1024/1024/1024,2)USED_GB,
+<br>
+  3    ROUND(((DDF.BYTES-DFS.BYTES)/DDF.BYTES)*100,2)PERCENT_USED, ROUND(DFS.BYTES/1024/1024/1024,2)FREE_GB, ROUND((1-((DDF.BYTES-DFS.BYTES)/DDF.BYTES))*100,2)PERCENT_FREE
+<br>
+  4  FROM (SELECT TABLESPACE_NAME,SUM(BYTES) BYTES FROM DBA_DATA_FILES GROUP BY TABLESPACE_NAME) DDF
+<br>
+  5  JOIN (SELECT TABLESPACE_NAME,SUM(BYTES) BYTES FROM DBA_FREE_SPACE GROUP BY TABLESPACE_NAME) DFS ON DDF.TABLESPACE_NAME=DFS.TABLESPACE_NAME ORDER BY 4 DESC;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+TABLESPACE_NAME
+</th>
+<th scope="col">
+ALLOCATED_GB
+</th>
+<th scope="col">
+USED_GB
+</th>
+<th scope="col">
+PERCENT_USED
+</th>
+<th scope="col">
+FREE_GB
+</th>
+<th scope="col">
+PERCENT_FREE
+</th>
+</tr>
+<tr>
+<td>
+SYSTEM
+</td>
+<td align="right">
+       .78
+</td>
+<td align="right">
+       .78
+</td>
+<td align="right">
+  99.52
+</td>
+<td align="right">
+       .00
+</td>
+<td align="right">
+    .48
+</td>
+</tr>
+<tr>
+<td>
+UNDOTBS1
+</td>
+<td align="right">
+       .06
+</td>
+<td align="right">
+       .06
+</td>
+<td align="right">
+  99.52
+</td>
+<td align="right">
+       .00
+</td>
+<td align="right">
+    .48
+</td>
+</tr>
+<tr>
+<td>
+SYSAUX
+</td>
+<td align="right">
+       .47
+</td>
+<td align="right">
+       .44
+</td>
+<td align="right">
+  93.65
+</td>
+<td align="right">
+       .03
+</td>
+<td align="right">
+   6.35
+</td>
+</tr>
+<tr>
+<td>
+USERS
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+       .00
+</td>
+<td align="right">
+  20.00
+</td>
+<td align="right">
+       .00
+</td>
+<td align="right">
+  80.00
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.41
+SQL> 
+<br>
+SQL> ----Datafile utilization
+<br>
+SQL> --SET LINES 160 PAGES 5000 TIMING ON TRIM ON ECHO ON;
+<br>
+SQL> --COL TABLESPACE_NAME FOR A20;
+<br>
+SQL> --COL FILE_NAME FOR A55;
+<br>
+SQL> --SELECT /*+ PARALLEL(8)*/
+<br>
+SQL> --  FILE_NAME,D.TABLESPACE_NAME,ROUND(D.BYTES/1024/1024/1024,2)SIZE_GB,SUM(NVL(ROUND(E.BYTES/1024/1024/1024,2),0))USED_GB,
+<br>
+SQL> --  ROUND(SUM(NVL(E.BYTES,0)) / (D.BYTES), 4) * 100 AS PERCENT_USED,
+<br>
+SQL> --  ROUND((D.BYTES-NVL(SUM(E.BYTES),0))/1024/1024/1024,2)FREE_GB
+<br>
+SQL> --FROM DBA_EXTENTS E, DBA_DATA_FILES D
+<br>
+SQL> --WHERE D.FILE_ID = E.FILE_ID (+)
+<br>
+SQL> --GROUP BY FILE_NAME, D.TABLESPACE_NAME, D.FILE_ID, D.BYTES, STATUS
+<br>
+SQL> --ORDER BY D.TABLESPACE_NAME, D.FILE_ID;
+<br>
+SQL> 
+<br>
+SQL> --Datafiles and tempfiles information
+<br>
+SQL> SET LINES 160 PAGES 5000 TIMING ON TRIM ON ECHO ON;
+<br>
+SQL> COL TABLESPACE_NAME FOR A20;
+<br>
+SQL> COL FILE_ID FOR 9999;
+<br>
+SQL> COL FILE_NAME FOR A55;
+<br>
+SQL> COL AUTOEXTENSIBLE FOR A3;
+<br>
+SQL> COL OL FOR A10;
+<br>
+SQL> COL ENABLED FOR A15;
+<br>
+SQL> COL STATUS FOR A10;
+<br>
+SQL> SELECT * FROM (
+<br>
+  2    SELECT /*+ PARALLEL(8)*/
+<br>
+  3    TABLESPACE_NAME,FILE_ID,FILE_NAME,ROUND(VD.BYTES/1024/1024/1024,2)SIZE_GB,ROUND(MAXBYTES/1024/1024/1024,2)MAX_GB,AUTOEXTENSIBLE,DDF.STATUS,ONLINE_STATUS OL,VD.ENABLED
+<br>
+  4    FROM DBA_DATA_FILES DDF JOIN V$DATAFILE VD ON VD.NAME=DDF.FILE_NAME ORDER BY 1,2
+<br>
+  5  )
+<br>
+  6  UNION ALL
+<br>
+  7  SELECT * FROM (
+<br>
+  8    SELECT /*+ PARALLEL(8)*/
+<br>
+  9    TABLESPACE_NAME,FILE_ID,FILE_NAME,ROUND(VT.BYTES/1024/1024/1024,2)SIZE_GB,ROUND(MAXBYTES/1024/1024/1024,2)MAX_GB,AUTOEXTENSIBLE,'',DTF.STATUS OL,VT.ENABLED
+<br>
+ 10    FROM DBA_TEMP_FILES DTF JOIN V$TEMPFILE VT ON VT.NAME=DTF.FILE_NAME ORDER BY 1,2
+<br>
+ 11  );
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+TABLESPACE_NAME
+</th>
+<th scope="col">
+FILE_ID
+</th>
+<th scope="col">
+FILE_NAME
+</th>
+<th scope="col">
+SIZE_GB
+</th>
+<th scope="col">
+MAX_GB
+</th>
+<th scope="col">
+AUT
+</th>
+<th scope="col">
+STATUS
+</th>
+<th scope="col">
+OL
+</th>
+<th scope="col">
+ENABLED
+</th>
+</tr>
+<tr>
+<td>
+SYSAUX
+</td>
+<td align="right">
+    3
+</td>
+<td>
++DATA/BANDENG/DATAFILE/sysaux.258.968473329
+</td>
+<td align="right">
+       .47
+</td>
+<td align="right">
+        32
+</td>
+<td>
+YES
+</td>
+<td>
+AVAILABLE
+</td>
+<td>
+ONLINE
+</td>
+<td>
+READ WRITE
+</td>
+</tr>
+<tr>
+<td>
+SYSTEM
+</td>
+<td align="right">
+    1
+</td>
+<td>
++DATA/BANDENG/DATAFILE/system.257.968473211
+</td>
+<td align="right">
+       .78
+</td>
+<td align="right">
+        32
+</td>
+<td>
+YES
+</td>
+<td>
+AVAILABLE
+</td>
+<td>
+SYSTEM
+</td>
+<td>
+READ WRITE
+</td>
+</tr>
+<tr>
+<td>
+UNDOTBS1
+</td>
+<td align="right">
+    4
+</td>
+<td>
++DATA/BANDENG/DATAFILE/undotbs1.259.968473383
+</td>
+<td align="right">
+       .06
+</td>
+<td align="right">
+        32
+</td>
+<td>
+YES
+</td>
+<td>
+AVAILABLE
+</td>
+<td>
+ONLINE
+</td>
+<td>
+READ WRITE
+</td>
+</tr>
+<tr>
+<td>
+USERS
+</td>
+<td align="right">
+    7
+</td>
+<td>
++DATA/BANDENG/DATAFILE/users.260.968473385
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+        32
+</td>
+<td>
+YES
+</td>
+<td>
+AVAILABLE
+</td>
+<td>
+ONLINE
+</td>
+<td>
+READ WRITE
+</td>
+</tr>
+<tr>
+<td>
+TEMP
+</td>
+<td align="right">
+    1
+</td>
+<td>
++DATA/BANDENG/TEMPFILE/temp.269.968473617
+</td>
+<td align="right">
+       .03
+</td>
+<td align="right">
+        32
+</td>
+<td>
+YES
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+ONLINE
+</td>
+<td>
+READ WRITE
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.28
+SQL> 
+<br>
+SQL> --ASM information
+<br>
+SQL> COL PATH FOR A50;
+<br>
+SQL> COL NAME FOR A20;
+<br>
+SQL> SELECT MOUNT_STATUS,HEADER_STATUS,STATE,ROUND(TOTAL_MB/1024,2)TOTAL_GB,ROUND(FREE_MB/1024,2)FREE_GB,NAME,PATH,LABEL FROM V$ASM_DISK ORDER BY NAME;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+MOUNT_S
+</th>
+<th scope="col">
+HEADER_STATU
+</th>
+<th scope="col">
+STATE
+</th>
+<th scope="col">
+TOTAL_GB
+</th>
+<th scope="col">
+FREE_GB
+</th>
+<th scope="col">
+NAME
+</th>
+<th scope="col">
+PATH
+</th>
+<th scope="col">
+LABEL
+</th>
+</tr>
+<tr>
+<td>
+CACHED
+</td>
+<td>
+MEMBER
+</td>
+<td>
+NORMAL
+</td>
+<td align="right">
+        10
+</td>
+<td align="right">
+      8.55
+</td>
+<td>
+DATA_0000
+</td>
+<td>
+/dev/oracleasm/DATA02_10G
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+CACHED
+</td>
+<td>
+MEMBER
+</td>
+<td>
+NORMAL
+</td>
+<td align="right">
+        10
+</td>
+<td align="right">
+      8.57
+</td>
+<td>
+DATA_0001
+</td>
+<td>
+/dev/oracleasm/DATA01_10G
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+CACHED
+</td>
+<td>
+MEMBER
+</td>
+<td>
+NORMAL
+</td>
+<td align="right">
+        10
+</td>
+<td align="right">
+      8.57
+</td>
+<td>
+DATA_0002
+</td>
+<td>
+/dev/oracleasm/DATA03_10G
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+CACHED
+</td>
+<td>
+MEMBER
+</td>
+<td>
+NORMAL
+</td>
+<td align="right">
+        10
+</td>
+<td align="right">
+      8.59
+</td>
+<td>
+DATA_0003
+</td>
+<td>
+/dev/oracleasm/DATA04_10G
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+CACHED
+</td>
+<td>
+MEMBER
+</td>
+<td>
+NORMAL
+</td>
+<td align="right">
+         5
+</td>
+<td align="right">
+      4.91
+</td>
+<td>
+FRA_0000
+</td>
+<td>
+/dev/oracleasm/FRA01_5G
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+CACHED
+</td>
+<td>
+MEMBER
+</td>
+<td>
+NORMAL
+</td>
+<td align="right">
+         5
+</td>
+<td align="right">
+      4.91
+</td>
+<td>
+FRA_0001
+</td>
+<td>
+/dev/oracleasm/FRA02_5G
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+CACHED
+</td>
+<td>
+MEMBER
+</td>
+<td>
+NORMAL
+</td>
+<td align="right">
+         5
+</td>
+<td align="right">
+      4.92
+</td>
+<td>
+FRA_0002
+</td>
+<td>
+/dev/oracleasm/FRA03_5G
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+CACHED
+</td>
+<td>
+MEMBER
+</td>
+<td>
+NORMAL
+</td>
+<td align="right">
+         5
+</td>
+<td align="right">
+      4.92
+</td>
+<td>
+FRA_0003
+</td>
+<td>
+/dev/oracleasm/FRA04_5G
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+</table>
+<p>
+
+8 rows selected.<br>
+<br>
+
+
+Elapsed: 00:00:00.12
+SQL> SELECT NAME,ROUND(TOTAL_MB/1024,2)TOTAL_GB,ROUND(FREE_MB/1024,2)FREE_GB,ROUND(USABLE_FILE_MB/1024,2)USABLE_FILE_GB,STATE FROM V$ASM_DISKGROUP ORDER BY NAME;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+NAME
+</th>
+<th scope="col">
+TOTAL_GB
+</th>
+<th scope="col">
+FREE_GB
+</th>
+<th scope="col">
+USABLE_FILE_GB
+</th>
+<th scope="col">
+STATE
+</th>
+</tr>
+<tr>
+<td>
+DATA
+</td>
+<td align="right">
+     39.98
+</td>
+<td align="right">
+     34.27
+</td>
+<td align="right">
+     12.14
+</td>
+<td>
+CONNECTED
+</td>
+</tr>
+<tr>
+<td>
+FRA
+</td>
+<td align="right">
+     19.98
+</td>
+<td align="right">
+     19.66
+</td>
+<td align="right">
+      7.33
+</td>
+<td>
+MOUNTED
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.12
+SQL> 
+<br>
+SQL> --Database size
+<br>
+SQL> SELECT /*+ PARALLEL(4)*/ROUND((SUM(BYTES))/1024/1024/1024, 2)DBSIZE_GB,ROUND((SUM(BYTES))/1024/1024/1024/1024, 2)DBSIZE_TB FROM DBA_DATA_FILES;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+DBSIZE_GB
+</th>
+<th scope="col">
+DBSIZE_TB
+</th>
+</tr>
+<tr>
+<td align="right">
+      1.32
+</td>
+<td align="right">
+         0
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.09
+SQL> 
+<br>
+SQL> --Total database size
+<br>
+SQL> SELECT /*+ PARALLEL(4)*/ 'Datafiles' "COMPONENTS", ROUND((SUM(BYTES))/1024/1024/1024, 2)DATAFILES_GB FROM DBA_DATA_FILES UNION ALL
+<br>
+  2  SELECT /*+ PARALLEL(4)*/ 'Tempfiles' "COMPONENTS", ROUND((SUM(BYTES))/1024/1024/1024, 2)TEMPFILES_GB FROM DBA_TEMP_FILES UNION ALL
+<br>
+  3  SELECT /*+ PARALLEL(4)*/ 'Redo Logs' "COMPONENTS", ROUND((SUM(BYTES))/1024/1024/1024, 2)REDO_GB FROM V$LOG UNION ALL
+<br>
+  4  SELECT /*+ PARALLEL(4)*/ 'Stby Logs' "COMPONENTS", ROUND((SUM(BYTES))/1024/1024/1024, 2)REDO_GB FROM V$STANDBY_LOG UNION ALL
+<br>
+  5  SELECT 'TOTAL' "COMPONENT", SUM(DATAFILES_GB)TOTAL_GB FROM(
+<br>
+  6  SELECT /*+ PARALLEL(4)*/ 'Datafiles' "COMPONENTS", ROUND((SUM(BYTES))/1024/1024/1024, 2)DATAFILES_GB FROM DBA_DATA_FILES UNION ALL
+<br>
+  7  SELECT /*+ PARALLEL(4)*/ 'Tempfiles' "COMPONENTS", ROUND((SUM(BYTES))/1024/1024/1024, 2)TEMPFILES_GB FROM DBA_TEMP_FILES UNION ALL
+<br>
+  8  SELECT /*+ PARALLEL(4)*/ 'Redo Logs' "COMPONENTS", ROUND((SUM(BYTES))/1024/1024/1024, 2)REDO_GB FROM V$LOG UNION ALL
+<br>
+  9  SELECT /*+ PARALLEL(4)*/ 'Stby Logs' "COMPONENTS", ROUND((SUM(BYTES))/1024/1024/1024, 2)REDO_GB FROM V$STANDBY_LOG);
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+COMPONENT
+</th>
+<th scope="col">
+DATAFILES_GB
+</th>
+</tr>
+<tr>
+<td>
+Datafiles
+</td>
+<td align="right">
+      1.32
+</td>
+</tr>
+<tr>
+<td>
+Tempfiles
+</td>
+<td align="right">
+       .03
+</td>
+</tr>
+<tr>
+<td>
+Redo Logs
+</td>
+<td align="right">
+       .59
+</td>
+</tr>
+<tr>
+<td>
+Stby Logs
+</td>
+<td align="right">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+TOTAL
+</td>
+<td align="right">
+      1.94
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.18
+SQL> 
+<br>
+SQL> --Analyzed table
+<br>
+SQL> COL OWNER FOR A25;
+<br>
+SQL> SELECT OWNER, SUM(DECODE(NVL(NUM_ROWS,9999), 9999,0,1)) ANALYZED, SUM(DECODE(NVL(NUM_ROWS,9999), 9999,1,0)) NOT_ANALYZED,COUNT(TABLE_NAME) TOTAL FROM DBA_TABLES
+<br>
+  2  GROUP BY OWNER ORDER BY 1;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+OWNER
+</th>
+<th scope="col">
+ANALYZED
+</th>
+<th scope="col">
+NOT_ANALYZED
+</th>
+<th scope="col">
+TOTAL
+</th>
+</tr>
+<tr>
+<td>
+APPQOSSYS
+</td>
+<td align="right">
+         5
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         5
+</td>
+</tr>
+<tr>
+<td>
+AUDSYS
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         1
+</td>
+</tr>
+<tr>
+<td>
+CTXSYS
+</td>
+<td align="right">
+        53
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+        53
+</td>
+</tr>
+<tr>
+<td>
+DBSFWUSER
+</td>
+<td align="right">
+         3
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         3
+</td>
+</tr>
+<tr>
+<td>
+DBSNMP
+</td>
+<td align="right">
+        17
+</td>
+<td align="right">
+         3
+</td>
+<td align="right">
+        20
+</td>
+</tr>
+<tr>
+<td>
+DVSYS
+</td>
+<td align="right">
+        39
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+        40
+</td>
+</tr>
+<tr>
+<td>
+GSMADMIN_INTERNAL
+</td>
+<td align="right">
+        37
+</td>
+<td align="right">
+         2
+</td>
+<td align="right">
+        39
+</td>
+</tr>
+<tr>
+<td>
+HR
+</td>
+<td align="right">
+         7
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         7
+</td>
+</tr>
+<tr>
+<td>
+LBACSYS
+</td>
+<td align="right">
+        22
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+        22
+</td>
+</tr>
+<tr>
+<td>
+MDSYS
+</td>
+<td align="right">
+       118
+</td>
+<td align="right">
+        17
+</td>
+<td align="right">
+       135
+</td>
+</tr>
+<tr>
+<td>
+OJVMSYS
+</td>
+<td align="right">
+         6
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         6
+</td>
+</tr>
+<tr>
+<td>
+OLAPSYS
+</td>
+<td align="right">
+         2
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         2
+</td>
+</tr>
+<tr>
+<td>
+ORDDATA
+</td>
+<td align="right">
+        71
+</td>
+<td align="right">
+        19
+</td>
+<td align="right">
+        90
+</td>
+</tr>
+<tr>
+<td>
+ORDSYS
+</td>
+<td align="right">
+         5
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         5
+</td>
+</tr>
+<tr>
+<td>
+OUTLN
+</td>
+<td align="right">
+         3
+</td>
+<td align="right">
+         0
+</td>
+<td align="right">
+         3
+</td>
+</tr>
+<tr>
+<td>
+SYS
+</td>
+<td align="right">
+      1413
+</td>
+<td align="right">
+        71
+</td>
+<td align="right">
+      1484
+</td>
+</tr>
+<tr>
+<td>
+SYSTEM
+</td>
+<td align="right">
+       121
+</td>
+<td align="right">
+         7
+</td>
+<td align="right">
+       128
+</td>
+</tr>
+<tr>
+<td>
+WMSYS
+</td>
+<td align="right">
+        36
+</td>
+<td align="right">
+         2
+</td>
+<td align="right">
+        38
+</td>
+</tr>
+<tr>
+<td>
+XDB
+</td>
+<td align="right">
+        31
+</td>
+<td align="right">
+         1
+</td>
+<td align="right">
+        32
+</td>
+</tr>
+</table>
+<p>
+
+19 rows selected.<br>
+<br>
+
+
+Elapsed: 00:00:00.30
+SQL> 
+<br>
+SQL> --Buffer hit ratio
+<br>
+SQL> SELECT
+<br>
+  2  SUM(DECODE(NAME, 'consistent gets',VALUE, 0)) Consistent_Gets, SUM(DECODE(NAME, 'db block gets',VALUE, 0)) DB_Blk_Gets,
+<br>
+  3  SUM(DECODE(NAME, 'physical reads',VALUE, 0))Physical_Reads,
+<br>
+  4  ROUND
+<br>
+  5  (
+<br>
+  6    (SUM(DECODE(NAME, 'consistent gets',value, 0)) + SUM(DECODE(NAME, 'db block gets',value, 0)) - SUM(DECODE(NAME, 'physical reads',value, 0))) /
+<br>
+  7    (SUM(DECODE(NAME, 'consistent gets',value, 0)) + SUM(DECODE(NAME, 'db block gets',value, 0))) * 100,2
+<br>
+  8  ) HIT_RATIO
+<br>
+  9  FROM V$SYSSTAT;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+CONSISTENT_GETS
+</th>
+<th scope="col">
+DB_BLK_GETS
+</th>
+<th scope="col">
+PHYSICAL_READS
+</th>
+<th scope="col">
+HIT_RATIO
+</th>
+</tr>
+<tr>
+<td align="right">
+    546024
+</td>
+<td align="right">
+     34577
+</td>
+<td align="right">
+     14045
+</td>
+<td align="right">
+     97.58
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.01
+SQL> 
+<br>
+SQL> --Library cache hit ratio
+<br>
+SQL> SELECT
+<br>
+  2  SUM(PINS) Executions, SUM(PINHITS) Execution_Hits, ROUND((SUM(PINHITS) / SUM(PINS)) * 100,3) Hit_Ratio,
+<br>
+  3  SUM(RELOADS) Misses, ROUND((SUM(PINS) / (SUM(PINS) + sum(RELOADS))) * 100,3) Hit_Ratio
+<br>
+  4  FROM V$LIBRARYCACHE;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+EXECUTIONS
+</th>
+<th scope="col">
+EXECUTION_HITS
+</th>
+<th scope="col">
+HIT_RATIO
+</th>
+<th scope="col">
+MISSES
+</th>
+<th scope="col">
+HIT_RATIO
+</th>
+</tr>
+<tr>
+<td align="right">
+    125468
+</td>
+<td align="right">
+    105581
+</td>
+<td align="right">
+     84.15
+</td>
+<td align="right">
+      3410
+</td>
+<td align="right">
+    97.354
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.01
+SQL> 
+<br>
+SQL> --Data dictionary hit ratio
+<br>
+SQL> SELECT SUM(GETS) Gets, SUM(GETMISSES) Cache_Misses, ROUND((1 - (SUM(GETMISSES) / sum(GETS))) * 100,2) Hit_Ratio FROM V$ROWCACHE;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+GETS
+</th>
+<th scope="col">
+CACHE_MISSES
+</th>
+<th scope="col">
+HIT_RATIO
+</th>
+</tr>
+<tr>
+<td align="right">
+    226224
+</td>
+<td align="right">
+     23427
+</td>
+<td align="right">
+     89.64
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.00
+SQL> 
+<br>
+SQL> --User's tablespace
+<br>
+SQL> SET LINES 160 PAGES 5000 TIMING ON;
+<br>
+SQL> COL USERNAME FOR A25;
+<br>
+SQL> COL ACCOUNT_STATUS FOR A20;
+<br>
+SQL> SELECT USERNAME, ACCOUNT_STATUS, DEFAULT_TABLESPACE, TEMPORARY_TABLESPACE TEMP_TBS FROM DBA_USERS ORDER BY 1;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+USERNAME
+</th>
+<th scope="col">
+ACCOUNT_STATUS
+</th>
+<th scope="col">
+DEFAULT_TABLESPACE
+</th>
+<th scope="col">
+TEMP_TBS
+</th>
+</tr>
+<tr>
+<td>
+ANONYMOUS
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+APPQOSSYS
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+AUDSYS
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+USERS
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+CTXSYS
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+DBSFWUSER
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+DBSNMP
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+DIP
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+USERS
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+DVF
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+DVSYS
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+GGSYS
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+GSMADMIN_INTERNAL
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+GSMCATUSER
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+USERS
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+GSMUSER
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+USERS
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+HR
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+LBACSYS
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSTEM
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+MDDATA
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+USERS
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+MDSYS
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+OJVMSYS
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSTEM
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+OLAPSYS
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+ORACLE_OCM
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+USERS
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+ORDDATA
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+ORDPLUGINS
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+ORDSYS
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+OUTLN
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSTEM
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+REMOTE_SCHEDULER_AGENT
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+USERS
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+SI_INFORMTN_SCHEMA
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+SPATIAL_CSW_ADMIN_USR
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+USERS
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+SYS
+</td>
+<td>
+OPEN
+</td>
+<td>
+SYSTEM
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+SYS$UMF
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSTEM
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+SYSBACKUP
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+USERS
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+SYSDG
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+USERS
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+SYSKM
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+USERS
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+SYSRAC
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+USERS
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+SYSTEM
+</td>
+<td>
+OPEN
+</td>
+<td>
+SYSTEM
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+WMSYS
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+XDB
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSAUX
+</td>
+<td>
+TEMP
+</td>
+</tr>
+<tr>
+<td>
+XS$NULL
+</td>
+<td>
+EXPIRED & LOCKED
+</td>
+<td>
+SYSTEM
+</td>
+<td>
+TEMP
+</td>
+</tr>
+</table>
+<p>
+
+37 rows selected.<br>
+<br>
+
+
+Elapsed: 00:00:00.06
+SQL> 
+<br>
+SQL> --Redo log history
+<br>
+SQL> COL "00" FOR A4;
+<br>
+SQL> COL "01" FOR A4;
+<br>
+SQL> COL "02" FOR A4;
+<br>
+SQL> COL "03" FOR A4;
+<br>
+SQL> COL "04" FOR A4;
+<br>
+SQL> COL "05" FOR A4;
+<br>
+SQL> COL "06" FOR A4;
+<br>
+SQL> COL "07" FOR A4;
+<br>
+SQL> COL "08" FOR A4;
+<br>
+SQL> COL "09" FOR A4;
+<br>
+SQL> COL "10" FOR A4;
+<br>
+SQL> COL "11" FOR A4;
+<br>
+SQL> COL "12" FOR A4;
+<br>
+SQL> COL "13" FOR A4;
+<br>
+SQL> COL "14" FOR A4;
+<br>
+SQL> COL "15" FOR A4;
+<br>
+SQL> COL "16" FOR A4;
+<br>
+SQL> COL "17" FOR A4;
+<br>
+SQL> COL "18" FOR A4;
+<br>
+SQL> COL "19" FOR A4;
+<br>
+SQL> COL "20" FOR A4;
+<br>
+SQL> COL "21" FOR A4;
+<br>
+SQL> COL "22" FOR A4;
+<br>
+SQL> COL "23" FOR A4;
+<br>
+SQL> --SELECT SUBSTR(TO_CHAR(FIRST_TIME,'DY, YYYY/MM/DD'),1,15) DAY,
+<br>
+SQL> SELECT TO_DATE(SUBSTR(TO_CHAR(FIRST_TIME,'DD-Mon-YYYY'),1,15),'DD-Mon-YYYY') DAY,
+<br>
+  2  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'00',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'00',1,0))) AS "00",
+<br>
+  3  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'01',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'01',1,0))) AS "01",
+<br>
+  4  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'02',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'02',1,0))) AS "02",
+<br>
+  5  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'03',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'03',1,0))) AS "03",
+<br>
+  6  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'04',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'04',1,0))) AS "04",
+<br>
+  7  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'05',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'05',1,0))) AS "05",
+<br>
+  8  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'06',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'06',1,0))) AS "06",
+<br>
+  9  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'07',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'07',1,0))) AS "07",
+<br>
+ 10  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'08',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'08',1,0))) AS "08",
+<br>
+ 11  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'09',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'09',1,0))) AS "09",
+<br>
+ 12  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'10',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'10',1,0))) AS "10",
+<br>
+ 13  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'11',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'11',1,0))) AS "11",
+<br>
+ 14  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'12',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'12',1,0))) AS "12",
+<br>
+ 15  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'13',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'13',1,0))) AS "13",
+<br>
+ 16  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'14',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'14',1,0))) AS "14",
+<br>
+ 17  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'15',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'15',1,0))) AS "15",
+<br>
+ 18  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'16',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'16',1,0))) AS "16",
+<br>
+ 19  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'17',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'17',1,0))) AS "17",
+<br>
+ 20  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'18',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'18',1,0))) AS "18",
+<br>
+ 21  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'19',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'19',1,0))) AS "19",
+<br>
+ 22  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'20',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'20',1,0))) AS "20",
+<br>
+ 23  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'21',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'21',1,0))) AS "21",
+<br>
+ 24  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'22',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'22',1,0))) AS "22",
+<br>
+ 25  decode(sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'23',1,0)),0,'-',sum(decode(substr(to_char(FIRST_TIME,'HH24'),1,2),'23',1,0))) AS "23"
+<br>
+ 26  FROM V$LOG_HISTORY
+<br>
+ 27  --GROUP BY SUBSTR(TO_CHAR(FIRST_TIME,'DY, YYYY/MM/DD'),1,15)
+<br>
+ 28  GROUP BY TO_DATE(SUBSTR(TO_CHAR(FIRST_TIME,'DD-Mon-YYYY'),1,15),'DD-Mon-YYYY')
+<br>
+ 29  ORDER BY 1 DESC;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+DAY
+</th>
+<th scope="col">
+00
+</th>
+<th scope="col">
+01
+</th>
+<th scope="col">
+02
+</th>
+<th scope="col">
+03
+</th>
+<th scope="col">
+04
+</th>
+<th scope="col">
+05
+</th>
+<th scope="col">
+06
+</th>
+<th scope="col">
+07
+</th>
+<th scope="col">
+08
+</th>
+<th scope="col">
+09
+</th>
+<th scope="col">
+10
+</th>
+<th scope="col">
+11
+</th>
+<th scope="col">
+12
+</th>
+<th scope="col">
+13
+</th>
+<th scope="col">
+14
+</th>
+<th scope="col">
+15
+</th>
+<th scope="col">
+16
+</th>
+<th scope="col">
+17
+</th>
+<th scope="col">
+18
+</th>
+<th scope="col">
+19
+</th>
+<th scope="col">
+20
+</th>
+<th scope="col">
+21
+</th>
+<th scope="col">
+22
+</th>
+<th scope="col">
+23
+</th>
+</tr>
+<tr>
+<td>
+23-Jul-18 00:00:00
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+</tr>
+<tr>
+<td>
+16-Apr-18 00:00:00
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+1
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+</tr>
+<tr>
+<td>
+19-Feb-18 00:00:00
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+1
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+<td>
+-
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.02
+SQL> 
+<br>
+SQL> --RMAN backup jobs
+<br>
+SQL> SELECT
+<br>
+  2  R.COMMAND_ID, R.START_TIME, R.TIME_TAKEN_DISPLAY, R.INPUT_TYPE, R.STATUS, R.OUTPUT_DEVICE_TYPE, R.INPUT_BYTES_DISPLAY, R.OUTPUT_BYTES_DISPLAY, R.OUTPUT_BYTES_PER_SEC_DISPLAY
+<br>
+  3  FROM (
+<br>
+  4    SELECT COMMAND_ID, START_TIME, TIME_TAKEN_DISPLAY, STATUS, INPUT_TYPE, OUTPUT_DEVICE_TYPE, INPUT_BYTES_DISPLAY, OUTPUT_BYTES_DISPLAY, OUTPUT_BYTES_PER_SEC_DISPLAY
+<br>
+  5    FROM V$RMAN_BACKUP_JOB_DETAILS ORDER BY START_TIME DESC
+<br>
+  6  ) R
+<br>
+  7  WHERE ROWNUM < 21;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+COMMAND_ID
+</th>
+<th scope="col">
+START_TIME
+</th>
+<th scope="col">
+TIME_TAKEN_DISPLAY
+</th>
+<th scope="col">
+INPUT_TYPE
+</th>
+<th scope="col">
+STATUS
+</th>
+<th scope="col">
+OUTPUT_DEVICE_TYP
+</th>
+<th scope="col">
+INPUT_BYTES_DISPLAY
+</th>
+<th scope="col">
+OUTPUT_BYTES_DISPLAY
+</th>
+<th scope="col">
+OUTPUT_BYTES_PER_SEC_DISPLAY
+</th>
+</tr>
+<tr>
+<td>
+2018-07-23T11:16:15
+</td>
+<td>
+23-Jul-18 11:16:25
+</td>
+<td>
+00:01:06
+</td>
+<td>
+DB FULL
+</td>
+<td>
+COMPLETED
+</td>
+<td>
+DISK
+</td>
+<td>
+    1.32G
+</td>
+<td>
+  335.96M
+</td>
+<td>
+    5.09M
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.10
+SQL> 
+<br>
+SQL> --Check block corruption
+<br>
+SQL> SELECT * FROM V$DATABASE_BLOCK_CORRUPTION;
+<br>
+
+no rows selected
+
+<br>
+Elapsed: 00:00:00.01
+SQL> 
+<br>
+SQL> --Snap id for highest dbtime
+<br>
+SQL> SET LINES 160 PAGES 5000 TIMING ON;
+<br>
+SQL> COL BEGIN_INTERVAL_TIME FOR A30;
+<br>
+SQL> COL END_INTERVAL_TIME FOR A30;
+<br>
+SQL> SELECT /*+ PARALLEL(8)*/ * FROM (
+<br>
+  2    SELECT A.SNAP_ID ASNAPID, C.SNAP_ID CSNAPID, BEGIN_INTERVAL_TIME, END_INTERVAL_TIME, ROUND(TO_NUMBER((C.VALUE-A.VALUE)/1000000/60), 2) DBTIME
+<br>
+  3    FROM DBA_HIST_SYS_TIME_MODEL A, DBA_HIST_SNAPSHOT B, DBA_HIST_SYS_TIME_MODEL C WHERE A.SNAP_ID=B.SNAP_ID
+<br>
+  4    AND C.SNAP_ID=A.SNAP_ID+1 AND A.STAT_NAME=C.STAT_NAME AND UPPER(A.STAT_NAME) LIKE '%DB TIME%'
+<br>
+  5    AND B.BEGIN_INTERVAL_TIME > SYSDATE-14 AND B.END_INTERVAL_TIME <= SYSDATE
+<br>
+  6    ORDER BY TO_NUMBER((C.VALUE-A.VALUE)/1000000/60) DESC
+<br>
+  7  ) WHERE ROWNUM=1/*Checking dbtime for AWR, version 1.2*/;
+<br>
+<p>
+<table border="1" width="90%" summary="Script output">
+<tr>
+<th scope="col">
+ASNAPID
+</th>
+<th scope="col">
+CSNAPID
+</th>
+<th scope="col">
+BEGIN_INTERVAL_TIME
+</th>
+<th scope="col">
+END_INTERVAL_TIME
+</th>
+<th scope="col">
+DBTIME
+</th>
+</tr>
+<tr>
+<td align="right">
+         6
+</td>
+<td align="right">
+         7
+</td>
+<td>
+13-AUG-18 05.04.00.000 PM
+</td>
+<td>
+13-AUG-18 05.14.57.774 PM
+</td>
+<td align="right">
+       .21
+</td>
+</tr>
+</table>
+<p>
+
+Elapsed: 00:00:00.08
+SQL> SPOOL OFF;
+<br>
