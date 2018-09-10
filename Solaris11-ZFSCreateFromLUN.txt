@@ -1,0 +1,93 @@
+root@af-dbext-sby02 # format
+Searching for disks...done
+
+
+AVAILABLE DISK SELECTIONS:
+       0. c0t60060E801234AC00504034AC00000700d0 <HITACHI-OPEN-V      -SUN-8301-300.00GB>
+          /scsi_vhci/ssd@g60060e801234ac00504034ac00000700
+       1. c0t60060E801234AC00504034AC00000701d0 <HITACHI-OPEN-V      -SUN-8301-100.00GB>
+          /scsi_vhci/ssd@g60060e801234ac00504034ac00000701
+       2. c0t60060E801234AC00504034AC00000702d0 <HITACHI-OPEN-V      -SUN-8301-500.00GB>
+          /scsi_vhci/ssd@g60060e801234ac00504034ac00000702
+       3. c0t60060E801234AC00504034AC00000703d0 <HITACHI-OPEN-V      -SUN-8301 cyl 65533 alt 2 hd 15 sec 1066>
+          /scsi_vhci/ssd@g60060e801234ac00504034ac00000703
+       4. c0t60060E801234AC00504034AC00000704d0 <HITACHI-OPEN-V      -SUN-8301 cyl 65533 alt 2 hd 15 sec 1066>
+          /scsi_vhci/ssd@g60060e801234ac00504034ac00000704
+       5. c0t60060E801234AC00504034AC00000705d0 <HITACHI-OPEN-V      -SUN-8301 cyl 65533 alt 2 hd 15 sec 1066>
+          /scsi_vhci/ssd@g60060e801234ac00504034ac00000705
+Specify disk (enter its number): ^C
+root@af-dbext-sby02 # cfgadm -al
+Ap_Id                          Type         Receptacle   Occupant     Condition
+c2                             fc-fabric    connected    configured   unknown
+c2::50060e801234ac44           disk         connected    configured   unknown
+c3                             fc-fabric    connected    configured   unknown
+c3::50060e801234ac54           disk         connected    configured   unknown
+c4                             fc           connected    unconfigured unknown
+c5                             fc           connected    unconfigured unknown
+c6                             fc           connected    unconfigured unknown
+c7                             fc-fabric    connected    configured   unknown
+c7::50060e801234ac25           disk         connected    configured   unknown
+c8                             fc           connected    unconfigured unknown
+c9                             fc-fabric    connected    configured   unknown
+c9::50060e801234ac35           disk         connected    configured   unknown
+root@af-dbext-sby02 # devfsadm
+root@af-dbext-sby02 # format
+Searching for disks...done
+
+c0t60060E801234AC00504034AC00000706d0: configured with capacity of 1023.95GB
+
+
+AVAILABLE DISK SELECTIONS:
+       0. c0t60060E801234AC00504034AC00000700d0 <HITACHI-OPEN-V      -SUN-8301-300.00GB>
+          /scsi_vhci/ssd@g60060e801234ac00504034ac00000700
+       1. c0t60060E801234AC00504034AC00000701d0 <HITACHI-OPEN-V      -SUN-8301-100.00GB>
+          /scsi_vhci/ssd@g60060e801234ac00504034ac00000701
+       2. c0t60060E801234AC00504034AC00000702d0 <HITACHI-OPEN-V      -SUN-8301-500.00GB>
+          /scsi_vhci/ssd@g60060e801234ac00504034ac00000702
+       3. c0t60060E801234AC00504034AC00000703d0 <HITACHI-OPEN-V      -SUN-8301 cyl 65533 alt 2 hd 15 sec 1066>
+          /scsi_vhci/ssd@g60060e801234ac00504034ac00000703
+       4. c0t60060E801234AC00504034AC00000704d0 <HITACHI-OPEN-V      -SUN-8301 cyl 65533 alt 2 hd 15 sec 1066>
+          /scsi_vhci/ssd@g60060e801234ac00504034ac00000704
+       5. c0t60060E801234AC00504034AC00000705d0 <HITACHI-OPEN-V      -SUN-8301 cyl 65533 alt 2 hd 15 sec 1066>
+          /scsi_vhci/ssd@g60060e801234ac00504034ac00000705
+       6. c0t60060E801234AC00504034AC00000706d0 <HITACHI-OPEN-V      -SUN-8301 cyl 44556 alt 2 hd 255 sec 189>
+          /scsi_vhci/ssd@g60060e801234ac00504034ac00000706
+Specify disk (enter its number): ^C
+root@af-dbext-sby02 # zpool create backuppool c0t60060E801234AC00504034AC00000706d0
+root@af-dbext-sby02 # zfs create -o mountpoint=/backup backuppool/backup
+root@af-dbext-sby02 # df -h
+Filesystem             Size   Used  Available Capacity  Mounted on
+rpool/ROOT/solaris-1   293G    53G       209G    21%    /
+/devices                 0K     0K         0K     0%    /devices
+/dev                     0K     0K         0K     0%    /dev
+ctfs                     0K     0K         0K     0%    /system/contract
+proc                     0K     0K         0K     0%    /proc
+mnttab                   0K     0K         0K     0%    /etc/mnttab
+swap                    20G   976K        20G     1%    /system/volatile
+objfs                    0K     0K         0K     0%    /system/object
+sharefs                  0K     0K         0K     0%    /etc/dfs/sharetab
+rpool/ROOT/solaris-1/var
+                       293G   430M       209G     1%    /var
+fd                       0K     0K         0K     0%    /dev/fd
+swap                    26G   5.8G        20G    23%    /tmp
+rpool/VARSHARE         293G   2.6M       209G     1%    /var/share
+rpool/VARSHARE/zones   293G    31K       209G     1%    /system/zones
+apppool                 98G    31K        90G     1%    /apppool
+apppool/apps            98G   8.2G        90G     9%    /apps
+rpool/export           293G    32K       209G     1%    /export
+rpool/export/home      293G    33K       209G     1%    /export/home
+rpool/export/home/grid
+                       293G   350K       209G     1%    /export/home/grid
+rpool/export/home/oracle
+                       293G    61K       209G     1%    /export/home/oracle
+recoverypool           488G    31K       1.4G     1%    /recoverypool
+rpool                  293G    73K       209G     1%    /rpool
+rpool/VARSHARE/pkg     293G    32K       209G     1%    /var/share/pkg
+rpool/VARSHARE/pkg/repositories
+                       293G    31K       209G     1%    /var/share/pkg/repositories
+recoverypool/recovery
+                       488G   487G       1.4G   100%    /recovery1
+backuppool            1000G    31K      1000G     1%    /backuppool
+backuppool/backup     1000G    31K      1000G     1%    /backup
+root@af-dbext-sby02 # chown -R oracle:dba /backup
+root@af-dbext-sby02 #

@@ -1,0 +1,143 @@
+########################################################################################################
+Shell limit 			 Description 								 Soft Limit (KB) 	 Hard Limit (KB)
+########################################################################################################
+STACK 					 Size of the stack segment of the process 	 at least 10240 	 at most 32768
+NOFILES 				 Open file descriptors 						 at least 1024 		 at least 65536
+MAXUPROC or MAXPROC 	 Maximum user processes 					 at least 2047 		 at least 16384
+########################################################################################################
+SOFT basic
+HARD priv
+root@AF-EMMGRSBY:~# groupadd dba; groupadd oinstall; groupadd oper;
+root@AF-EMMGRSBY:~# projadd group.dba
+root@AF-EMMGRSBY:~# projmod -sK "project.max-shm-memory=(priv,127gb,deny)" group.dba
+root@AF-EMMGRSBY:~# projmod -sK "project.max-sem-ids=(priv,1024,deny)" group.dba
+root@AF-EMMGRSBY:~# projmod -sK "project.max-shm-ids=(priv,1024,deny)" group.dba
+root@AF-EMMGRSBY:~# projmod -sK "process.max-sem-nsems=(priv,4096,deny)" group.dba
+root@AF-EMMGRSBY:~# projmod -sK "process.max-file-descriptor=(priv,65536,deny)" group.dba
+root@AF-EMMGRSBY:~# projmod -sK "process.max-stack-size=(priv,32mb,deny)" group.dba
+root@AF-EMMGRSBY:~# projects -l group.dba
+group.dba
+        projid : 100
+        comment: ""
+        users  : (none)
+        groups : (none)
+        attribs: process.max-file-descriptor=(priv,65536,deny)
+                 process.max-sem-nsems=(priv,4096,deny)
+                 process.max-stack-size=(priv,33554432,deny)
+                 project.max-sem-ids=(priv,1024,deny)
+                 project.max-shm-ids=(priv,1024,deny)
+                 project.max-shm-memory=(priv,136365211648,deny)
+root@AF-EMMGRSBY:~# useradd -g oinstall -G dba,oper -d /export/home/oracle -m -s /bin/bash -K project=group.dba -c "Oracle Software" oracle
+80 blocks
+root@AF-EMMGRSBY:~# passwd oracle
+New Password: oracle123
+Re-enter new Password: oracle123
+passwd: password successfully changed for oracle
+root@AF-EMMGRSBY:~# ls -lh /export/home/
+total 17
+drwxr-xr-x   2 oracle   oinstall       7 Sep 10 18:02 oracle
+root@AF-EMMGRSBY:~# cat /etc/user_attr
+#
+# Copyright (c) 1999, 2013, Oracle and/or its affiliates. All rights reserved.
+#
+# The system provided entries are stored in different files
+# under "/etc/user_attr.d".  They should not be copied to this file.
+#
+# Only local changes should be stored in this file.
+#
+oracle::::project=group.dba
+root@AF-EMMGRSBY:~# mkdir -p /u01/app/oracle/product/18.0.0/db_1
+root@AF-EMMGRSBY:~# chmod -R 775 /u01
+root@AF-EMMGRSBY:~# chown -R oracle:oinstall /u01
+root@AF-EMMGRSBY:~# su - oracle
+Oracle Corporation      SunOS 5.11      11.3    March 2018
+oracle@AF-EMMGRSBY:~$ vi .profile
+oracle@AF-EMMGRSBY:~$ cat .profile
+#
+# Simple profile places /usr/bin at front, followed by /usr/sbin.
+#
+# Use less(1) or more(1) as the default pager for the man(1) command.
+#
+export PATH=/usr/bin:/usr/sbin
+
+if [ -f /usr/bin/less ]; then
+    export PAGER="/usr/bin/less -ins"
+elif [ -f /usr/bin/more ]; then
+    export PAGER="/usr/bin/more -s"
+fi
+
+#
+# Define default prompt to <username>@<hostname>:<path><"($|#) ">
+# and print '#' for user "root" and '$' for normal users.
+#
+# Currently this is only done for bash/pfbash(1).
+#
+
+case ${SHELL} in
+*bash)
+    typeset +x PS1="\u@\h:\w\\$ "
+    ;;
+esac
+ulimit -Ss 10240
+ulimit -Sn 1024
+umask 022
+export NLS_DATE_FORMAT='DD-Mon-RR HH24:MI:SS';
+export ORACLE_BASE=/u01/app/oracle
+export ORACLE_HOME=$ORACLE_BASE/product/18.0.0/db_1
+export ORACLE_SID=EMM12SBY
+export ORACLE_UNQNAME=EMM12SBY
+export ORACLE_HOSTNAME=af-emmgrsby
+export PATH=$PATH:$ORACLE_HOME/bin
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib
+oracle@AF-EMMGRSBY:~$ source .profile
+oracle@AF-EMMGRSBY:~$ env|grep ORA
+ORACLE_UNQNAME=EMM12SBY
+ORACLE_SID=EMM12SBY
+ORACLE_BASE=/u01/app/oracle
+ORACLE_HOME=/u01/app/oracle/product/18.0.0/db_1
+ORACLE_HOSTNAME=af-emmgrsby
+oracle@AF-EMMGRSBY:~$ ulimit -aH
+core file size          (blocks, -c) unlimited
+data seg size           (kbytes, -d) unlimited
+file size               (blocks, -f) unlimited
+open files                      (-n) 65536
+pipe size            (512 bytes, -p) 10
+stack size              (kbytes, -s) 32768
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 49995
+virtual memory          (kbytes, -v) unlimited
+oracle@AF-EMMGRSBY:~$ ulimit -aS
+core file size          (blocks, -c) unlimited
+data seg size           (kbytes, -d) unlimited
+file size               (blocks, -f) unlimited
+open files                      (-n) 1024
+pipe size            (512 bytes, -p) 10
+stack size              (kbytes, -s) 10240
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 49995
+virtual memory          (kbytes, -v) unlimited
+oracle@AF-EMMGRSBY:~$
+
+### REFERENCE
+#############
+projmod -sK "process.max-file-descriptor=(basic,1mb,deny) group.dba
+projmod -sK "process.max-stack-size=(basic,10mb,deny)" group.dba
+http://www.oracle.com/technetwork/server-storage/vm/ovm-sparc-install-rac11gr2-1676380.pdf
+# projmod -sK "project.max-shm-memory=(privileged,32G,deny)" user.oracle
+# projmod -sK "process.max-sem-nsems=(priv,4096,deny)" user.oracle
+# projmod -sK "project.max-shm-ids=(priv,1024,deny)" user.oracle
+# projmod -sK "project.max-sem-ids=(priv,1024,deny)" user.oracle
+ulimit -n 65536
+root@af-aoldb-sby02:~# vi /etc/user_attr
+root@af-aoldb-sby02:~# cat /etc/user_attr
+#
+# Copyright (c) 1999, 2013, Oracle and/or its affiliates. All rights reserved.
+#
+# The system provided entries are stored in different files
+# under "/etc/user_attr.d".  They should not be copied to this file.
+#
+# Only local changes should be stored in this file.
+#
+grid::::project=group.dba
+oracle::::project=group.dba
+root@af-aoldb-sby02:~# useradd -g dba -G dba -d /export/home/oracle -m oracle

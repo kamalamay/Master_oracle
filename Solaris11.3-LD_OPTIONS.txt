@@ -1,0 +1,6 @@
+Rapid Install, Rapid Clone, Forms and Reports relinking failure on Solaris 11.3 or higher
+
+For customers running on Solaris 11.3 or higher, Rapid Install, Rapid Clone, and Forms and Reports relinking might fail with a message such as "ld: warning: file libshare.so.1: required by /usr/lib/libzfs.so.1, not found" in the relink logs (the name of the library in the message might be different). Perform the following steps to set the LD_OPTIONS environment variable and try relinking again or, to avoid the issue completely, perform the following steps before Rapid Install, Rapid Clone, and Forms and Reports relinking.
+
+% LD_OPTIONS="-L/lib -L/lib/sparcv9"
+% export LD_OPTIONS?
