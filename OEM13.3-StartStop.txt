@@ -1,0 +1,135 @@
+### Startup OEM13.3
+###################
+dbstart $ORACLE_HOME
+cd $OMS_HOME/bin; ./emctl start oms
+cd $AGENT_HOME/bin; ./emctl start agent
+cd $OMS_HOME/bin; ./emctl status oms
+
+### Shutdown OEM13.3
+####################
+cd $OMS_HOME/bin; ./emctl stop oms -all
+cd $AGENT_HOME/bin; ./emctl stop agent
+dbshut $ORACLE_HOME
+
+### Real Action
+###############
+oracle@AF-EMMGRSBY:/u01/app/oracle/product$ cd emfmw13.3/bin
+oracle@AF-EMMGRSBY:/u01/app/oracle/product/emfmw13.3/bin$ ./emctl stop oms -all
+Oracle Enterprise Manager Cloud Control 13c Release 3
+Copyright (c) 1996, 2018 Oracle Corporation.  All rights reserved.
+Stopping Oracle Management Server...
+WebTier Successfully Stopped
+Oracle Management Server Failed to be Stopped
+Check EM Server log file for details: /u01/app/oracle/product/gc_inst/user_projects/domains/GCDomain/servers/EMGC_OMS1/logs/EMGC_OMS1.out
+Oracle Management Server is Down
+JVMD Engine is Down
+Stopping BI Publisher Server...
+BI Publisher Server Successfully Stopped
+AdminServer Successfully Stopped
+BI Publisher Server is Down
+oracle@AF-EMMGRSBY:/u01/app/oracle/product/emfmw13.3/bin$ cd ../../agent13.3/agent_
+agent_13.3.0.0.0/ agent_inst/
+oracle@AF-EMMGRSBY:/u01/app/oracle/product/emfmw13.3/bin$ cd ../../agent13.3/agent_inst/bin/
+oracle@AF-EMMGRSBY:/u01/app/oracle/product/agent13.3/agent_inst/bin$ ./emctl stop agent
+Oracle Enterprise Manager Cloud Control 13c Release 3
+Copyright (c) 1996, 2018 Oracle Corporation.  All rights reserved.
+Stopping agent ... stopped.
+oracle@AF-EMMGRSBY:/u01/app/oracle/product/agent13.3/agent_inst/bin$ lsnrctl stop LISTENER; sqlplus / as sysdba
+
+LSNRCTL for Solaris: Version 18.0.0.0.0 - Production on 14-SEP-2018 08:22:17
+
+Copyright (c) 1991, 2018, Oracle.  All rights reserved.
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=af-emmgrsby)(PORT=1521)))
+The command completed successfully
+
+SQL*Plus: Release 18.0.0.0.0 - Production on Fri Sep 14 08:22:17 2018
+Version 18.3.0.0.0
+
+Copyright (c) 1982, 2018, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 18c Enterprise Edition Release 18.0.0.0.0 - Production
+Version 18.3.0.0.0
+
+SQL> shu immediate;
+Database closed.
+Database dismounted.
+
+### Start
+#########
+oracle@AF-EMMGRSBY:~$ ./startDB.sh
+
+LSNRCTL for Solaris: Version 18.0.0.0.0 - Production on 14-SEP-2018 08:46:49
+
+Copyright (c) 1991, 2018, Oracle.  All rights reserved.
+
+Starting /u01/app/oracle/product/18.0.0/db_1/bin/tnslsnr: please wait...
+
+TNSLSNR for Solaris: Version 18.0.0.0.0 - Production
+System parameter file is /u01/app/oracle/product/18.0.0/db_1/network/admin/listener.ora
+Log messages written to /u01/app/oracle/diag/tnslsnr/AF-EMMGRSBY/listener/alert/log.xml
+Listening on: (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=AF-EMMGRSBY.adira.co.id)(PORT=1521)))
+Listening on: (DESCRIPTION=(ADDRESS=(PROTOCOL=ipc)(KEY=EXTPROC1521)))
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=af-emmgrsby)(PORT=1521)))
+STATUS of the LISTENER
+------------------------
+Alias                     LISTENER
+Version                   TNSLSNR for Solaris: Version 18.0.0.0.0 - Production
+Start Date                14-SEP-2018 08:46:49
+Uptime                    0 days 0 hr. 0 min. 0 sec
+Trace Level               off
+Security                  ON: Local OS Authentication
+SNMP                      OFF
+Listener Parameter File   /u01/app/oracle/product/18.0.0/db_1/network/admin/listener.ora
+Listener Log File         /u01/app/oracle/diag/tnslsnr/AF-EMMGRSBY/listener/alert/log.xml
+Listening Endpoints Summary...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=AF-EMMGRSBY.adira.co.id)(PORT=1521)))
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=ipc)(KEY=EXTPROC1521)))
+The listener supports no services
+The command completed successfully
+
+SQL*Plus: Release 18.0.0.0.0 - Production on Fri Sep 14 08:46:50 2018
+Version 18.3.0.0.0
+
+Copyright (c) 1982, 2018, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL> ORACLE instance started.
+
+Total System Global Area 4.0802E+10 bytes
+Fixed Size                 29892232 bytes
+Variable Size            6710886400 bytes
+Database Buffers         3.3957E+10 bytes
+Redo Buffers              104325120 bytes
+Database mounted.
+Database opened.
+SQL> Disconnected from Oracle Database 18c Enterprise Edition Release 18.0.0.0.0 - Production
+Version 18.3.0.0.0
+oracle@AF-EMMGRSBY:~$ cd $OMS_HOME/bin
+oracle@AF-EMMGRSBY:/u01/app/oracle/product/emfmw13.3/bin$ ./emctl start oms
+Oracle Enterprise Manager Cloud Control 13c Release 3
+Copyright (c) 1996, 2018 Oracle Corporation.  All rights reserved.
+Starting Oracle Management Server...
+WebTier Successfully Started
+Oracle Management Server Successfully Started
+Oracle Management Server is Up
+JVMD Engine is Up
+Starting BI Publisher Server ...
+BI Publisher Server Successfully Started
+BI Publisher Server is Up
+oracle@AF-EMMGRSBY:/u01/app/oracle/product/emfmw13.3/bin$ cd $AGENT_HOME/bin; ./emctl start agent
+Oracle Enterprise Manager Cloud Control 13c Release 3
+Copyright (c) 1996, 2018 Oracle Corporation.  All rights reserved.
+Agent is already running
+oracle@AF-EMMGRSBY:/u01/app/oracle/product/agent13.3/agent_inst/bin$ cd $OMS_HOME/bin; ./emctl status oms
+Oracle Enterprise Manager Cloud Control 13c Release 3
+Copyright (c) 1996, 2018 Oracle Corporation.  All rights reserved.
+WebTier is Up
+Oracle Management Server is Up
+JVMD Engine is Up
+BI Publisher Server is Up
+oracle@AF-EMMGRSBY:/u01/app/oracle/product/emfmw13.3/bin$

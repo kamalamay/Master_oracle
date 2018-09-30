@@ -1,0 +1,95 @@
+[root@cloudera02 ~]# ls -lh /dev/disk/by-uuid/
+total 0
+lrwxrwxrwx. 1 root root 10 Jun 19 07:48 02bf2f98-ce4b-4628-98c9-daa44aaacb01 -> ../../sda2
+lrwxrwxrwx. 1 root root  9 Jun 19 07:48 2071394b-9943-4d92-a672-4c49111b5e11 -> ../../md0
+lrwxrwxrwx. 1 root root 10 Jun 19 07:48 5268d5ab-25bf-4b8d-834c-a3092e0315f9 -> ../../sda1
+lrwxrwxrwx. 1 root root 10 Jun 19 07:48 8ffd3127-e382-435e-88aa-6c352947dc31 -> ../../sdd1
+lrwxrwxrwx. 1 root root 10 Jun 19 08:01 b49b0d52-3659-422a-8feb-51e9628ee9b5 -> ../../sdf1
+lrwxrwxrwx. 1 root root 10 Jun 19 07:48 f62b2e9d-67cb-48df-a161-69d2939442b4 -> ../../sdb1
+[root@cloudera02 ~]#
+
+[root@cloudera01 ~]# fdisk -l; ls -lh /dev/disk/by-uuid/
+
+Disk /dev/sdc: 536.9 GB, 536870912000 bytes, 1048576000 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sda: 32.2 GB, 32212254720 bytes, 62914560 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x000c38c9
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048     1026047      512000   83  Linux
+/dev/sda2         1026048    62914559    30944256   83  Linux
+
+Disk /dev/sdd: 536.9 GB, 536870912000 bytes, 1048576000 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sdf: 53.7 GB, 53687091200 bytes, 104857600 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0xf6f2565f
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdf1            2048   104857599    52427776   83  Linux
+
+Disk /dev/sde: 21.5 GB, 21474836480 bytes, 41943040 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x29fb2ad3
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sde1            2048    41943039    20970496   83  Linux
+
+Disk /dev/sdb: 107.4 GB, 107374182400 bytes, 209715200 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Disk label type: dos
+Disk identifier: 0xe3fb99bc
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048   209713151   104855552   83  Linux
+
+Disk /dev/md0: 1073.5 GB, 1073473388544 bytes, 2096627712 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 524288 bytes / 1048576 bytes
+
+total 0
+lrwxrwxrwx. 1 root root 10 Jun 19 08:26 02bf2f98-ce4b-4628-98c9-daa44aaacb01 -> ../../sda2
+lrwxrwxrwx. 1 root root 10 Jun 19 08:26 4af9e9a3-f1f7-4b0d-9b03-243a0c1b6bb6 -> ../../sde1
+lrwxrwxrwx. 1 root root 10 Jun 19 08:26 5268d5ab-25bf-4b8d-834c-a3092e0315f9 -> ../../sda1
+lrwxrwxrwx. 1 root root 10 Jun 19 08:26 9979ccac-27ec-40df-8f1b-6de5f9cff0d8 -> ../../sdb1
+lrwxrwxrwx. 1 root root 10 Jun 19 08:26 c0824514-5ddd-4f6b-9b37-008d3436ea9d -> ../../sdf1
+lrwxrwxrwx. 1 root root  9 Jun 19 08:26 dc273010-94b1-4b0f-9731-b4856e1d1329 -> ../../md0
+[root@cloudera01 ~]# df -h /opt
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sde1        50G   19G   32G  38% /opt
+[root@cloudera01 ~]# cat /etc/fstab
+
+#
+# /etc/fstab
+# Created by anaconda on Tue Apr 10 19:30:19 2018
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+UUID=02bf2f98-ce4b-4628-98c9-daa44aaacb01 /                       xfs     defaults        0 0
+UUID=5268d5ab-25bf-4b8d-834c-a3092e0315f9 /boot                   xfs     defaults        0 0
+/dev/md0        /dfs            xfs     defaults        0    0
+#/dev/sdd1      /opt            xfs     defaults        0    0
+UUID=c0824514-5ddd-4f6b-9b37-008d3436ea9d /opt                  xfs     defaults        0 0
+[root@cloudera01 ~]#

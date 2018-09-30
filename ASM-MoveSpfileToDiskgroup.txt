@@ -1,0 +1,39 @@
+### Move spfile to Diskgroup
+############################
+
+### Create pfile from spfile and move to Diskgroup.
+
+source /home/oracle/db_profile; sqlplus "/ as sysdba"
+
+SQL*Plus: Release 12.2.0.1.0 Production on Sat Sep 22 17:55:44 2018
+
+Copyright (c) 1982, 2016, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production
+
+SQL> CREATE PFILE='/home/oracle/initCOTS1.ora' from spfile;
+
+File created.
+
+SQL> CREATE SPFILE='+DATA' FROM PFILE='/home/oracle/initCOTS2_20180921.ora';
+
+File created.
+
+SQL>
+
+### Look into ASM
+source /home/oracle/grid_profile; asmcmd;
+ASMCMD> ls -l
+Type           Redund  Striped  Time             Sys  Name
+PARAMETERFILE  UNPROT  COARSE   SEP 24 14:00:00  Y    spfile.260.987689005
+ASMCMD> pwd
++DATA/COTSDRC/PARAMETERFILE
+ASMCMD>
+
+### Modify resource
+source /home/oracle/grid_profile; srvctl modify database -d cotsdrc -spfile +DATA/COTSDRC/PARAMETERFILE/spfile.270.968474557
+
+### Restart DB
+source /home/oracle/grid_profile; srvctl stop database -d COTSDRC; srvctl start database -d COTSDRC;

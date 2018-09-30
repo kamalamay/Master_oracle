@@ -1,0 +1,1542 @@
+REINSTALLATION ORACLE SINGLE DB WITH ASM VERSION 12.2.0.1 ON CENTOS 7.4.1708
+============================================================================
+
+1. Drop DB
+==========
+[orekel@iwak ~]$ rlwrap sqlplus "/ as sysdba"
+
+SQL*Plus: Release 12.2.0.1.0 Production on Mon Feb 19 00:09:59 2018
+
+Copyright (c) 1982, 2016, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL> STARTUP MOUNT EXCLUSIVE RESTRICT;
+ORACLE instance started.
+
+Total System Global Area 1191182336 bytes
+Fixed Size                  8620032 bytes
+Variable Size             855640064 bytes
+Database Buffers          318767104 bytes
+Redo Buffers                8155136 bytes
+Database mounted.
+SQL> drop database;
+
+Database dropped.
+
+Disconnected from Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production
+Elapsed: 00:00:19.95
+SQL> !env|grep ORA
+ORACLE_UNQNAME=BANDENG
+ORACLE_SID=BANDENG
+ORACLE_HOSTNAME=BANDENG
+ORACLE_BASE=/z02/app/orekel
+ORACLE_HOME=/z02/app/orekel/product/12201/db1
+
+SQL> exit
+
+2. deinstall DB
+===============
+[orekel@iwak ~]$ $ORACLE_HOME/deinstall/deinstall
+Checking for required files and bootstrapping ...
+Please wait ...
+Location of logs /z01/app/oraInventory/logs/
+
+############ ORACLE DECONFIG TOOL START ############
+
+
+######################### DECONFIG CHECK OPERATION START #########################
+## [START] Install check configuration ##
+
+
+Checking for existence of the Oracle home location /z02/app/orekel/product/12201/db1
+Oracle Home type selected for deinstall is: Oracle Single Instance Database
+Oracle Base selected for deinstall is: /z02/app/orekel
+Checking for existence of central inventory location /z01/app/oraInventory
+
+## [END] Install check configuration ##
+
+
+Network Configuration check config START
+
+Network de-configuration trace file location: /z01/app/oraInventory/logs/netdc_check2018-02-19_12-13-46-AM.log
+
+Network Configuration check config END
+
+Database Check Configuration START
+
+Database de-configuration trace file location: /z01/app/oraInventory/logs/databasedc_check2018-02-19_12-13-50-AM.log
+
+Use comma as separator when specifying list of values as input
+
+Specify the list of database names that are configured in this Oracle home [bandeng]:
+
+###### For Database 'bandeng' ######
+
+Specify the type of this database (1.Single Instance Database|2.Oracle Restart Enabled Database) [2]: 2
+Specify the list of nodes on which this database has instances [iwak]:
+Specify the diagnostic destination location of the database [/z02/app/orekel/diag/rdbms/bandeng]: /z02/app/orekel/diag/rdbms
+Specify the storage type used by the Database ASM|FS []: ASM
+
+
+Specify if database Archive Mode is Enabled. y/n [n]: y
+Database Check Configuration END
+Oracle Configuration Manager check START
+OCM check log file location : /z01/app/oraInventory/logs//ocm_check6948.log
+Oracle Configuration Manager check END
+
+######################### DECONFIG CHECK OPERATION END #########################
+
+
+####################### DECONFIG CHECK OPERATION SUMMARY #######################
+Oracle Home selected for deinstall is: /z02/app/orekel/product/12201/db1
+Inventory Location where the Oracle home registered is: /z01/app/oraInventory
+The following databases were selected for de-configuration : bandeng
+Database unique name : bandeng
+Storage used : ASM
+Checking the config status for CCR
+Oracle Home exists with CCR directory, but CCR is not configured
+CCR check is finished
+Do you want to continue (y - yes, n - no)? [n]: y
+A log of this session will be written to: '/z01/app/oraInventory/logs/deinstall_deconfig2018-02-19_12-13-35-AM.out'
+Any error messages from this session will be written to: '/z01/app/oraInventory/logs/deinstall_deconfig2018-02-19_12-13-35-AM.err'
+
+######################## DECONFIG CLEAN OPERATION START ########################
+Database de-configuration trace file location: /z01/app/oraInventory/logs/databasedc_clean2018-02-19_12-14-39-AM.log
+Database Clean Configuration START bandeng
+This operation may take few minutes.
+Database Clean Configuration END bandeng
+
+Network Configuration clean config START
+
+Network de-configuration trace file location: /z01/app/oraInventory/logs/netdc_clean2018-02-19_12-15-40-AM.log
+
+De-configuring Naming Methods configuration file...
+Naming Methods configuration file de-configured successfully.
+
+De-configuring Local Net Service Names configuration file...
+Local Net Service Names configuration file de-configured successfully.
+
+De-configuring backup files...
+Backup files de-configured successfully.
+
+The network configuration has been cleaned up successfully.
+
+Network Configuration clean config END
+
+Oracle Configuration Manager clean START
+OCM clean log file location : /z01/app/oraInventory/logs//ocm_clean6948.log
+Oracle Configuration Manager clean END
+
+######################### DECONFIG CLEAN OPERATION END #########################
+
+
+####################### DECONFIG CLEAN OPERATION SUMMARY #######################
+Successfully de-configured the following database instances : bandeng
+Cleaning the config for CCR
+As CCR is not configured, so skipping the cleaning of CCR configuration
+CCR clean is finished
+#######################################################################
+
+
+############# ORACLE DECONFIG TOOL END #############
+
+Using properties file /tmp/deinstall2018-02-19_12-11-27AM/response/deinstall_2018-02-19_12-13-35-AM.rsp
+Location of logs /z01/app/oraInventory/logs/
+
+############ ORACLE DEINSTALL TOOL START ############
+
+
+
+
+
+####################### DEINSTALL CHECK OPERATION SUMMARY #######################
+A log of this session will be written to: '/z01/app/oraInventory/logs/deinstall_deconfig2018-02-19_12-13-35-AM.out'
+Any error messages from this session will be written to: '/z01/app/oraInventory/logs/deinstall_deconfig2018-02-19_12-13-35-AM.err'
+
+######################## DEINSTALL CLEAN OPERATION START ########################
+## [START] Preparing for Deinstall ##
+Setting LOCAL_NODE to iwak
+Setting CRS_HOME to false
+Setting oracle.installer.invPtrLoc to /tmp/deinstall2018-02-19_12-11-27AM/oraInst.loc
+Setting oracle.installer.local to false
+
+## [END] Preparing for Deinstall ##
+
+Setting the force flag to false
+Setting the force flag to cleanup the Oracle Base
+Oracle Universal Installer clean START
+
+Detach Oracle home '/z02/app/orekel/product/12201/db1' from the central inventory on the local node : Done
+
+Delete directory '/z02/app/orekel/product/12201/db1' on the local node : Done
+
+Delete directory '/z02/app/orekel' on the local node : Done
+
+Oracle Universal Installer cleanup was successful.
+
+Oracle Universal Installer clean END
+
+
+## [START] Oracle install clean ##
+
+
+## [END] Oracle install clean ##
+
+
+######################### DEINSTALL CLEAN OPERATION END #########################
+
+
+####################### DEINSTALL CLEAN OPERATION SUMMARY #######################
+Successfully detached Oracle home '/z02/app/orekel/product/12201/db1' from the central inventory on the local node.
+Successfully deleted directory '/z02/app/orekel/product/12201/db1' on the local node.
+Successfully deleted directory '/z02/app/orekel' on the local node.
+Oracle Universal Installer cleanup was successful.
+
+Oracle deinstall tool successfully cleaned up temporary directories.
+#######################################################################
+
+
+############# ORACLE DEINSTALL TOOL END #############
+
+[orekel@iwak ~]$ vi .bash_profile
+[orekel@iwak ~]$ cat .bash_profile
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+export PATH
+ORACLE_HOSTNAME=iwak.centos.org; export ORACLE_HOSTNAME
+export NLS_DATE_FORMAT='DD-Mon-RR HH24:MI:SS'
+export HISTTIMEFORMAT="%Y%m%d %T ~ "
+[orekel@iwak ~]$
+
+3. Drop Diskgroup
+=================
+[grid@iwak ~]$ rlwrap sqlplus "/ as sysasm"
+
+SQL*Plus: Release 12.2.0.1.0 Production on Mon Feb 19 01:06:29 2018
+
+Copyright (c) 1982, 2016, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production
+
+SQL> COL PATH FOR A35;
+SQL> SELECT MOUNT_STATUS, HEADER_STATUS, MODE_STATUS, STATE, ROUND(TOTAL_MB/1024,2)TOTAL_GB, ROUND(FREE_MB/1024,2)FREE_MB, NAME, PATH, LABEL FROM V$ASM_DISK ORDER BY NAME;
+
+MOUNT_S HEADER_STATU MODE_ST STATE      TOTAL_GB    FREE_MB NAME                           PATH                                LABEL
+------- ------------ ------- -------- ---------- ---------- ------------------------------ ----------------------------------- -------------------------------
+CACHED  MEMBER       ONLINE  NORMAL           10       9.92 DATA_0000                      /dev/sdd1
+CACHED  MEMBER       ONLINE  NORMAL           10       9.92 DATA_0001                      /dev/sde1
+CACHED  MEMBER       ONLINE  NORMAL           10       9.92 DATA_0002                      /dev/sdf1
+CACHED  MEMBER       ONLINE  NORMAL           10       9.93 DATA_003                       /dev/sdk1
+CACHED  MEMBER       ONLINE  NORMAL            5       4.93 FRA_0000                       /dev/sdg1
+CACHED  MEMBER       ONLINE  NORMAL            5       4.93 FRA_0001                       /dev/sdh1
+CACHED  MEMBER       ONLINE  NORMAL            5       4.93 FRA_0002                       /dev/sdi1
+CACHED  MEMBER       ONLINE  NORMAL            5       4.93 FRA_0003                       /dev/sdl1
+
+8 rows selected.
+
+Elapsed: 00:00:01.34
+SQL> SELECT GROUP_NUMBER, NAME FROM V$ASM_DISKGROUP;
+
+GROUP_NUMBER NAME
+------------ ------------------------------
+           1 DATA
+           2 FRA
+
+Elapsed: 00:00:00.12
+SQL> SELECT * FROM V$ASM_CLIENT;
+
+GROUP_NUMBER INSTANCE_NAME                                                    DB_NAME  CLUSTER_NAME                    STATUS
+------------ ---------------------------------------------------------------- -------- ------------------------------- ------------
+SOFTWARE_VERSION                                             COMPATIBLE_VERSION                                               CON_ID
+------------------------------------------------------------ ------------------------------------------------------------ ----------
+           1 +ASM                                                             +ASM     ASM                             CONNECTED
+12.2.0.1.0                                                   12.2.0.1.0                                                            0
+
+
+Elapsed: 00:00:00.02
+SQL> DROP DISKGROUP FRA INCLUDING CONTENTS;
+
+Diskgroup dropped.
+
+Elapsed: 00:00:01.51
+SQL> SELECT * FROM V$ASM_OPERATION;
+
+no rows selected
+
+Elapsed: 00:00:00.02
+SQL> DROP DISKGROUP DATA INCLUDING CONTENTS;
+DROP DISKGROUP DATA INCLUDING CONTENTS
+*
+ERROR at line 1:
+ORA-15039: diskgroup not dropped
+ORA-15027: active use of diskgroup "DATA" precludes its dismount
+
+
+Elapsed: 00:00:00.07
+SQL> SHO PARAMETER PFILE;
+
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+spfile                               string      +DATA/ASM/ASMPARAMETERFILE/registry.253.959448269
+SQL> CREATE PFILE='/home/grid/init+ASM.ora' from spfile;
+
+File created.
+
+Elapsed: 00:00:00.11
+SQL> SHU IMMEDIATE;
+ASM diskgroups dismounted
+ASM instance shutdown
+SQL> STARTUP MOUNT PFILE='/home/grid/init+ASM.ora';
+ASM instance started
+
+Total System Global Area 1140850688 bytes
+Fixed Size                  8629704 bytes
+Variable Size            1107055160 bytes
+ASM Cache                  25165824 bytes
+ORA-15110: no diskgroups mounted
+
+
+SQL> DROP DISKGROUP DATA INCLUDING CONTENTS;
+DROP DISKGROUP DATA INCLUDING CONTENTS
+*
+ERROR at line 1:
+ORA-15039: diskgroup not dropped
+ORA-15001: diskgroup "DATA" does not exist or is not mounted
+
+
+Elapsed: 00:00:00.09
+SQL> ALTER DISKGROUP DATA MOUNT;
+
+Diskgroup altered.
+
+Elapsed: 00:00:06.68
+SQL> DROP DISKGROUP DATA INCLUDING CONTENTS;
+
+Diskgroup dropped.
+
+Elapsed: 00:00:00.33
+SQL> SELECT GROUP_NUMBER, NAME FROM V$ASM_DISKGROUP;
+
+no rows selected
+
+Elapsed: 00:00:00.84
+SQL> SELECT MOUNT_STATUS, HEADER_STATUS, MODE_STATUS, STATE, ROUND(TOTAL_MB/1024,2)TOTAL_GB, ROUND(FREE_MB/1024,2)FREE_MB, NAME, PATH, LABEL FROM V$ASM_DISK ORDER BY NAME;
+
+MOUNT_S HEADER_STATU MODE_ST STATE      TOTAL_GB    FREE_MB NAME                           PATH                                LABEL
+------- ------------ ------- -------- ---------- ---------- ------------------------------ ----------------------------------- -------------------------------
+CLOSED  FORMER       ONLINE  NORMAL            0          0                                /dev/sde1
+CLOSED  FORMER       ONLINE  NORMAL            0          0                                /dev/sdg1
+CLOSED  FORMER       ONLINE  NORMAL            0          0                                /dev/sdh1
+CLOSED  FORMER       ONLINE  NORMAL            0          0                                /dev/sdk1
+CLOSED  FORMER       ONLINE  NORMAL            0          0                                /dev/sdd1
+CLOSED  FORMER       ONLINE  NORMAL            0          0                                /dev/sdl1
+CLOSED  FORMER       ONLINE  NORMAL            0          0                                /dev/sdf1
+CLOSED  FORMER       ONLINE  NORMAL            0          0                                /dev/sdi1
+
+8 rows selected.
+
+Elapsed: 00:00:00.77
+SQL> SHU IMMEDIATE;
+ORA-15100: invalid or missing diskgroup name
+
+
+ASM instance shutdown
+SQL>
+
+4. deinstall grid
+=================
+[grid@iwak ~]$ $ORACLE_HOME/deinstall/deinstall
+Checking for required files and bootstrapping ...
+Please wait ...
+Location of logs /tmp/deinstall2018-02-19_01-23-55AM/logs/
+
+############ ORACLE DECONFIG TOOL START ############
+
+
+######################### DECONFIG CHECK OPERATION START #########################
+## [START] Install check configuration ##
+
+
+Checking for existence of the Oracle home location /z01/app/grid/product/12201/grid
+Oracle Home type selected for deinstall is: Oracle Grid Infrastructure for a Standalone Server
+Oracle Base selected for deinstall is: /z01/app/grid
+Checking for existence of central inventory location /z01/app/oraInventory
+Checking for existence of the Oracle Grid Infrastructure home /z01/app/grid/product/12201/grid
+
+## [END] Install check configuration ##
+
+Traces log file: /tmp/deinstall2018-02-19_01-23-55AM/logs//crsdc_2018-02-19_01-26-11-AM.log
+
+Network Configuration check config START
+
+Network de-configuration trace file location: /tmp/deinstall2018-02-19_01-23-55AM/logs/netdc_check2018-02-19_01-26-13-AM.log
+
+Specify all Oracle Restart enabled listeners that are to be de-configured. Enter .(dot) to deselect all. [LISTENER]:
+
+Network Configuration check config END
+
+Asm Check Configuration START
+
+ASM de-configuration trace file location: /tmp/deinstall2018-02-19_01-23-55AM/logs/asmcadc_check2018-02-19_01-26-23-AM.log
+
+Automatic Storage Management (ASM) instance is detected in this Oracle home /z01/app/grid/product/12201/grid.
+ASM Diagnostic Destination : /z01/app/grid
+ASM Diskgroups :
+ASM diskstring : /dev/sd*
+Diskgroups will not be dropped
+ If you want to retain the existing diskgroups or if any of the information detected is incorrect, you can modify by entering 'y'. Do you  want to modify above information (y|n) [n]: n
+ If you want to retain the existing diskgroups or if any of the information detected is incorrect, you can modify by entering 'y'. Do you  want to modify above information (y|n) [n]: n
+Database Check Configuration START
+
+Database de-configuration trace file location: /tmp/deinstall2018-02-19_01-23-55AM/logs/databasedc_check2018-02-19_01-26-53-AM.log
+
+Database Check Configuration END
+
+######################### DECONFIG CHECK OPERATION END #########################
+
+
+####################### DECONFIG CHECK OPERATION SUMMARY #######################
+Oracle Grid Infrastructure Home is: /z01/app/grid/product/12201/grid
+Oracle Home selected for deinstall is: /z01/app/grid/product/12201/grid
+Inventory Location where the Oracle home registered is: /z01/app/oraInventory
+Following Oracle Restart enabled listener(s) will be de-configured: LISTENER
+ASM instance will be de-configured from this Oracle home
+Do you want to continue (y - yes, n - no)? [n]: y
+A log of this session will be written to: '/tmp/deinstall2018-02-19_01-23-55AM/logs/deinstall_deconfig2018-02-19_01-26-05-AM.out'
+Any error messages from this session will be written to: '/tmp/deinstall2018-02-19_01-23-55AM/logs/deinstall_deconfig2018-02-19_01-26-05-AM.err'
+
+######################## DECONFIG CLEAN OPERATION START ########################
+Database de-configuration trace file location: /tmp/deinstall2018-02-19_01-23-55AM/logs/databasedc_clean2018-02-19_01-26-59-AM.log
+ASM de-configuration trace file location: /tmp/deinstall2018-02-19_01-23-55AM/logs/asmcadc_clean2018-02-19_01-26-59-AM.log
+ASM Clean Configuration START
+ASM Clean Configuration END
+
+Network Configuration clean config START
+
+Network de-configuration trace file location: /tmp/deinstall2018-02-19_01-23-55AM/logs/netdc_clean2018-02-19_01-27-13-AM.log
+
+De-configuring Oracle Restart enabled listener(s): LISTENER
+
+De-configuring listener: LISTENER
+    Stopping listener: LISTENER
+    Listener stopped successfully.
+    Unregistering listener: LISTENER
+    Listener unregistered successfully.
+    Deleting listener: LISTENER
+    Listener deleted successfully.
+Listener de-configured successfully.
+
+De-configuring Naming Methods configuration file...
+Naming Methods configuration file de-configured successfully.
+
+De-configuring backup files...
+Backup files de-configured successfully.
+
+The network configuration has been cleaned up successfully.
+
+Network Configuration clean config END
+
+
+---------------------------------------->
+
+Run the following command as the root user or the administrator on node "iwak".
+
+/z01/app/grid/product/12201/grid/crs/install/roothas.sh -force  -deconfig -paramfile "/tmp/deinstall2018-02-19_01-23-55AM/response/deinstall_OraGI12Home1.rsp"
+
+Press Enter after you finish running the above commands
+
+<----------------------------------------
+
+
+######################### DECONFIG CLEAN OPERATION END #########################
+
+
+####################### DECONFIG CLEAN OPERATION SUMMARY #######################
+ASM instance was de-configured successfully from the Oracle home
+Following Oracle Restart enabled listener(s) were de-configured successfully: LISTENER
+Oracle Restart was already stopped and de-configured on node "iwak"
+Oracle Restart is stopped and de-configured successfully.
+#######################################################################
+
+
+############# ORACLE DECONFIG TOOL END #############
+
+Using properties file /tmp/deinstall2018-02-19_01-23-55AM/response/deinstall_2018-02-19_01-26-05-AM.rsp
+Location of logs /tmp/deinstall2018-02-19_01-23-55AM/logs/
+
+############ ORACLE DEINSTALL TOOL START ############
+
+
+
+
+
+####################### DEINSTALL CHECK OPERATION SUMMARY #######################
+A log of this session will be written to: '/tmp/deinstall2018-02-19_01-23-55AM/logs/deinstall_deconfig2018-02-19_01-26-05-AM.out'
+Any error messages from this session will be written to: '/tmp/deinstall2018-02-19_01-23-55AM/logs/deinstall_deconfig2018-02-19_01-26-05-AM.err'
+
+######################## DEINSTALL CLEAN OPERATION START ########################
+## [START] Preparing for Deinstall ##
+Setting LOCAL_NODE to iwak
+Setting CRS_HOME to true
+Setting oracle.installer.invPtrLoc to /tmp/deinstall2018-02-19_01-23-55AM/oraInst.loc
+Setting oracle.installer.local to false
+
+## [END] Preparing for Deinstall ##
+
+Setting the force flag to false
+Setting the force flag to cleanup the Oracle Base
+Oracle Universal Installer clean START
+
+Detach Oracle home '/z01/app/grid/product/12201/grid' from the central inventory on the local node : Done
+
+Delete directory '/z01/app/grid/product/12201/grid' on the local node : Done
+
+Delete directory '/z01/app/oraInventory' on the local node : Done
+
+The Oracle Base directory '/z01/app/grid' will not be removed on local node. The directory is not empty.
+
+Oracle Universal Installer cleanup was successful.
+
+Oracle Universal Installer clean END
+
+
+## [START] Oracle install clean ##
+
+
+## [END] Oracle install clean ##
+
+
+######################### DEINSTALL CLEAN OPERATION END #########################
+
+
+####################### DEINSTALL CLEAN OPERATION SUMMARY #######################
+Successfully detached Oracle home '/z01/app/grid/product/12201/grid' from the central inventory on the local node.
+Successfully deleted directory '/z01/app/grid/product/12201/grid' on the local node.
+Successfully deleted directory '/z01/app/oraInventory' on the local node.
+Oracle Universal Installer cleanup was successful.
+
+
+Run 'rm -r /etc/oraInst.loc' as root on node(s) 'iwak' at the end of the session.
+
+Run 'rm -r /opt/ORCLfmap' as root on node(s) 'iwak' at the end of the session.
+Run 'rm -r /etc/oratab' as root on node(s) 'iwak' at the end of the session.
+Review the permissions and contents of '/z01/app/grid' on nodes(s) 'iwak'.
+If there are no Oracle home(s) associated with '/z01/app/grid', manually delete '/z01/app/grid' and its contents.
+Oracle deinstall tool successfully cleaned up temporary directories.
+#######################################################################
+
+
+############# ORACLE DEINSTALL TOOL END #############
+
+[grid@iwak ~]$
+
+[root@iwak grid]# /z01/app/grid/product/12201/grid/crs/install/roothas.sh -force  -deconfig -paramfile "/tmp/deinstall2018-02-19_01-23-55AM/response/deinstall_OraGI12Home1.rsp"
+Using configuration parameter file: /tmp/deinstall2018-02-19_01-23-55AM/response/deinstall_OraGI12Home1.rsp
+The log of current session can be found at:
+  /tmp/deinstall2018-02-19_01-23-55AM/logs/hadeconfig.log
+CRS-2791: Starting shutdown of Oracle High Availability Services-managed resources on 'iwak'
+CRS-2673: Attempting to stop 'ora.evmd' on 'iwak'
+CRS-2677: Stop of 'ora.evmd' on 'iwak' succeeded
+CRS-2673: Attempting to stop 'ora.cssd' on 'iwak'
+CRS-2677: Stop of 'ora.cssd' on 'iwak' succeeded
+CRS-2793: Shutdown of Oracle High Availability Services-managed resources on 'iwak' has completed
+CRS-4133: Oracle High Availability Services has been stopped.
+2018/02/19 01:32:28 CLSRSC-337: Successfully deconfigured Oracle Restart stack
+[root@iwak orekel]# userdel -r grid
+[root@iwak orekel]# ls -lh /
+total 36K
+lrwxrwxrwx.   1 root   root        7 Oct  3 13:45 bin -> usr/bin
+dr-xr-xr-x.   5 root   root     4.0K Nov  7 15:50 boot
+drwxr-xr-x.  22 root   root     4.0K Feb 19 00:07 dev
+drwxr-xr-x. 140 root   root     8.0K Feb 19 01:45 etc
+drwxr-xr-x.   3 root   root       20 Feb 19 01:45 home
+lrwxrwxrwx.   1 root   root        7 Oct  3 13:45 lib -> usr/lib
+lrwxrwxrwx.   1 root   root        9 Oct  3 13:45 lib64 -> usr/lib64
+drwxr-xr-x.   3 root   root       26 Oct  3 16:04 media
+drwxr-xr-x.   3 root   root       18 Oct  3 15:22 mnt
+drwxr-xr-x.   4 root   root       32 Nov  7 17:20 opt
+dr-xr-xr-x. 218 root   root        0 Feb 19 00:07 proc
+dr-xr-x---.   7 root   root     4.0K Feb 19 01:45 root
+drwxr-xr-x.  38 root   root     1.2K Feb 19 00:13 run
+lrwxrwxrwx.   1 root   root        8 Oct  3 13:45 sbin -> usr/sbin
+drwxr-xr-x.   2 root   root        6 Nov  5  2016 srv
+dr-xr-xr-x.  13 root   root        0 Feb 19 00:07 sys
+drwxrwxrwt.  21 root   root     4.0K Feb 19 01:45 tmp
+drwxr-xr-x.  13 root   root      155 Oct  3 13:45 usr
+drwxr-xr-x.  21 root   root     4.0K Oct  3 14:48 var
+drwxr-xr-x.   4   1001 oinstall 4.0K Nov  7 15:59 z01
+drwxr-xr-x.   4 orekel oinstall 4.0K Nov  7 15:59 z02
+[root@iwak orekel]# chown -R orekel:oinstall /z01
+[root@iwak orekel]# rm -fr /z01/app/ /z02/app/
+[root@iwak orekel]#
+
+5. Delete Partition
+===================
+[root@iwak orekel]# fdisk -l|grep /dev/sd
+Disk /dev/sdc: 16.1 GB, 16106127360 bytes, 31457280 sectors
+/dev/sdc1            2048    31457279    15727616   83  Linux
+Disk /dev/sda: 32.2 GB, 32212254720 bytes, 62914560 sectors
+/dev/sda1   *        2048    56625151    28311552   83  Linux
+/dev/sda2        56625152    62914559     3144704   82  Linux swap / Solaris
+Disk /dev/sdb: 16.1 GB, 16106127360 bytes, 31457280 sectors
+/dev/sdb1            2048    31457279    15727616   83  Linux
+Disk /dev/sdd: 10.7 GB, 10737418240 bytes, 20971520 sectors
+/dev/sdd1            2048    20971519    10484736   83  Linux
+Disk /dev/sdf: 10.7 GB, 10737418240 bytes, 20971520 sectors
+/dev/sdf1            2048    20971519    10484736   83  Linux
+Disk /dev/sde: 10.7 GB, 10737418240 bytes, 20971520 sectors
+/dev/sde1            2048    20971519    10484736   83  Linux
+Disk /dev/sdg: 5368 MB, 5368709120 bytes, 10485760 sectors
+/dev/sdg1            2048    10485759     5241856   83  Linux
+Disk /dev/sdh: 5368 MB, 5368709120 bytes, 10485760 sectors
+/dev/sdh1            2048    10485759     5241856   83  Linux
+Disk /dev/sdi: 5368 MB, 5368709120 bytes, 10485760 sectors
+/dev/sdi1            2048    10485759     5241856   83  Linux
+Disk /dev/sdj: 16.1 GB, 16106127360 bytes, 31457280 sectors
+/dev/sdj1            2048    31457279    15727616   83  Linux
+Disk /dev/sdl: 5368 MB, 5368709120 bytes, 10485760 sectors
+/dev/sdl1            2048    10485759     5241856   83  Linux
+Disk /dev/sdk: 10.7 GB, 10737418240 bytes, 20971520 sectors
+/dev/sdk1            2048    20971519    10484736   83  Linux
+[root@iwak orekel]# fdisk /dev/sdd
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): m
+Command action
+   a   toggle a bootable flag
+   b   edit bsd disklabel
+   c   toggle the dos compatibility flag
+   d   delete a partition
+   g   create a new empty GPT partition table
+   G   create an IRIX (SGI) partition table
+   l   list known partition types
+   m   print this menu
+   n   add a new partition
+   o   create a new empty DOS partition table
+   p   print the partition table
+   q   quit without saving changes
+   s   create a new empty Sun disklabel
+   t   change a partition's system id
+   u   change display/entry units
+   v   verify the partition table
+   w   write table to disk and exit
+   x   extra functionality (experts only)
+
+Command (m for help): d
+Selected partition 1
+Partition 1 is deleted
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@iwak orekel]# fdisk /dev/sde
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): d
+Selected partition 1
+Partition 1 is deleted
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@iwak orekel]# fdisk /dev/sdf
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): d
+Selected partition 1
+Partition 1 is deleted
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@iwak orekel]# fdisk /dev/sdg
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): d
+Selected partition 1
+Partition 1 is deleted
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@iwak orekel]# fdisk /dev/sdh
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): d
+Selected partition 1
+Partition 1 is deleted
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@iwak orekel]# fdisk /dev/sdi
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): d
+Selected partition 1
+Partition 1 is deleted
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@iwak orekel]# fdisk /dev/sdk
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): d
+Selected partition 1
+Partition 1 is deleted
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@iwak orekel]# fdisk /dev/sdl
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): d
+Selected partition 1
+Partition 1 is deleted
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@iwak orekel]# fdisk -l|grep /dev/sd
+Disk /dev/sdc: 16.1 GB, 16106127360 bytes, 31457280 sectors
+/dev/sdc1            2048    31457279    15727616   83  Linux
+Disk /dev/sda: 32.2 GB, 32212254720 bytes, 62914560 sectors
+/dev/sda1   *        2048    56625151    28311552   83  Linux
+/dev/sda2        56625152    62914559     3144704   82  Linux swap / Solaris
+Disk /dev/sdb: 16.1 GB, 16106127360 bytes, 31457280 sectors
+/dev/sdb1            2048    31457279    15727616   83  Linux
+Disk /dev/sdd: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Disk /dev/sdf: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Disk /dev/sde: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Disk /dev/sdg: 5368 MB, 5368709120 bytes, 10485760 sectors
+Disk /dev/sdh: 5368 MB, 5368709120 bytes, 10485760 sectors
+Disk /dev/sdi: 5368 MB, 5368709120 bytes, 10485760 sectors
+Disk /dev/sdj: 16.1 GB, 16106127360 bytes, 31457280 sectors
+/dev/sdj1            2048    31457279    15727616   83  Linux
+Disk /dev/sdl: 5368 MB, 5368709120 bytes, 10485760 sectors
+Disk /dev/sdk: 10.7 GB, 10737418240 bytes, 20971520 sectors
+[root@iwak orekel]#
+
+6. Reboot
+=========
+[root@iwak ~]# rm -fr /etc/udev/rules.d/99-oracle-asmdevices.rules
+[root@iwak ~]# reboot
+
+7. Create Partition
+===================
+[root@iwak ~]# fdisk /dev/sdd
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+First sector (2048-20971519, default 2048):
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-20971519, default 20971519):
+Using default value 20971519
+Partition 1 of type Linux and of size 10 GiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@iwak ~]# fdisk /dev/sde
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+First sector (2048-20971519, default 2048):
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-20971519, default 20971519):
+Using default value 20971519
+Partition 1 of type Linux and of size 10 GiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@iwak ~]# fdisk /dev/sdf
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+First sector (2048-20971519, default 2048):
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-20971519, default 20971519):
+Using default value 20971519
+Partition 1 of type Linux and of size 10 GiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@iwak ~]# fdisk /dev/sdg
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+First sector (2048-10485759, default 2048):
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-10485759, default 10485759):
+Using default value 10485759
+Partition 1 of type Linux and of size 5 GiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@iwak ~]# fdisk /dev/sdh
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+First sector (2048-10485759, default 2048):
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-10485759, default 10485759):
+Using default value 10485759
+Partition 1 of type Linux and of size 5 GiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@iwak ~]# fdisk /dev/sdi
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+First sector (2048-10485759, default 2048):
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-10485759, default 10485759):
+Using default value 10485759
+Partition 1 of type Linux and of size 5 GiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@iwak ~]# fdisk /dev/sdk
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+First sector (2048-20971519, default 2048):
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-20971519, default 20971519):
+Using default value 20971519
+Partition 1 of type Linux and of size 10 GiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@iwak ~]# fdisk /dev/sdl
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+First sector (2048-10485759, default 2048):
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-10485759, default 10485759):
+Using default value 10485759
+Partition 1 of type Linux and of size 5 GiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@iwak ~]# fdisk -l|grep /dev/sd
+Disk /dev/sda: 32.2 GB, 32212254720 bytes, 62914560 sectors
+/dev/sda1   *        2048    56625151    28311552   83  Linux
+/dev/sda2        56625152    62914559     3144704   82  Linux swap / Solaris
+Disk /dev/sdb: 16.1 GB, 16106127360 bytes, 31457280 sectors
+/dev/sdb1            2048    31457279    15727616   83  Linux
+Disk /dev/sdc: 16.1 GB, 16106127360 bytes, 31457280 sectors
+/dev/sdc1            2048    31457279    15727616   83  Linux
+Disk /dev/sdd: 10.7 GB, 10737418240 bytes, 20971520 sectors
+/dev/sdd1            2048    20971519    10484736   83  Linux
+Disk /dev/sdf: 10.7 GB, 10737418240 bytes, 20971520 sectors
+/dev/sdf1            2048    20971519    10484736   83  Linux
+Disk /dev/sdj: 16.1 GB, 16106127360 bytes, 31457280 sectors
+/dev/sdj1            2048    31457279    15727616   83  Linux
+Disk /dev/sdg: 5368 MB, 5368709120 bytes, 10485760 sectors
+/dev/sdg1            2048    10485759     5241856   83  Linux
+Disk /dev/sdi: 5368 MB, 5368709120 bytes, 10485760 sectors
+/dev/sdi1            2048    10485759     5241856   83  Linux
+Disk /dev/sde: 10.7 GB, 10737418240 bytes, 20971520 sectors
+/dev/sde1            2048    20971519    10484736   83  Linux
+Disk /dev/sdh: 5368 MB, 5368709120 bytes, 10485760 sectors
+/dev/sdh1            2048    10485759     5241856   83  Linux
+Disk /dev/sdl: 5368 MB, 5368709120 bytes, 10485760 sectors
+/dev/sdl1            2048    10485759     5241856   83  Linux
+Disk /dev/sdk: 10.7 GB, 10737418240 bytes, 20971520 sectors
+/dev/sdk1            2048    20971519    10484736   83  Linux
+[root@iwak ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdd1
+36000c29c3755da47dddec2740d3ce718
+[root@iwak ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sde1
+36000c29b3765487897c5b8d5748b4d77
+[root@iwak ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdf1
+36000c29e4a28032910215f46041e7e0f
+[root@iwak ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdg1
+36000c290f93a123d91b0a6afd0f2dbdf
+[root@iwak ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdh1
+36000c292f8439da0bd77a2fde98bae35
+[root@iwak ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdi1
+36000c295780c926d8eb2bf6e418a0219
+[root@iwak ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdk1
+36000c2942efd3617f12a6b07df62947a
+[root@iwak ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdl1
+36000c29fa87cc9668a87076ca1c78b93
+[root@iwak ~]# vi /etc/udev/rules.d/99-oracleasm.rules
+[root@iwak ~]# cat /etc/udev/rules.d/99-oracleasm.rules
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c29c3755da47dddec2740d3ce718", SYMLINK+="oracleasm/DATA01_10G", OWNER="orekel", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c29b3765487897c5b8d5748b4d77", SYMLINK+="oracleasm/DATA02_10G", OWNER="orekel", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c29e4a28032910215f46041e7e0f", SYMLINK+="oracleasm/DATA03_10G", OWNER="orekel", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c2942efd3617f12a6b07df62947a", SYMLINK+="oracleasm/DATA04_10G", OWNER="orekel", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c290f93a123d91b0a6afd0f2dbdf", SYMLINK+="oracleasm/FRA01_5G", OWNER="orekel", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c292f8439da0bd77a2fde98bae35", SYMLINK+="oracleasm/FRA02_5G", OWNER="orekel", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c295780c926d8eb2bf6e418a0219", SYMLINK+="oracleasm/FRA03_5G", OWNER="orekel", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c29fa87cc9668a87076ca1c78b93", SYMLINK+="oracleasm/FRA04_5G", OWNER="orekel", GROUP="asmadmin", MODE="0660"
+[root@iwak ~]# /sbin/partprobe /dev/sdd1
+[root@iwak ~]# /sbin/partprobe /dev/sde1
+[root@iwak ~]# /sbin/partprobe /dev/sdf1
+[root@iwak ~]# /sbin/partprobe /dev/sdg1
+[root@iwak ~]# /sbin/partprobe /dev/sdh1
+[root@iwak ~]# /sbin/partprobe /dev/sdi1
+[root@iwak ~]# /sbin/partprobe /dev/sdk1
+[root@iwak ~]# /sbin/partprobe /dev/sdl1
+[root@iwak ~]# /sbin/udevadm test /block/sdd/sdd1
+[root@iwak ~]# /sbin/udevadm test /block/sde/sde1
+[root@iwak ~]# /sbin/udevadm test /block/sdf/sdf1
+[root@iwak ~]# /sbin/udevadm test /block/sdg/sdg1
+[root@iwak ~]# /sbin/udevadm test /block/sdh/sdh1
+[root@iwak ~]# /sbin/udevadm test /block/sdi/sdi1
+[root@iwak ~]# /sbin/udevadm test /block/sdk/sdk1
+[root@iwak ~]# /sbin/udevadm test /block/sdl/sdl1
+[root@iwak ~]# /sbin/udevadm control --reload-rules
+[root@iwak ~]# ls -lh /dev/oracleasm/
+total 0
+lrwxrwxrwx. 1 root root 7 Feb 19 02:01 DATA01_10G -> ../sdd1
+lrwxrwxrwx. 1 root root 7 Feb 19 02:02 DATA02_10G -> ../sde1
+lrwxrwxrwx. 1 root root 7 Feb 19 02:02 DATA03_10G -> ../sdf1
+lrwxrwxrwx. 1 root root 7 Feb 19 02:02 DATA04_10G -> ../sdk1
+lrwxrwxrwx. 1 root root 7 Feb 19 02:02 FRA01_5G -> ../sdg1
+lrwxrwxrwx. 1 root root 7 Feb 19 02:02 FRA02_5G -> ../sdh1
+lrwxrwxrwx. 1 root root 7 Feb 19 02:02 FRA03_5G -> ../sdi1
+lrwxrwxrwx. 1 root root 7 Feb 19 02:02 FRA04_5G -> ../sdl1
+[root@iwak ~]# ls -lh /dev/sd*1
+brw-rw----. 1 root   disk     8,   1 Feb 19 01:51 /dev/sda1
+brw-rw----. 1 root   disk     8,  17 Feb 19 01:51 /dev/sdb1
+brw-rw----. 1 root   disk     8,  33 Feb 19 01:51 /dev/sdc1
+brw-rw----. 1 orekel asmadmin 8,  49 Feb 19 02:01 /dev/sdd1
+brw-rw----. 1 orekel asmadmin 8,  65 Feb 19 02:02 /dev/sde1
+brw-rw----. 1 orekel asmadmin 8,  81 Feb 19 02:02 /dev/sdf1
+brw-rw----. 1 orekel asmadmin 8,  97 Feb 19 02:02 /dev/sdg1
+brw-rw----. 1 orekel asmadmin 8, 113 Feb 19 02:02 /dev/sdh1
+brw-rw----. 1 orekel asmadmin 8, 129 Feb 19 02:02 /dev/sdi1
+brw-rw----. 1 root   disk     8, 145 Feb 19 01:51 /dev/sdj1
+brw-rw----. 1 orekel asmadmin 8, 161 Feb 19 02:02 /dev/sdk1
+brw-rw----. 1 orekel asmadmin 8, 177 Feb 19 02:02 /dev/sdl1
+[root@iwak ~]#
+
+8. Reboot
+=========
+[root@iwak orekel]# reboot
+[root@iwak ~]# ls -lh /dev/sd*1 /dev/oracleasm
+brw-rw----. 1 root   disk     8,   1 Feb 19 02:03 /dev/sda1
+brw-rw----. 1 root   disk     8,  17 Feb 19 02:03 /dev/sdb1
+brw-rw----. 1 root   disk     8,  33 Feb 19 02:03 /dev/sdc1
+brw-rw----. 1 orekel asmadmin 8,  49 Feb 19 02:03 /dev/sdd1
+brw-rw----. 1 orekel asmadmin 8,  65 Feb 19 02:03 /dev/sde1
+brw-rw----. 1 orekel asmadmin 8,  81 Feb 19 02:03 /dev/sdf1
+brw-rw----. 1 orekel asmadmin 8,  97 Feb 19 02:03 /dev/sdg1
+brw-rw----. 1 orekel asmadmin 8, 113 Feb 19 02:03 /dev/sdh1
+brw-rw----. 1 orekel asmadmin 8, 129 Feb 19 02:03 /dev/sdi1
+brw-rw----. 1 root   disk     8, 145 Feb 19 02:03 /dev/sdj1
+brw-rw----. 1 orekel asmadmin 8, 161 Feb 19 02:03 /dev/sdk1
+brw-rw----. 1 orekel asmadmin 8, 177 Feb 19 02:03 /dev/sdl1
+
+/dev/oracleasm:
+total 0
+lrwxrwxrwx. 1 root root 7 Feb 19 02:03 DATA01_10G -> ../sdd1
+lrwxrwxrwx. 1 root root 7 Feb 19 02:03 DATA02_10G -> ../sde1
+lrwxrwxrwx. 1 root root 7 Feb 19 02:03 DATA03_10G -> ../sdf1
+lrwxrwxrwx. 1 root root 7 Feb 19 02:03 DATA04_10G -> ../sdk1
+lrwxrwxrwx. 1 root root 7 Feb 19 02:03 FRA01_5G -> ../sdg1
+lrwxrwxrwx. 1 root root 7 Feb 19 02:03 FRA02_5G -> ../sdh1
+lrwxrwxrwx. 1 root root 7 Feb 19 02:03 FRA03_5G -> ../sdi1
+lrwxrwxrwx. 1 root root 7 Feb 19 02:03 FRA04_5G -> ../sdl1
+[root@iwak ~]#
+
+9. Install grid
+===============
+[root@iwak ~]# usermod -g oinstall -G dba,oper,backupdba,dgdba,kmdba,asmdba,asmoper,asmadmin,racdba orekel
+[root@iwak ~]# id orekel
+uid=1000(orekel) gid=54321(oinstall) groups=54321(oinstall),54322(dba),54323(oper),54324(backupdba),54325(dgdba),54326(kmdba),54330(racdba),54331(asmdba),54332(asmadmin),54333(asmoper)
+[root@iwak ~]# cat /etc/sysctl.conf
+# sysctl settings are defined through files in
+# /usr/lib/sysctl.d/, /run/sysctl.d/, and /etc/sysctl.d/.
+#
+# Vendors settings live in /usr/lib/sysctl.d/.
+# To override a whole file, create a new file with the same in
+# /etc/sysctl.d/ and put new settings there. To override
+# only specific settings, add a file with a lexically later
+# name in /etc/sysctl.d/ and put new settings there.
+#
+# For more information, see sysctl.conf(5) and sysctl.d(5).
+
+# oracle-database-server-12cR2-preinstall setting for fs.file-max is 6815744
+fs.file-max = 6815744
+
+# oracle-database-server-12cR2-preinstall setting for kernel.sem is '250 32000 100 128'
+kernel.sem = 250 32000 100 128
+
+# oracle-database-server-12cR2-preinstall setting for kernel.shmmni is 4096
+kernel.shmmni = 4096
+
+# oracle-database-server-12cR2-preinstall setting for kernel.shmall is 1073741824 on x86_64
+kernel.shmall = 1073741824
+
+# oracle-database-server-12cR2-preinstall setting for kernel.shmmax is 4398046511104 on x86_64
+kernel.shmmax = 4398046511104
+
+# oracle-database-server-12cR2-preinstall setting for kernel.panic_on_oops is 1 per Orabug 19212317
+kernel.panic_on_oops = 1
+
+# oracle-database-server-12cR2-preinstall setting for net.core.rmem_default is 262144
+net.core.rmem_default = 262144
+
+# oracle-database-server-12cR2-preinstall setting for net.core.rmem_max is 4194304
+net.core.rmem_max = 4194304
+
+# oracle-database-server-12cR2-preinstall setting for net.core.wmem_default is 262144
+net.core.wmem_default = 262144
+
+# oracle-database-server-12cR2-preinstall setting for net.core.wmem_max is 1048576
+net.core.wmem_max = 1048576
+
+# oracle-database-server-12cR2-preinstall setting for net.ipv4.conf.all.rp_filter is 2
+net.ipv4.conf.all.rp_filter = 2
+
+# oracle-database-server-12cR2-preinstall setting for net.ipv4.conf.default.rp_filter is 2
+net.ipv4.conf.default.rp_filter = 2
+
+# oracle-database-server-12cR2-preinstall setting for fs.aio-max-nr is 1048576
+fs.aio-max-nr = 1048576
+
+# oracle-database-server-12cR2-preinstall setting for net.ipv4.ip_local_port_range is 9000 65500
+net.ipv4.ip_local_port_range = 9000 65500
+
+[root@iwak ~]# cat /etc/security/limits.d/oracle-database-server-12cR2-preinstall.conf
+
+# oracle-database-server-12cR2-preinstall setting for nofile soft limit is 1024
+orekel   soft   nofile    1024
+
+# oracle-database-server-12cR2-preinstall setting for nofile hard limit is 65536
+orekel   hard   nofile    65536
+
+# oracle-database-server-12cR2-preinstall setting for nproc soft limit is 16384
+# refer orabug15971421 for more info.
+orekel   soft   nproc    16384
+
+# oracle-database-server-12cR2-preinstall setting for nproc hard limit is 16384
+orekel   hard   nproc    16384
+
+# oracle-database-server-12cR2-preinstall setting for stack soft limit is 10240KB
+orekel   soft   stack    10240
+grid    soft    stack   10240
+
+# oracle-database-server-12cR2-preinstall setting for stack hard limit is 32768KB
+orekel   hard   stack    32768
+
+# oracle-database-server-12cR2-preinstall setting for memlock hard limit is maximum of 128GB on x86_64 or 3GB on x86 OR 90 % of RAM
+orekel   hard   memlock    134217728
+
+# oracle-database-server-12cR2-preinstall setting for memlock soft limit is maximum of 128GB on x86_64 or 3GB on x86 OR 90% of RAM
+orekel   soft   memlock    134217728
+[root@iwak ~]# cat /etc/selinux/config
+
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing.
+#     disabled - No SELinux policy is loaded.
+SELINUX=permissive
+# SELINUXTYPE= can take one of three two values:
+#     targeted - Targeted processes are protected,
+#     minimum - Modification of targeted policy. Only selected processes are protected.
+#     mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+
+
+[root@iwak ~]# sestatus
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             targeted
+Current mode:                   permissive
+Mode from config file:          permissive
+Policy MLS status:              enabled
+Policy deny_unknown status:     allowed
+Max kernel policy version:      28
+[root@iwak ~]# rpm -Uvh /z01/app/12.2.0.1/grid/cv/rpm/cvuqdisk-1.0.10-1.rpm
+Preparing...                          ################################# [100%]
+        package cvuqdisk-1.0.10-1.x86_64 is already installed
+[root@iwak ~]#
+
+[orekel@iwak ~]$ vi grid_profile
+[orekel@iwak ~]$ cat grid_profile
+# Grid Settings
+TMP=/tmp; export TMP
+TMPDIR=$TMP; export TMPDIR
+ORACLE_BASE=/z02/app/orekel; export ORACLE_BASE
+ORACLE_HOME=/z01/app/12.2.0.1/grid; export ORACLE_HOME
+ORACLE_SID=+ASM; export ORACLE_SID
+PATH=/usr/sbin:$PATH; export PATH
+PATH=$ORACLE_HOME/bin:$PATH; export PATH
+LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib; export LD_LIBRARY_PATH
+CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib; export CLASSPATH
+export HISTTIMEFORMAT="%Y%m%d %T ~ "
+alias alertlog='tail -100f $ORACLE_BASE/diag/asm/+asm/+ASM/trace/alert_+ASM.log'
+[orekel@iwak ~]$ vi db_profile
+[orekel@iwak ~]$ cat db_profile
+# Oracle Settings
+TMP=/tmp; export TMP
+TMPDIR=$TMP; export TMPDIR
+ORACLE_HOSTNAME=iwak.centos.org; export ORACLE_HOSTNAME
+ORACLE_UNQNAME=BANDENG; export ORACLE_UNQNAME
+ORACLE_BASE=/z02/app/orekel; export ORACLE_BASE
+ORACLE_HOME=$ORACLE_BASE/product/12.2.0.1/db1; export ORACLE_HOME
+ORACLE_SID=BANDENG; export ORACLE_SID
+PATH=/usr/sbin:$PATH; export PATH
+PATH=$ORACLE_HOME/bin:$PATH; export PATH
+LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib; export LD_LIBRARY_PATH
+CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib; export CLASSPATH
+export NLS_DATE_FORMAT='DD-Mon-RR HH24:MI:SS'
+export HISTTIMEFORMAT="%Y%m%d %T ~ "
+alias alertlog='tail -100f $ORACLE_BASE/diag/rdbms/bandeng/BANDENG/trace/alert_BANDENG.log'
+[orekel@iwak ~]$ mkdir -p /z01/app/12.2.0.1/grid
+[orekel@iwak ~]$ mkdir -p /z02/app/orekel/product/12.2.0.1/db1
+[orekel@iwak ~]$ . grid_profile; cd $ORACLE_HOME; ls; pwd;
+V840012-01_grid.zip
+/z01/app/12.2.0.1/grid
+[orekel@iwak grid]$ unzip V840012-01_grid.zip; rm -fr V840012-01_grid.zip; ls;
+
+[orekel@iwak grid]$ sh gridSetup.sh
+Launching Oracle Grid Infrastructure Setup Wizard...
+
+You can find the log of this install session at:
+ /z01/app/oraInventory/logs/GridSetupActions2018-02-19_02-48-24AM/gridSetupActions2018-02-19_02-48-24AM.log
+[orekel@iwak grid]$ crsctl stat res -t
+--------------------------------------------------------------------------------
+Name           Target  State        Server                   State details
+--------------------------------------------------------------------------------
+Local Resources
+--------------------------------------------------------------------------------
+ora.DATA.dg
+               ONLINE  ONLINE       iwak                     STABLE
+ora.LISTENER.lsnr
+               ONLINE  ONLINE       iwak                     STABLE
+ora.asm
+               ONLINE  ONLINE       iwak                     Started,STABLE
+ora.ons
+               OFFLINE OFFLINE      iwak                     STABLE
+--------------------------------------------------------------------------------
+Cluster Resources
+--------------------------------------------------------------------------------
+ora.cssd
+      1        ONLINE  ONLINE       iwak                     STABLE
+ora.diskmon
+      1        OFFLINE OFFLINE                               STABLE
+ora.evmd
+      1        ONLINE  ONLINE       iwak                     STABLE
+--------------------------------------------------------------------------------
+[orekel@iwak grid]$
+
+10. asmca
+=========
+[orekel@iwak grid]$ asmca
+[orekel@iwak grid]$ crsctl stat res -t
+--------------------------------------------------------------------------------
+Name           Target  State        Server                   State details
+--------------------------------------------------------------------------------
+Local Resources
+--------------------------------------------------------------------------------
+ora.DATA.dg
+               ONLINE  ONLINE       iwak                     STABLE
+ora.FRA.dg
+               ONLINE  ONLINE       iwak                     STABLE
+ora.LISTENER.lsnr
+               ONLINE  ONLINE       iwak                     STABLE
+ora.asm
+               ONLINE  ONLINE       iwak                     Started,STABLE
+ora.ons
+               OFFLINE OFFLINE      iwak                     STABLE
+--------------------------------------------------------------------------------
+Cluster Resources
+--------------------------------------------------------------------------------
+ora.cssd
+      1        ONLINE  ONLINE       iwak                     STABLE
+ora.diskmon
+      1        OFFLINE OFFLINE                               STABLE
+ora.evmd
+      1        ONLINE  ONLINE       iwak                     STABLE
+--------------------------------------------------------------------------------
+[orekel@iwak grid]$ asmcmd lsdg
+State    Type    Rebal  Sector  Logical_Sector  Block       AU  Total_MB  Free_MB  Req_mir_free_MB  Usable_file_MB  Offline_disks  Voting_files  Name
+MOUNTED  NORMAL  N         512             512   4096  4194304     20472    20272                0           10136              0             N  DATA/
+MOUNTED  NORMAL  N         512             512   4096  4194304     10232    10056                0            5028              0             N  FRA/
+[orekel@iwak grid]$ srvctl status asm
+ASM is running on iwak
+[orekel@iwak grid]$ srvctl status listener
+Listener LISTENER is enabled
+Listener LISTENER is running on node(s): iwak
+[orekel@iwak grid]$ vi $ORACLE_HOME/sqlplus/admin/glogin.sql
+[orekel@iwak grid]$ cat $ORACLE_HOME/sqlplus/admin/glogin.sql
+--
+-- Copyright (c) 1988, 2005, Oracle.  All Rights Reserved.
+--
+-- NAME
+--   glogin.sql
+--
+-- DESCRIPTION
+--   SQL*Plus global login "site profile" file
+--
+--   Add any SQL*Plus commands here that are to be executed when a
+--   user starts SQL*Plus, or uses the SQL*Plus CONNECT command.
+--
+-- USAGE
+--   This script is automatically run
+SET LINES 160 PAGES 5000 TIMING ON TRIM ON;
+[orekel@iwak grid]$ rlwrap sqlplus "/ as sysasm"
+
+SQL*Plus: Release 12.2.0.1.0 Production on Mon Feb 19 03:13:41 2018
+
+Copyright (c) 1982, 2016, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production
+
+SQL> SHO PARAMETER PFILE;
+
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+spfile                               string      +DATA/ASM/ASMPARAMETERFILE/registry.253.968468711
+SQL> COL PATH FOR A35;
+SQL> SELECT MOUNT_STATUS, HEADER_STATUS, MODE_STATUS, STATE, ROUND(TOTAL_MB/1024,2)TOTAL_GB, ROUND(FREE_MB/1024,2)FREE_GB, NAME, PATH, LABEL FROM V$ASM_DISK ORDER BY NAME;
+
+MOUNT_S HEADER_STATU MODE_ST STATE      TOTAL_GB    FREE_GB NAME                           PATH                                LABEL
+------- ------------ ------- -------- ---------- ---------- ------------------------------ ----------------------------------- -------------------------------
+CACHED  MEMBER       ONLINE  NORMAL           10        9.9 DATA_0000                      /dev/oracleasm/DATA02_10G
+CACHED  MEMBER       ONLINE  NORMAL           10        9.9 DATA_0001                      /dev/oracleasm/DATA01_10G
+CACHED  MEMBER       ONLINE  NORMAL            5       4.91 FRA_0000                       /dev/oracleasm/FRA01_5G
+CACHED  MEMBER       ONLINE  NORMAL            5       4.91 FRA_0001                       /dev/oracleasm/FRA02_5G
+CLOSED  FORMER       ONLINE  NORMAL            0          0                                /dev/oracleasm/FRA03_5G
+CLOSED  FORMER       ONLINE  NORMAL            0          0                                /dev/oracleasm/DATA03_10G
+CLOSED  FORMER       ONLINE  NORMAL            0          0                                /dev/oracleasm/DATA04_10G
+CLOSED  FORMER       ONLINE  NORMAL            0          0                                /dev/oracleasm/FRA04_5G
+
+8 rows selected.
+
+Elapsed: 00:00:00.63
+SQL> SELECT NAME,ROUND(TOTAL_MB/1024,2)TOTAL_GB,ROUND(FREE_MB/1024,2)FREE_GB,ROUND(USABLE_FILE_MB/1024,2)USABLE_FILE_GB,STATE FROM V$ASM_DISKGROUP;
+
+NAME                             TOTAL_GB    FREE_GB USABLE_FILE_GB STATE
+------------------------------ ---------- ---------- -------------- -----------
+DATA                                19.99       19.8            9.9 MOUNTED
+FRA                                  9.99       9.82           4.91 MOUNTED
+
+Elapsed: 00:00:00.23
+SQL> ALTER DISKGROUP DATA ADD DISK '/dev/oracleasm/DATA03_10G' NAME DATA_0002, '/dev/oracleasm/DATA04_10G' NAME DATA_0003;
+
+Diskgroup altered.
+
+Elapsed: 00:00:01.77
+SQL> SELECT * FROM V$ASM_OPERATION;
+
+GROUP_NUMBER OPERA PASS      STAT      POWER     ACTUAL      SOFAR   EST_WORK   EST_RATE EST_MINUTES ERROR_CODE                                       CON_ID
+------------ ----- --------- ---- ---------- ---------- ---------- ---------- ---------- ----------- -------------------------------------------- ----------
+           1 REBAL COMPACT   WAIT          1          1          0          0          0           0                                                       0
+           1 REBAL REBALANCE RUN           1          1         26         34        228           0                                                       0
+           1 REBAL REBUILD   DONE          1          1          0          0          0           0                                                       0
+           1 REBAL RESYNC    DONE          1          1          0          0          0           0                                                       0
+
+Elapsed: 00:00:00.02
+SQL> ALTER DISKGROUP FRA ADD DISK '/dev/oracleasm/FRA03_5G' NAME FRA_0002, '/dev/oracleasm/FRA04_5G' NAME FRA_0003;
+
+Diskgroup altered.
+
+Elapsed: 00:00:01.70
+SQL> SELECT * FROM V$ASM_OPERATION;
+
+GROUP_NUMBER OPERA PASS      STAT      POWER     ACTUAL      SOFAR   EST_WORK   EST_RATE EST_MINUTES ERROR_CODE                                       CON_ID
+------------ ----- --------- ---- ---------- ---------- ---------- ---------- ---------- ----------- -------------------------------------------- ----------
+           2 REBAL COMPACT   WAIT          1          1          0          0          0           0                                                       0
+           2 REBAL REBALANCE RUN           1          1          2         38        103           0                                                       0
+           2 REBAL REBUILD   DONE          1          1          0          0          0           0                                                       0
+           2 REBAL RESYNC    DONE          1          1          0          0          0           0                                                       0
+
+Elapsed: 00:00:00.00
+SQL> SELECT NAME,ROUND(TOTAL_MB/1024,2)TOTAL_GB,ROUND(FREE_MB/1024,2)FREE_GB,ROUND(USABLE_FILE_MB/1024,2)USABLE_FILE_GB,STATE FROM V$ASM_DISKGROUP;
+
+NAME                             TOTAL_GB    FREE_GB USABLE_FILE_GB STATE
+------------------------------ ---------- ---------- -------------- -----------
+DATA                                39.98      39.68          14.84 MOUNTED
+FRA                                 19.98      19.71           7.36 MOUNTED
+
+Elapsed: 00:00:00.22
+SQL> SELECT MOUNT_STATUS, HEADER_STATUS, MODE_STATUS, STATE, ROUND(TOTAL_MB/1024,2)TOTAL_GB, ROUND(FREE_MB/1024,2)FREE_GB, NAME, PATH, LABEL FROM V$ASM_DISK ORDER BY NAME;
+
+MOUNT_S HEADER_STATU MODE_ST STATE      TOTAL_GB    FREE_GB NAME                           PATH                                LABEL
+------- ------------ ------- -------- ---------- ---------- ------------------------------ ----------------------------------- -------------------------------
+CACHED  MEMBER       ONLINE  NORMAL           10       9.91 DATA_0000                      /dev/oracleasm/DATA02_10G
+CACHED  MEMBER       ONLINE  NORMAL           10       9.92 DATA_0001                      /dev/oracleasm/DATA01_10G
+CACHED  MEMBER       ONLINE  NORMAL           10       9.92 DATA_0002                      /dev/oracleasm/DATA03_10G
+CACHED  MEMBER       ONLINE  NORMAL           10       9.93 DATA_0003                      /dev/oracleasm/DATA04_10G
+CACHED  MEMBER       ONLINE  NORMAL            5       4.92 FRA_0000                       /dev/oracleasm/FRA01_5G
+CACHED  MEMBER       ONLINE  NORMAL            5       4.93 FRA_0001                       /dev/oracleasm/FRA02_5G
+CACHED  MEMBER       ONLINE  NORMAL            5       4.93 FRA_0002                       /dev/oracleasm/FRA03_5G
+CACHED  MEMBER       ONLINE  NORMAL            5       4.93 FRA_0003                       /dev/oracleasm/FRA04_5G
+
+8 rows selected.
+
+Elapsed: 00:00:00.22
+SQL> EXIT
+Disconnected from Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production
+[orekel@iwak grid]$ asmcmd lsdg
+State    Type    Rebal  Sector  Logical_Sector  Block       AU  Total_MB  Free_MB  Req_mir_free_MB  Usable_file_MB  Offline_disks  Voting_files  Name
+MOUNTED  NORMAL  N         512             512   4096  4194304     40944    40636            10236           15200              0             N  DATA/
+MOUNTED  NORMAL  N         512             512   4096  4194304     20464    20188             5116            7536              0             N  FRA/
+[orekel@iwak grid]$
+
+11. Install DB
+==============
+[orekel@iwak grid]$ cd ~/Downloads/
+[orekel@iwak Downloads]$ ls -lh
+total 3.3G
+-rw-rw-r--. 1 orekel oinstall 188K Oct  3 16:12 compat-libstdc++-33-3.2.3-71.el7.x86_64.rpm
+-rw-r--r--. 1 orekel oinstall 3.3G Feb 19 02:36 linuxx64_12201_database.zip
+-rw-rw-r--. 1 orekel oinstall  19K Oct  3 15:41 oracleasmlib-2.0.12-1.el7.x86_64.rpm
+-rw-rw-r--. 1 orekel oinstall  80K Oct  3 15:41 oracleasm-support-2.1.8-3.1.el7.x86_64.rpm
+-rw-rw-r--. 1 orekel oinstall  19K Oct  3 15:41 oracle-database-server-12cR2-preinstall-1.0-3.el7.x86_64.rpm
+-rw-rw-r--. 1 orekel oinstall  69K Oct  3 16:17 oraclelinux-release-7.4-1.0.4.el7.x86_64.rpm
+-rw-rw-r--. 1 orekel oinstall 4.4M Oct  3 15:42 p7zip-9.20.1-1.el7.rf.x86_64.rpm
+-rw-rw-r--. 1 orekel oinstall 8.1K Oct  3 16:19 redhat-release-server-7.4-18.0.1.el7.x86_64.rpm
+-rw-rw-r--. 1 orekel oinstall  97K Oct  3 15:41 rlwrap-0.42-1.el7.x86_64.rpm
+[orekel@iwak Downloads]$ unzip linuxx64_12201_database.zip; rm -fr linuxx64_12201_database.zip; cd database; pwd;
+
+[orekel@iwak database]$ ./runInstaller
+Starting Oracle Universal Installer...
+
+Checking Temp space: must be greater than 500 MB.   Actual 15732 MB    Passed
+Checking swap space: must be greater than 150 MB.   Actual 3052 MB    Passed
+Checking monitor: must be configured to display at least 256 colors.    Actual 16777216    Passed
+Preparing to launch Oracle Universal Installer from /tmp/OraInstall2018-02-19_03-30-52AM. Please wait ...[orekel@iwak database]$
+
+[root@iwak ~]# sh /z02/app/orekel/product/12.2.0.1/db1/root.sh
+Performing root user operation.
+
+The following environment variables are set as:
+    ORACLE_OWNER= orekel
+    ORACLE_HOME=  /z02/app/orekel/product/12.2.0.1/db1
+
+Enter the full pathname of the local bin directory: [/usr/local/bin]:
+The contents of "dbhome" have not changed. No need to overwrite.
+The contents of "oraenv" have not changed. No need to overwrite.
+The contents of "coraenv" have not changed. No need to overwrite.
+
+Entries will be added to the /etc/oratab file as needed by
+Database Configuration Assistant when a database is created
+Finished running generic part of root script.
+Now product-specific root actions will be performed.
+Do you want to setup Oracle Trace File Analyzer (TFA) now ? yes|[no] :
+
+Oracle Trace File Analyzer (TFA - User Mode) is available at :
+    /z02/app/orekel/product/12.2.0.1/db1/suptools/tfa/release/tfa_home/bin/tfactl
+
+OR
+
+Oracle Trace File Analyzer (TFA - Daemon Mode) can be installed by running this script :
+    /z02/app/orekel/product/12.2.0.1/db1/suptools/tfa/release/tfa_home/install/roottfa.sh
+
+[root@iwak ~]#
+
+[orekel@iwak Downloads]$ vi $ORACLE_HOME/sqlplus/admin/glogin.sql
+[orekel@iwak Downloads]$ cd
+[orekel@iwak ~]$ cat $ORACLE_HOME/sqlplus/admin/glogin.sql
+--
+-- Copyright (c) 1988, 2005, Oracle.  All Rights Reserved.
+--
+-- NAME
+--   glogin.sql
+--
+-- DESCRIPTION
+--   SQL*Plus global login "site profile" file
+--
+--   Add any SQL*Plus commands here that are to be executed when a
+--   user starts SQL*Plus, or uses the SQL*Plus CONNECT command.
+--
+-- USAGE
+--   This script is automatically run
+SET LINES 160 PAGES 5000 TIMING ON TRIM ON;
+[orekel@iwak ~]$ vi /etc/oratab
+[orekel@iwak ~]$ cat /etc/oratab
+#
+
+
+
+# This file is used by ORACLE utilities.  It is created by root.sh
+# and updated by either Database Configuration Assistant while creating
+# a database or ASM Configuration Assistant while creating ASM instance.
+
+# A colon, ':', is used as the field terminator.  A new line terminates
+# the entry.  Lines beginning with a pound sign, '#', are comments.
+#
+# Entries are of the form:
+#   $ORACLE_SID:$ORACLE_HOME:<N|Y>:
+#
+# The first and second fields are the system identifier and home
+# directory of the database respectively.  The third field indicates
+# to the dbstart utility that the database should , "Y", or should not,
+# "N", be brought up at system boot time.
+#
+# Multiple entries with the same $ORACLE_SID are not allowed.
+#
+#
++ASM:/z01/app/12.2.0.1/grid:Y
+BANDENG:/z02/app/orekel/product/12.2.0.1/db1:Y
+[orekel@iwak ~]$
