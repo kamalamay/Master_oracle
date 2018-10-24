@@ -10,9 +10,9 @@ HARD priv
 root@AF-EMMGRSBY:~# groupadd dba; groupadd oinstall; groupadd oper;
 root@AF-EMMGRSBY:~# projadd group.dba
 root@AF-EMMGRSBY:~# projmod -sK "project.max-shm-memory=(priv,127gb,deny)" group.dba
-root@AF-EMMGRSBY:~# projmod -sK "project.max-sem-ids=(priv,1024,deny)" group.dba
-root@AF-EMMGRSBY:~# projmod -sK "project.max-shm-ids=(priv,1024,deny)" group.dba
-root@AF-EMMGRSBY:~# projmod -sK "process.max-sem-nsems=(priv,4096,deny)" group.dba
+root@AF-EMMGRSBY:~# projmod -sK "project.max-sem-ids=(priv,100,deny)" group.dba
+root@AF-EMMGRSBY:~# projmod -sK "project.max-shm-ids=(priv,100,deny)" group.dba
+root@AF-EMMGRSBY:~# projmod -sK "process.max-sem-nsems=(priv,256,deny)" group.dba
 root@AF-EMMGRSBY:~# projmod -sK "process.max-file-descriptor=(priv,65536,deny)" group.dba
 root@AF-EMMGRSBY:~# projmod -sK "process.max-stack-size=(priv,32mb,deny)" group.dba
 root@AF-EMMGRSBY:~# projects -l group.dba
@@ -22,10 +22,10 @@ group.dba
         users  : (none)
         groups : (none)
         attribs: process.max-file-descriptor=(priv,65536,deny)
-                 process.max-sem-nsems=(priv,4096,deny)
+                 process.max-sem-nsems=(priv,256,deny)
                  process.max-stack-size=(priv,33554432,deny)
-                 project.max-sem-ids=(priv,1024,deny)
-                 project.max-shm-ids=(priv,1024,deny)
+                 project.max-sem-ids=(priv,100,deny)
+                 project.max-shm-ids=(priv,100,deny)
                  project.max-shm-memory=(priv,136365211648,deny)
 root@AF-EMMGRSBY:~# useradd -g oinstall -G dba,oper -d /export/home/oracle -m -s /bin/bash -K project=group.dba -c "Oracle Software" oracle
 80 blocks
