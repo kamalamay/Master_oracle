@@ -1,0 +1,40 @@
+https://docs.oracle.com/database/121/AXDQI/toc.htm#CEGEGDBA
+12c Release 1 (12.1) for IBM AIX on POWER Systems (64-Bit)
+
+Physical RAM:
+# /usr/sbin/lsattr -E -l sys0 -a realmem
+
+Available RAM and SWAP space:
+# /usr/sbin/lsps -s
+
+Configured SWAP space:
+# /usr/sbin/lsps -a
+
+Size /tmp:
+# df -m /tmp
+# df -g
+
+System architecture :
+# /usr/bin/getconf HARDWARE_BITMODE
+
+System is started in 64-bit mode:
+# /usr/sbin/bootinfo -K
+
+Run level:
+/usr/bin/who -r
+
+Distribution and version of AIX:
+# oslevel -s
+
+Required filesets are installed and committed:
+# lslpp -l bos.adt.base bos.adt.lib bos.adt.libm bos.perf.perfstat bos.perf.libperfstat bos.perf.proctools
+
+Supported kernel mode:
+# getconf KERNEL_BITMODE
+
+Confirm the aio_maxreqs:
+# ioo –o aio_maxreqs
+aio_maxreqs = 65536
+
+Check ulimit:
+ulimit

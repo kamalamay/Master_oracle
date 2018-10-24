@@ -1,10 +1,10 @@
-########################################################################################################
-Shell limit 			 Description 								 Soft Limit (KB) 	 Hard Limit (KB)
-########################################################################################################
-STACK 					 Size of the stack segment of the process 	 at least 10240 	 at most 32768
-NOFILES 				 Open file descriptors 						 at least 1024 		 at least 65536
-MAXUPROC or MAXPROC 	 Maximum user processes 					 at least 2047 		 at least 16384
-########################################################################################################
+###############################################################################################
+Shell limit			Description 								Soft Limit (KB)	Hard Limit (KB)
+###############################################################################################
+STACK				Size of the stack segment of the process	at least 10240 	at most 32768
+NOFILES				Open file descriptors 						at least 1024 	at least 65536
+MAXUPROC or MAXPROC	Maximum user processes 					 	at least 2047 	at least 16384
+###############################################################################################
 SOFT basic
 HARD priv
 root@AF-EMMGRSBY:~# groupadd dba; groupadd oinstall; groupadd oper;
@@ -120,14 +120,30 @@ oracle@AF-EMMGRSBY:~$
 
 ### REFERENCE
 #############
-projmod -sK "process.max-file-descriptor=(basic,1mb,deny) group.dba
-projmod -sK "process.max-stack-size=(basic,10mb,deny)" group.dba
-http://www.oracle.com/technetwork/server-storage/vm/ovm-sparc-install-rac11gr2-1676380.pdf
-# projmod -sK "project.max-shm-memory=(privileged,32G,deny)" user.oracle
-# projmod -sK "process.max-sem-nsems=(priv,4096,deny)" user.oracle
-# projmod -sK "project.max-shm-ids=(priv,1024,deny)" user.oracle
-# projmod -sK "project.max-sem-ids=(priv,1024,deny)" user.oracle
-ulimit -n 65536
+https://docs.oracle.com/cd/E11882_01/install.112/e48357/pre_install.htm#SSDBI1189
+https://docs.oracle.com/en/database/oracle/oracle-database/12.2/cwsol/minimum-parameter-settings-for-installation.html#GUID-732CF8A4-0157-4A05-B0A6-89CAB7FA3BA2
+
+####################################################################
+Resource Control		Minimum Value
+####################################################################
+project.max-sem-ids		100
+process.max-sem-nsems	256
+project.max-shm-memory	This value varies according to the RAM size
+project.max-shm-ids		100
+####################################################################
+
+1. To display the current values of the resource control, enter the following commands:
+$ id -p // to verify the project id
+uid=100(oracle) gid=100(dba) projid=1 (group.dba)
+$ prctl -n project.max-shm-memory -i project group.dba
+$ prctl -n project.max-sem-ids -i project group.dba
+
+2. If you must change any of the current values, then:
+  a. To modify the value of max-shm-memory to 6 GB:
+    # prctl -n project.max-shm-memory -v 6gb -r -i project group.dba
+  b. To modify the value of max-sem-ids to 256:
+    # prctl -n project.max-sem-ids -v 256 -r -i project group.dba
+
 root@af-aoldb-sby02:~# vi /etc/user_attr
 root@af-aoldb-sby02:~# cat /etc/user_attr
 #
@@ -141,3 +157,17 @@ root@af-aoldb-sby02:~# cat /etc/user_attr
 grid::::project=group.dba
 oracle::::project=group.dba
 root@af-aoldb-sby02:~# useradd -g dba -G dba -d /export/home/oracle -m oracle
+
+Verifying UDP and TCP Kernel Parameters
+#######################################
+Use the following command to check your current range for ephemeral ports:
+# /usr/sbin/ndd /dev/tcp tcp_smallest_anon_port tcp_largest_anon_port
+32768
+
+65535
+
+If necessary for your anticipated workload or number of servers , update the UDP and TCP ephemeral port range to a broader range. For example:
+# /usr/sbin/ndd -set /dev/tcp tcp_smallest_anon_port 9000
+# /usr/sbin/ndd -set /dev/tcp tcp_largest_anon_port 65500
+# /usr/sbin/ndd -set /dev/udp udp_smallest_anon_port 9000
+# /usr/sbin/ndd -set /dev/udp udp_largest_anon_port 65500

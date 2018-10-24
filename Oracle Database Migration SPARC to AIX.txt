@@ -1,0 +1,6 @@
+Oracle Database Migration SPARC to AIX
+######################################
+http://www-01.ibm.com/support/docview.wss?uid=tss1wp101822&aid=1
+Step By Step Guide To Create Physical Standby Database Using RMAN Backup and Restore (Doc ID 469493.1)
+Using Oracle Data Guard between IBM AIX on Power systems and Oracle Solaris on SPARC systems (Doc ID 1982638.1)
+Data Guard Support for Heterogeneous Primary and Physical Standbys in Same Data Guard Configuration (Doc ID 413484.1)
