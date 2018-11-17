@@ -77,6 +77,11 @@ SQL> SELECT * FROM V$LOGFILE ORDER BY 1;
 Elapsed: 00:00:00.00
 SQL> ALTER DATABASE ADD LOGFILE GROUP 1 SIZE 150M;
 
+ALTER DATABASE ADD LOGFILE GROUP 1 ('/home/app/oracle/onlinelog-HDFSDB/redo01-256M.log', '/oracle/dbs/log2c.rdo') SIZE 256M;
+ALTER DATABASE ADD LOGFILE GROUP 1 ('/home/app/oracle/onlinelog-HDFSDB/redo01-256M.log') SIZE 256M;
+ALTER DATABASE ADD LOGFILE GROUP 3 ('/home/app/oracle/onlinelog-HDFSDB/redo03-256M.log') SIZE 256M;
+ALTER DATABASE ADD LOGFILE GROUP 2 ('/home/app/oracle/onlinelog-HDFSDB/redo02-256M.log') SIZE 256M;
+
 Database altered.
 
 Elapsed: 00:00:05.65
